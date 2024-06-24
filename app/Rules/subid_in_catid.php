@@ -20,6 +20,6 @@ class subid_in_catid implements Rule
 
     public function message()
     {
-        return 'یک :attribute نمیتواند زیر دسته بندی خودش باشید';
+        return 'یک :attribute نمیتواند زیر دسته بندی خودش باشد';
     }
 }

@@ -46,7 +46,6 @@
                                                             <td><input type="text" value="{{$item["order"]}}" class="input-order" name="order[{{$item['id']}}]"></td>
                                                             <td>
                                                                 @component($prefix_component."state_style",['id'=>$item["id"],"column"=>'state','state'=>$item["state"]])@endcomponent
-                                                               
                                                             </td>
                                                             <td>
                                                                 @component($prefix_component."state_style",['id'=>$item["id"],"column"=>'state_main','state'=>$item["state_main"]])@endcomponent
@@ -63,8 +62,7 @@
                                                                 </a>
                                                                 @endcan
                                                                 <a href="{{route("admin.content.create",['item_id'=>$item['id'],'module'=>'news'])}}" class="btn btn-primary btn-sm">افزودن محتوا
-                                                                    <span
-                                                                        class="badge badge-transparent">{{$item->content()->count()}}</span></a>
+                                                                    <span class="badge badge-transparent">{{$item->content()->count()}}</span></a>
                                                                 </a>
                                                             </td>
                                                         </tr>

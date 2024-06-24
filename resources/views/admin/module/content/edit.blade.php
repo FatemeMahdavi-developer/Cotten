@@ -20,14 +20,26 @@
                                 @slot("content")
                                     @component($prefix_component."input_hidden",['name'=>"kind",'value'=>$content["kind"]])@endcomponent
                                     @component($prefix_component."input",['name'=>'title','title'=>'عنوان','value'=>$content["title"],'class'=>'w-50'])@endcomponent
+                                    @if($content["kind"]==1 || $content["kind"]==6)
                                     @component($prefix_component."textarea",['name'=>'note','class'=>'kind_item kind_1 kind_6','title'=>'متن','value'=>$content["note"]])@endcomponent
+                                    @endif
+                                    @if($content["kind"]==2)
                                     @component($prefix_component."upload_file",['name'=>'pic','value'=>$content["pic"],'title'=>'تصویر','class'=>'w-50 kind_item kind_2','module'=>$module."_".$module_type])@endcomponent
+                                    @endif
+                                    @if($content["kind"]==3)
                                     @component($prefix_component."upload_file",['name'=>'pics','value'=>$content["pic"],'title'=>'تصویر چندتایی','class'=>'w-50 kind_item kind_3','module'=>$module."_".$module_type])@endcomponent
+                                    @endif
+                                    @if($content["kind"]==4)
                                     @component($prefix_component."upload_file",['name'=>'catalog','value'=>$content["catalog"],'title'=>'کاتالوگ','class'=>'w-50 kind_item kind_4','module'=>false])@endcomponent
+                                    @endif
+                                    @if($content["kind"]==5)
                                     @component($prefix_component."upload_file",['name'=>'pic_video','value'=>$content["pic_video"],'title'=>'کاور ویدیو','class'=>'w-50 kind_item kind_5 video','module'=>false])@endcomponent
                                     @component($prefix_component."upload_file",['name'=>'video','value'=>$content["video"],'title'=>'ویدیو','class'=>'w-50 kind_item kind_5 video','module'=>false])@endcomponent
                                     @component($prefix_component."checkbox",['name'=>'is_aparat','value'=>$content["is_aparat"],'title'=>'کد امبد آپارات','class'=>'kind_item kind_5 my-3 '])@endcomponent
+                                    @endif
+                                    @if($content['kind']==7)
                                     @component($prefix_component."advance_note",['name'=>'note_more','class'=>'my-2 kind_item kind_7 aparat','title'=>'متن','value'=>$content["note_more"]])@endcomponent
+                                    @endif
                                     @component($prefix_component."button",['title'=>'ارسال'])@endcomponent
                                 @endslot
                             @endcomponent

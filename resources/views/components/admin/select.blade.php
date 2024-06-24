@@ -12,9 +12,7 @@
 </div>
 @if(!empty($value_old))
     <script>
-        // Get the select element
         var select = document.getElementById('{{$name}}');
-
         select.value = '{{$value_old}}';
     </script>
 @endif

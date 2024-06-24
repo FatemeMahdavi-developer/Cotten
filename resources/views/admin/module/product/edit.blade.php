@@ -23,11 +23,14 @@
                                             @method("put")
                                             @component($prefix_component."input_hidden",['value'=>$product['id']])@endcomponent
                                             @component($prefix_component."input",['name'=>'title','title'=>'عنوان','value'=>$product['title'],'class'=>'w-50'])@endcomponent
+                                            @component($prefix_component."input",['name'=>'code','title'=>'کد محصول','value'=>$product['code'],'class'=>'w-50'])@endcomponent
+                                            @component($prefix_component."select",['name'=>'status','title'=>'وضعیت','class'=>'w-50','items'=>$status,'value_old'=>$product['status']])@endcomponent                                            
                                             @component($prefix_component."upload_file",['name'=>'pic','title'=>'تصویر ','class'=>'w-50','value'=>$product['pic'],'module'=>$module])@endcomponent
                                             @component($prefix_component."input",['name'=>'alt_pic','title'=>'alt تصویر','value'=>$product['alt_pic'],'class'=>'w-50'])@endcomponent
                                             @component($prefix_component."upload_file",['name'=>'pic_banner','title'=>'تصویر بنر ','value'=>$product['pic_banner'],'class'=>'w-50','module'=>$module])@endcomponent
                                             @component($prefix_component."input",['name'=>'alt_pic_banner','title'=>'alt تصویر بنر','value'=>$product['alt_pic_banner'],'class'=>'w-50'])@endcomponent
                                             @component($prefix_component."select_recursive",['name'=>'catid','options'=>$product_cats,'label'=>'موضوع', 'sub_method'=>'sub_cats','value'=>$product['catid'],'choose'=>true])@endcomponent
+                                            @component($prefix_component."input",['name'=>'price','title'=>'قیمت','value'=>$product['price'],'class'=>'w-50 price'])@endcomponent                                        
                                             @component($prefix_component."advance_note",['name'=>'note','class'=>'my-2 ','title'=>'ویژگی','value'=>$product['note']])@endcomponent
                                             @component($prefix_component."advance_note",['name'=>'note_more','class'=>'my-2 ','title'=>'توضیحات بلند','value'=>$product['note_more']])@endcomponent
                                         @endslot
@@ -41,6 +44,12 @@
             </div>
         </div>
     </section>
-
 @endsection
-
+@section("footer")
+<script>
+    $(".price").val(function(index,value){return value.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","); });
+    $('.price').on('keyup',function (event) {
+        $(this).val(function (index, value) { return value.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","); });
+    });
+</script>
+@endsection

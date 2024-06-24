@@ -12,6 +12,8 @@ class content extends Model
 {
     use HasFactory, SoftDeletes, date_convert;
 
+    protected $appends=['alt_image'];
+
     protected $fillable = [
         'title',
         'kind',
@@ -25,6 +27,11 @@ class content extends Model
         'order',
         'is_aparat',
     ];
+
+    public function getAltImageAttribute(){
+        // return !empty($this->alt_pic) ? $this->alt_pic : $this->title;
+        return $this->title;
+    }
 
     public function scopeFilter(Builder $builder, $params)
     {

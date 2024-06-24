@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\admin\product_controller;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\site\ContactController;
 use App\Http\Controllers\site\newsController;
+use App\Http\Controllers\site\productController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,6 +30,13 @@ Route::prefix('/news')->as('news.')->group(function () {
     Route::get('/{news:seo_url}/print', [newsController::class, 'show'])->name('print');
 });
 
+Route::prefix('/product')->as('product.')->group(function () {
+    Route::get('/', [productController::class,'index'])->name('index');
+    Route::get('/cat/{product_cat:seo_url}',[productController::class,'index'])->name('index_cat');
+    Route::get('/{product:seo_url}',[productController::class,'show'])->name('show');
+    Route::post('/product_send_email/{id}',[productController::class,'mail'])->name('mail');
+    Route::get('/{product:seo_url}/print',[productController::class,'show'])->name('print');
+});
 
 Route::prefix('comment/{type}/{module_id}')->middleware('auth')->middleware('access')->as('comment.')->group(function () {
     Route::post('/store', [\App\Http\Controllers\site\user\commentController::class, 'store'])->name('store');
@@ -34,3 +44,5 @@ Route::prefix('comment/{type}/{module_id}')->middleware('auth')->middleware('acc
 Route::post('rate/{module}/{item_id}', [\App\Http\Controllers\site\RateController::class, 'store'])->name("rate")->middleware('auth');
 Route::get('pages/{pages}', [\App\Http\Controllers\site\pageController::class, 'page'])->name("page");
 //Route::get('/show/{model}',[\App\Http\Controllers\site\user\commentController::class,'show'])->name('comment.show');
+
+Route::get('contact', [ContactController::class,'contact'])->name('contact');

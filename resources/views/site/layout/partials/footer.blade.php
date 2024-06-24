@@ -30,25 +30,20 @@
                         </ul>
                     </div>
 
+                    @if(isset($footer_menu) && !empty($footer_menu))
+                    @foreach($footer_menu as $item)
                     <div class="col-6 col-sm-4 col-md-3 col-xl-2 col-links">
-                        <div class="col-title">خدمات کاربران</div>
+                        <div class="col-title">{{$item->title}}</div>
+                        @if($item->sub_menus_site->count())
                         <ul>
-                            <li><a href="#">شرکت</a></li>
-                            <li><a href="#">پرتال سازمانی</a></li>
-                            <li><a href="#">ایمیل سازمانی</a></li>
-                            <li><a href="#">استخدام</a></li>
+                            @foreach($item->sub_menus_site as $item2) 
+                            <li><a href="{{$item2->link}}" {{OpenNeweTab($item2['link'],$item['open_type'])}} >{{$item2->title}}</a></li>
+                            @endforeach
                         </ul>
+                        @endif
                     </div>
-
-                    <div class="col-6 col-sm-4 col-md-3 col-xl-2 col-links">
-                        <div class="col-title">لینک های دسترسی</div>
-                        <ul>
-                            <li><a href="#">محصولات</a></li>
-                            <li><a href="#">درباره ما</a></li>
-                            <li><a href="#">تماس با ما</a></li>
-                            <li><a href="#">چند رسانه ای</a></li>
-                        </ul>
-                    </div>
+                    @endforeach
+                    @endif
 
                     <div class="col-12 col-sm-12 col-md-3 col-xl-4 col-newsletter">
                         <div class="col-title">عضویت در خبرنامه</div>

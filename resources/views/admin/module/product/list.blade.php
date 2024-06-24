@@ -56,10 +56,9 @@
                                                                 <a href="javascript:void(0)" data-href="{{route("admin.product.destroy",['product'=>$item['id']])}}" class="btn btn-danger btn-sm delete">
                                                                     <i class="fas fa-trash"></i>
                                                                 </a>
-                                                                {{-- <a href="{{route("admin.content.create",['item_id'=>$item['id'],'module'=>'product'])}}" class="btn btn-primary btn-sm">افزودن محتوا
-                                                                    <span
-                                                                        class="badge badge-transparent">{{$item->content()->count()}}</span></a>
-                                                                </a> --}}
+                                                                <a href="{{route("admin.content.create",['item_id'=>$item['id'],'module'=>'product'])}}" class="btn btn-primary btn-sm">افزودن محتوا
+                                                                    <span class="badge badge-transparent">{{$item->content()->count()}}</span></a>
+                                                                </a>
                                                             </td>
                                                         </tr>
                                                     @endforeach

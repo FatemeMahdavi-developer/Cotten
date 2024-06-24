@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\access_comment;
+use App\Http\Middleware\CheckPermissionModule;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -73,6 +74,8 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'access'=>access_comment::class
+        'access'=>access_comment::class,
+        'PermissionModule'=>CheckPermissionModule::class
     ];
+
 }

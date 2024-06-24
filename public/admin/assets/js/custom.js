@@ -129,7 +129,9 @@ $(".state_action").on('change', function () {
     $("[value='change_state_main']").trigger("click")
 })
 
-
+$(".state_menu_action").on('change', function () {
+    $("[value='change_state_menu']").trigger("click")
+})
 
 
 $(".state_checkbox").on('change',function () {

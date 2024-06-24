@@ -16,7 +16,7 @@ class newsController extends Controller
 {
     public function index(news_cat $news_cat = null)
     {
-
+        
         $news_cats = news_cat::where('state', '1')->orderByRaw("`order` ASC, `id` DESC")->get(['id', 'title', 'seo_url']);
         $hit_news = news::where('state', '1')->where('validity_date', '<=', Carbon::now()->format('Y/m/d H:i:s'))->orderByRaw("`order` ASC, `id` DESC")->with(['news_cat'])->select(['title', 'note', 'pic', 'catid', 'validity_date', 'alt_pic', 'seo_url'])->orderByRaw("`hit` ASC, `id` DESC")->get();
         if ($news_cat == null) {

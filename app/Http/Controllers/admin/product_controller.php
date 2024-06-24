@@ -28,7 +28,7 @@ class product_controller extends Controller
      */
     public function index(Request $request)
     {
-        $product = product::with('product_cat')->filter($request->all())->paginate(4);
+        $product = product::with('product_cat')->filter($request->all())->orderBy('id','DESC')->paginate(4);
         $product_cats_search = product_cat::with(['sub_cats'])->where('catid', '0')->get();
         return view($this->view . "list", [
             'module_title' => $this->module_title,
@@ -43,9 +43,11 @@ class product_controller extends Controller
     public function create()
     {
         $product_cats = product_cat::where('catid','0')->with('sub_cats')->get();
+        $status = trans('common.status_product');
         return view($this->view . "new", [
             'module_title' => $this->module_title,
             'product_cats' => $product_cats,
+            'status' => $status,
             'module' => $this->module,
         ]);
     }
@@ -63,7 +65,14 @@ class product_controller extends Controller
         $inputs['pic_banner']=$pic_banner;
         $inputs['admin_id']=auth()->user()->id;
         $inputs['seo_index_kind']=$request->seo_index_kind ?? '1';
-        product::create($inputs);
+        $inputs['status']=$request->status ?? '2';
+        $inputs['code']=0;
+        if(empty($request->price)){
+            $inputs['price']=0;
+        }
+        $product=product::create($inputs);
+        $id = $product->id;
+        $product->update(['code'=>$id]);
         DB::commit();
         return back()->with('success', __('common.messages.success',[
             'module' => $this->module_title
@@ -76,11 +85,12 @@ class product_controller extends Controller
     public function edit(product $product)
     {
         $product_cats = product_cat::where('catid', '0')->with('sub_cats')->get();
-
+        $status = trans('common.status_product');
         return view($this->view . "edit", [
             'module_title' => $this->module_title,
             'product_cats' => $product_cats,
             'product' => $product,
+            'status' => $status,
             'module' => $this->module,
         ]);
     }
@@ -96,7 +106,10 @@ class product_controller extends Controller
         $inputs=$request->validated();
         $inputs['pic']=$pic;
         $inputs['pic_banner']=$pic_banner;
-
+        $inputs['status']=$request->status ?? '2';
+        if(empty($request->price)){
+            $inputs['price']=0;
+        }
         $product->update($inputs);
         DB::commit();
         return back()->with('success', __('common.messages.success_edit', [

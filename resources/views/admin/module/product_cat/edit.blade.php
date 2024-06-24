@@ -28,6 +28,7 @@
                                 @component($prefix_component."input",['name'=>'alt_pic','title'=>'alt تصویر','value'=>$product_cat["alt_pic"],'class'=>'w-50'])@endcomponent
                                 @component($prefix_component."upload_file",['name'=>'pic_banner','title'=>'تصویر بنر','value'=>$product_cat['pic_banner'],'class'=>'w-50','module'=>$module])@endcomponent
                                 @component($prefix_component."input",['name'=>'alt_pic_banner','title'=>'alt تصویر بنر','value'=>$product_cat["alt_pic_banner"],'class'=>'w-50'])@endcomponent
+                                @component($prefix_component."advance_note",['name'=>'note','class'=>'my-2 ','title'=>'ویژگی','value'=>$product_cat['note']])@endcomponent
                             @endslot
                         @endcomponent
                         @component($prefix_component."button",['title'=>'ارسال'])@endcomponent

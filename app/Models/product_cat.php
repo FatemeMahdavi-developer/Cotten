@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Trait\date_convert;
+use App\Trait\seo;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -10,8 +11,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class product_cat extends Model
 {
-    use HasFactory, date_convert,SoftDeletes;
+    use HasFactory, date_convert,SoftDeletes,seo;
 
+    protected $appends=['url'];
   
     protected $fillable=[
         'seo_title',
@@ -30,12 +32,23 @@ class product_cat extends Model
         'alt_pic',
         'pic_banner',
         'alt_pic_banner',
+        'note',
         'order',
         'state',
+        'state_main',
+        'state_menu'
     ];
 
+    public function getUrlAttribute(){
+        return route('product.index_cat',['product_cat'=>$this->seo_url]);
+    }
+
     public function sub_cats(){
-        return $this->hasMany(product_cat::class,'catid')->select("id","title","catid");
+        return $this->hasMany(product_cat::class,'catid')->select("id","title","catid","seo_url");
+    }
+
+    public function sub_cats_site(){
+        return $this->hasMany(product_cat::class,'catid')->select("id","title","catid","seo_url")->where("state","1");
     }
 
     public function scopeFilter(Builder $builder,$params){
@@ -50,5 +63,7 @@ class product_cat extends Model
         return $builder;
     }
 
-
+    public function product(){
+        return $this->hasMany(product::class,'catid');
+    }
 }

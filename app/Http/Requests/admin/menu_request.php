@@ -22,26 +22,30 @@ class menu_request extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules= [
             'title' => ['required', 'string', 'min:1', 'max:255'],
+            'select_page' => ['required_if:select_page,1','nullable','string','min:0','max:1'],
             'type' => ['required', 'integer', 'min:-128', 'max:127'],
             'open_type' => ['required', 'integer'],
             'pic' => ['nullable','mimes:jpeg,png,jpg,gif,svg,webp','max:'.env('MAXIMUM_FILE')],
             'alt_pic' => ['nullable', 'string', 'min:1', 'max:255'],
-            'address' => ['nullable', 'string', 'min:1', 'max:255']
+            'catid' => ['required', 'integer'],
         ];
-
-      
         
-        // if ($this->type == '1' && is_string($this->pic) && in_array(pathinfo($this->pic, PATHINFO_EXTENSION), ['jpeg', 'png', 'jpg', 'gif', 'svg', 'webp'])) {
-        //     unset($rules["pic"]);
-        // }
+        if(is_string("pic") && in_array(pathinfo($this->pic,PATHINFO_EXTENSION),['jpeg','png','jpg','gif','svg','webp'])){
+            unset($rules['pic']);
+        }
+        if(is_null($this->select_page)){
+            $rules["url"]=["required","string","min:1","max:255"];
+        }else{
+            $rules["pages"]=["required","exists:pages,seo_url"];
+        }
 
         if(isset($this->id)){
             if($this->id == $this->catid){
                 $rules['catid']=[new subid_in_catid($this->catid)];
             }
         }
-        //reminder catid
+        return $rules;
     }
 }

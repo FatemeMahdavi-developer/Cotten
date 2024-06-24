@@ -44,4 +44,11 @@
             $(".type-"+type).removeClass('d-none').addClass("d-block")
         })
     </script>
+     {{-- <script>
+        $(document).ready(function () {
+            setTimeout(function() {
+                initialize(0,'googleMap','51.41985704975258','35.581905948358965','کارخانه تولید پوشاک زنانه بهبود  - ',18);
+            }, 1000);
+        });
+    </script> --}}
 @endsection

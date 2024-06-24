@@ -37,6 +37,7 @@ class product_cat_request extends FormRequest
             'alt_pic'=>['nullable','string','min:3','max:255'],
             'pic_banner' => ['nullable', 'mimes:jpeg,png,jpg,gif,svg,webp','max:'.env('MAXIMUM_FILE')],
             'alt_pic_banner'=>['nullable','string','min:3','max:255'],
+            'note' => ['nullable', 'string','min:1', 'max:255'],
         ];
         if(isset($this->id)){
             $rules['seo_url']=['required', 'string', 'min:1', 'max:255','unique:product_cats,seo_url,'.$this->id];

@@ -7,9 +7,12 @@
             </a>
         </div>
         <div class="sidebar-user">
+            @if(auth()->user()->pic)
             <div class="sidebar-user-picture">
-                <img alt="تصویر" src="{{asset("admin/assets/img/userbig.png")}}">
+                <img alt="{{auth()->user()->fullname}}" src="{{asset("upload/thumb1/".auth()->user()->pic)}}">
             </div>
+            @else
+            @endif
             <div class="sidebar-user-details">
                 <div class="user-name">{{auth()->user()->fullname}}</div>
                 <div class="user-role">مدیر</div>
@@ -39,6 +42,16 @@
                 </ul>
             </li>
             @endcanany
+            <li class="dropdown">
+                <a href="#" class="nav-link has-dropdown"><i data-feather="monitor"></i><span>تماس با ما</span></a>
+                <ul class="dropdown-menu">
+                    <li><a class="nav-link" href="{{route("admin.contactmap.edit")}}">محل شما روی نقشه</a></li>
+                    <li><a class="nav-link" href="{{route("admin.message_cat.create")}}">دسته بندی جدید</a></li>
+                    <li><a class="nav-link" href="{{route("admin.message_cat.index")}}">لیست دسته بندی ها</a></li>
+                    <li><a class="nav-link" href="{{route("admin.message.index")}}">لیست پیام ها</a></li>
+
+                </ul>
+            </li>
             @canany(permission_access("banner"))
             <li class="dropdown">
                 <a href="#" class="nav-link has-dropdown"><i data-feather="monitor"></i><span>بنر</span></a>
@@ -141,6 +154,40 @@
                     <li><a class="nav-link" href="{{route("admin.product.create")}}">محصول جدید</a></li>
                     @endcan
                     <li><a class="nav-link" href="{{route("admin.product.index")}}">لیست محصولات</a></li>
+                </ul>
+            </li>
+            @endcanany
+
+            @canany(permission_access("photo_cat"))
+            <li class="dropdown">
+                <a href="#" class="nav-link has-dropdown"><i data-feather="monitor"></i><span>دسته بندی تصاویر</span></a>
+                <ul class="dropdown-menu">
+                    @can("create_photo_cat")
+                    <li><a class="nav-link" href="{{route("admin.photo_cat.create")}}">دسته بندی جدید تصویر</a></li>
+                    @endcan
+                    <li><a class="nav-link" href="{{route("admin.photo_cat.index")}}">لیست دسته بندی تصاویر</a></li>
+                </ul>
+            </li>
+            @endcanany
+            @canany(permission_access("photo"))
+            <li class="dropdown">
+                <a href="#" class="nav-link has-dropdown"><i data-feather="monitor"></i><span>تصاویر</span></a>
+                <ul class="dropdown-menu">
+                    @can("create_photo")
+                    <li><a class="nav-link" href="{{route("admin.photo.create")}}">تصویر جدید </a></li>
+                    @endcan
+                    <li><a class="nav-link" href="{{route("admin.photo.index")}}">لیست تصاویر </a></li>
+                </ul>
+            </li>
+            @endcanany
+            @canany(permission_access("video_cat"))
+            <li class="dropdown">
+                <a href="#" class="nav-link has-dropdown"><i data-feather="monitor"></i><span>دسته بندی ویدیو</span></a>
+                <ul class="dropdown-menu">
+                    @can("create_video_cat")
+                    <li><a class="nav-link" href="{{route("admin.video_cat.create")}}">دسته بندی جدید </a></li>
+                    @endcan
+                    <li><a class="nav-link" href="{{route("admin.video_cat.index")}}">لیست دسته بندی ویدیوها </a></li>
                 </ul>
             </li>
             @endcanany

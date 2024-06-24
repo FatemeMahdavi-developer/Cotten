@@ -19,7 +19,8 @@ class admin_controller
 
     private function delete_all($model, $request)
     {
-        $model::whereIn('id', $request->item)->where("admin_id",auth()->user()->id)->delete();
+        // >where("admin_id",auth()->user()->id)
+        $model::whereIn('id', $request->item)->delete();
         return true;
     }
 
@@ -53,6 +54,20 @@ class admin_controller
                 $module->update(["state_main" => '1']);
             } else {
                 $module->update(["state_main" => '0']);
+
+            }
+        }
+        return true;
+    }
+
+    private function change_state_menu($model, $request)
+    {
+        foreach ($request->item as $id) {
+            $module = $model::select('id','state_menu')->find($id);
+            if ($request->change_state_menu == '1') {
+                $module->update(["state_menu" => '1']);
+            } else {
+                $module->update(["state_menu" => '0']);
 
             }
         }

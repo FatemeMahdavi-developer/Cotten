@@ -202,9 +202,27 @@ if (!function_exists('convert_to_timestamp')) {
     }
 }
 
+if(!function_exists('show_price')){
+    function show_price($price){
+        return number_format($price);
+    }
+}
+
 if (!function_exists('permission_access')) {
     function permission_access($module){
         return permissions::where("module",$module)->get(["title","module"])->pluck("permission_kind")->toArray();
     }
 }
 
+if (!function_exists('OpenNeweTab')) {
+    function OpenNeweTab($url='',$open_type=1){
+        if(preg_match('/^(http|https)/',$url)){
+            $open_type=2;
+        }elseif($url="javascript:void(0)"){
+            $open_type=1;
+        }
+        if($open_type == 2){
+            return "target=_blank";
+        }
+    }
+}

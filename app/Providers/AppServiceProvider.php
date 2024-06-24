@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Models\admin;
+use App\Models\menu;
 use App\Models\permissions;
+use App\Models\product_cat;
 use App\Models\province;
 use App\Rules\subid_in_catid;
 use Illuminate\Pagination\Paginator;
@@ -20,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        config()->set('component_prefix', 'components.admin.');
         View::composer(['admin.*', 'components.admin.*'], function ($view) {
             $view->with([
                 'prefix_component' => 'components.admin.',
@@ -31,6 +34,18 @@ class AppServiceProvider extends ServiceProvider
             $view->with([
                 'provinces' => province::all(),
                 'genders' => trans("common.gender")
+            ]);
+        });
+        View::composer(['site.layout.partials.header','site.layout.partials.footer'], function ($view) {
+            $menu=menu::where('lang','1')->where('catid','0')->with('sub_menus_site')->where('state','1')
+            ->orderByRaw("`order` ASC,`id` DESC")
+            ->get(['id','title','type','pic','alt_pic','state','open_type','catid','url','select_page','pages']);
+
+            $product_cat_submenu=product_cat::where('lang','1')->where('catid','0')->where('state','1')->where('state_menu','1')->with('sub_cats_site')->get();
+            $view->with([
+                'header_menu' =>$menu->where('type','1'),
+                'procat_submenu'=>$product_cat_submenu,
+                'footer_menu' =>$menu->where('type','2'),
             ]);
         });
         view()->composer('*', function ($view) {
@@ -49,7 +64,6 @@ class AppServiceProvider extends ServiceProvider
                 if ($admin["id"] == "1") {
                     return true;
                 }
-                // dd($admin->role->permission()->where("title", $permission["title"])->where("module", $permission["module"]));
                 return $admin->role->permission()->where("title", $permission["title"])->where("module", $permission["module"])->count();
             });
         });

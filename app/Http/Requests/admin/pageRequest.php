@@ -43,6 +43,13 @@ class pageRequest extends FormRequest
         if(isset($this->id)){
             $rules['seo_url']=['required', 'string', 'min:1', 'max:255','unique:pages,seo_url,'.$this->id];
         }
+        
         return $rules;
+    }
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'seo_url'=>sluggableCustomSlugMethod($this->seo_url)
+        ]);
     }
 }

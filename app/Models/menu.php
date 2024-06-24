@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Trait\date_convert;
+use App\View\Components\admin\select;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,6 +13,7 @@ class menu extends Model
 {
     use HasFactory, SoftDeletes, date_convert;
     protected $table="menu";
+    protected $appends = ['type_name','link','alt_image'];
     protected $fillable = [
         'title', 
         'pic', 
@@ -20,15 +22,35 @@ class menu extends Model
         'state', 
         'order',
         'open_type', 
-        'address',
-        'catid'
+        'catid',
+        'select_page',
+        'url',
+        'pages'
     ];
 
-    protected $appends = ['type_name'];
+    public function getAltImageAttribute()
+    {
+        return !empty($this->alt_pic) ? $this->alt_pic : $this->title;
+    }
+
 
     public function getTypeNameAttribute()
     {
         return trans('common.menu_kind')[$this->type];
+    }
+
+    public function getLinkAttribute(){
+        if($this->select_page=='1'){
+            return '/pages/'.$this->pages;
+        }elseif($this->url=='#'){
+            return "javascript:void(0)";
+        }else{
+            if(preg_match('/^(http|https)/',$this->url)){
+                return $this->url;
+            }else{
+                return "/".$this->url;
+            }
+        }
     }
 
     public function scopeFilter(Builder $builder, $params)
@@ -39,11 +61,22 @@ class menu extends Model
         if (!empty($params['type'])) {
             $builder->where('type', $params['type']);
         }
+        if(!empty($params['catid'])){
+            $builder->where("catid",$params["catid"]);
+        }else{
+            $builder->where("catid",'0');
+        }
         return $builder;
     }
 
     public function sub_menus(){
-        return $this->hasMany(menu::class,'catid')->with('sub_menus')->select("id","title","catid");
+        return $this->hasMany(menu::class,'catid')->select("id","title","catid");
+        // return $this->hasMany(menu::class,'catid')->with('sub_menus')->select("id","title","catid");
+    }
+
+    public function sub_menus_site(){
+        // "id","title","catid","select_page","pages","url"
+        return $this->hasMany(menu::class,'catid')->where("state","1");
     }
 
 }

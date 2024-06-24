@@ -51,76 +51,72 @@
 <div class="container-fluid container-menu">
     <div class="container-custom">
         <div class="row">
+            @if(isset($header_menu[0]))
             <div class="col">
                 <ul class="menu">
-                    <li class="level-1"><a href="#" class="link-home"><i class="home-icon"></i></a></li>
-
+                    @foreach($header_menu as $item)
                     <li class="level-1">
-                        <a href="#" class="has-level-2">محصولات</a>
-                        <div class="level-2">
-                            <div class="container-fluid">
-                                <div class="container-custom">
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="col-link">
-                                                <ul class="link-box">
-                                                    <li><a class="head" href="#">عنوان منو</a></li>
-                                                    <li><a class="" href="#">عنوان مورد نظر</a></li>
-                                                    <li><a class="" href="#">عنوان مورد نظر</a></li>
-                                                    <li><a class="" href="#">عنوان مورد نظر</a></li>
-                                                    <li><a class="" href="#">عنوان مورد نظر</a></li>
-                                                    <li><a class="" href="#">عنوان مورد نظر</a></li>
-                                                    <li><a class="" href="#">عنوان مورد نظر</a></li>
-                                                    <li><a class="" href="#">عنوان مورد نظر</a></li>
-
-                                                    <li><a class="head" href="#">عنوان منو</a></li>
-                                                    <li><a class="" href="#">عنوان مورد نظر</a></li>
-                                                    <li><a class="" href="#">عنوان مورد نظر</a></li>
-                                                    <li><a class="" href="#">عنوان مورد نظر</a></li>
-                                                    <li><a class="" href="#">عنوان مورد نظر</a></li>
-                                                    <li><a class="" href="#">عنوان مورد نظر</a></li>
-                                                    <li><a class="" href="#">عنوان مورد نظر</a></li>
-                                                    <li><a class="" href="#">عنوان مورد نظر</a></li>
-
-                                                    <li><a class="head" href="#">عنوان منو</a></li>
-                                                    <li><a class="" href="#">عنوان مورد نظر</a></li>
-                                                    <li><a class="" href="#">عنوان مورد نظر</a></li>
-                                                    <li><a class="" href="#">عنوان مورد نظر</a></li>
-                                                    <li><a class="" href="#">عنوان مورد نظر</a></li>
-                                                    <li><a class="" href="#">عنوان مورد نظر</a></li>
-                                                    <li><a class="" href="#">عنوان مورد نظر</a></li>
-                                                    <li><a class="" href="#">عنوان مورد نظر</a></li>
-
-                                                    <li><a class="" href="#">عنوان مورد نظر</a></li>
-                                                    <li><a class="" href="#">عنوان مورد نظر</a></li>
-                                                    <li><a class="" href="#">عنوان مورد نظر</a></li>
-                                                    <li><a class="" href="#">عنوان مورد نظر</a></li>
-                                                    <li><a class="" href="#">عنوان مورد نظر</a></li>
-                                                    <li><a class="head" href="#">عنوان منو</a></li>
-                                                    <li><a class="" href="#">عنوان مورد نظر</a></li>
-                                                    <li><a class="" href="#">عنوان مورد نظر</a></li>
-                                                </ul>
-                                            </div>
-
-                                            <div class="col-image">
-                                                <a class="link" href="#"><img src="{{asset("site/assets/image/menu-image.png")}}" alt="" /></a>
+                        <a href="{{$item['link']}}" {{OpenNeweTab($item['link'],$item['open_type'])}}  @if($item->sub_menus_site->count()) class="has-level-2" @endif >{{$item['title']}}</a>
+                        @if($item['title']=='محصولات' && $procat_submenu->count())
+                            <div class="level-2">
+                                <div class="container-fluid">
+                                    <div class="container-custom">
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="col-link">
+                                                    <ul class="link-box">
+                                                        @foreach($procat_submenu as $submenu1)
+                                                        <li><a class="head" href="{{$submenu1['url']}}" >{{$submenu1['title']}}</a></li>
+                                                        @if($submenu1->sub_cats_site->count())
+                                                            @foreach($submenu1->sub_cats_site as $submenu2)
+                                                            <li><a href="{{$submenu2['url']}}" >{{$submenu2['title']}}</a></li>
+                                                            @endforeach
+                                                        @endif
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                                <div class="col-image">
+                                                    <a class="link" href="{{$item['link']}}" {{OpenNeweTab($item['link'],$item['open_type'])}} ><img @if($item['pic']) src="{{asset("upload/thumb1/".$item['pic'])}}" @else src="{{asset("site/img/no_image/no_image(380x380).jpg")}}" @endif alt="{{$item['alt_image']}}" /></a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        @else
+                            @if($item->sub_menus_site->count())
+                            <div class="level-2">
+                                <div class="container-fluid">
+                                    <div class="container-custom">
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="col-link">
+                                                    <ul class="link-box">
+                                                        @foreach($item->sub_menus_site as $item2)
+                                                        <li><a class="head" href="{{$item2['link']}}" {{OpenNeweTab($item['link'],$item2['open_type'])}} >{{$item2['title']}}</a></li>
+                                                        @if($item2->sub_menus_site->count())
+                                                            @foreach($item2->sub_menus_site as $item3)
+                                                            <li><a href="{{$item3->link}}" {{OpenNeweTab($item3['link'],$item['open_type'])}} >{{$item3['title']}}</a></li>
+                                                            @endforeach
+                                                        @endif
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                                <div class="col-image">
+                                                    <a class="link" href="{{$item['link']}}" {{OpenNeweTab($item['link'],$item['open_type'])}} ><img @if($item['pic']) src="{{asset("upload/thumb1/".$item['pic'])}}" @else src="{{asset("site/img/no_image/no_image(380x380).jpg")}}" @endif alt="{{$item['alt_image']}}" /></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
+                        @endif
                     </li>
-
-                    <li class="level-1"><a href="#">اخبار</a></li>
-                    <li class="level-1"><a href="#">نشریه</a></li>
-                    <li class="level-1"><a href="#">گالری</a></li>
-                    <li class="level-1"><a href="#">درباره ما</a></li>
-                    <li class="level-1"><a href="#">تماس با ما</a></li>
-                    <li class="level-1"><a href="#">نمایندگی ها</a></li>
-                    <li class="level-1"><a href="#">ارتباط با مشتریان</a></li>
+                    @endforeach
                 </ul>
             </div>
+            @endif
         </div>
     </div>
 </div>

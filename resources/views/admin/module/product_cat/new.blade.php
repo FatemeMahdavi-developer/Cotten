@@ -26,6 +26,7 @@
                         @component($prefix_component."input",['name'=>'alt_pic','title'=>'alt تصویر','value'=>old('alt_pic'),'class'=>'w-50'])@endcomponent
                         @component($prefix_component."upload_file",['name'=>'pic_banner','title'=>'تصویر بنر','value'=>old('pic_banner'),'class'=>'w-50','module'=>$module])@endcomponent
                         @component($prefix_component."input",['name'=>'alt_pic_banner','title'=>'alt تصویر بنر','value'=>old('alt_pic_banner'),'class'=>'w-50'])@endcomponent
+                        @component($prefix_component."advance_note",['name'=>'note','class'=>'my-2 ','title'=>'متن','value'=>old('note')])@endcomponent
                     @endslot
                 @endcomponent
                 @component($prefix_component."button",['title'=>'ارسال'])@endcomponent

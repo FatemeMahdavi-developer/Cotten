@@ -15,7 +15,7 @@ class product_request extends FormRequest
     }
 
     /**
-     * Get the validation rules that apply to the request.
+     * Get the validation rules that apply to the request
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
@@ -37,11 +37,15 @@ class product_request extends FormRequest
             'pic_banner' => ['nullable', 'mimes:jpeg,png,jpg,gif,svg,webp','max:'.env('MAXIMUM_FILE')],
             'alt_pic_banner' => ['nullable', 'string', 'min:1', 'max:255'],
             'catid' => ['required', 'integer','exists:product_cats,id'],
+            'price'=>['nullable','integer'],
+            'code' => ['nullable','string','min:1'],
+            'status' => ['nullable','integer','min:1'],
             'note' => ['required', 'string','min:1', 'max:255'],
             'note_more' => ['required','string','min:1'],
         ];
         if($this->id){
             $rules['seo_url']=['required', 'string', 'min:1', 'max:255','unique:products,seo_url,'.$this->id]; 
+            $rules['code']=['required','string','min:1','max:255','unique:products,code,'.$this->id];
         }
         if(is_string("pic") && in_array(pathinfo($this->pic,PATHINFO_EXTENSION),['jpeg','png','jpg','gif','svg','webp'])){
             unset($rules['pic']);
@@ -54,7 +58,8 @@ class product_request extends FormRequest
     protected function prepareForValidation()
     {
         $this->merge([
-            'seo_url'=>sluggableCustomSlugMethod($this->seo_url)
+            'seo_url'=>sluggableCustomSlugMethod($this->seo_url),
+            'price'=>str_replace(",","",$this->price)
         ]);
     }
 }

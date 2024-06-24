@@ -22,7 +22,7 @@
                                     @component($prefix_component."input",['name'=>'email','title'=>'ایمیل','value'=>$manager["email"],'class'=>'w-50'])@endcomponent
                                     @component($prefix_component."input",['name'=>'username','title'=>'نام کاربری','value'=>$manager["username"],'class'=>'w-50'])@endcomponent
                                     @component($prefix_component."select",['name'=>'role_id','title'=>'سطح دسترسی','class'=>'w-50','items'=>$roles,'value_old'=>$manager["role_id"],'key'=>'id','value'=>'title'])@endcomponent
-                                    @component($prefix_component."upload_file",['name'=>'pic','title'=>'تصویر','class'=>'w-50','value'=>$manager["pic"]])@endcomponent
+                                    @component($prefix_component."upload_file",['name'=>'pic','title'=>'تصویر','class'=>'w-50','value'=>$manager["pic"],'module'=>$module])@endcomponent
                                     @component($prefix_component."select",['name'=>'province','title'=>'استان','class'=>'w-50','items'=>$provinces,'value_old'=>$manager["province"],'key'=>'id','value'=>'name'])@endcomponent
                                     @component($prefix_component."select",['name'=>'city','title'=>'شهر','class'=>'w-50','items'=>[]])@endcomponent
                                     @component($prefix_component."button",['title'=>'ارسال'])@endcomponent

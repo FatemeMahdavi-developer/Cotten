@@ -31,8 +31,7 @@
                         <div class="section-des">
                             <div class="title">{{$page["title"]}}</div>
                             @if(isset($page["pic"]) && !empty($page["pic"]))
-                                <img class="d-block mx-auto my-4" src="{{asset("upload/".$page["pic"])}}"
-                                     alt="{{$page["alt_image"]}}">
+                                <img class="d-block mx-auto my-4" src="{{asset("upload/".$page["pic"])}}" alt="{{$page["alt_image"]}}" style="width: 100%">
                             @endif
                             <div class="des">
                                 {!! $page["note"] !!}
@@ -46,8 +45,7 @@
                                                 <div class="blog-top-items" dir="rtl">
                                                     @foreach($content as $item)
                                                         <div class="blog-top-item">
-                                                            <a href="#" class="image-box"><img
-                                                                    src="{{asset("upload/thumb1/".$item["pic"])}}"
+                                                            <a href="#" class="image-box"><img src="{{asset("upload/thumb1/".$item["pic"])}}"
                                                                     alt=""/></a>
                                                         </div>
                                                     @endforeach

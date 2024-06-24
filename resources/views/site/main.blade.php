@@ -125,7 +125,7 @@
         </div>
         <!--/ about -->
 
-
+        @if(isset($product[0]))
         <!-- product -->
         <div class="container-fluid container-product">
             <div class="container-custom">
@@ -134,61 +134,31 @@
                         <div class="section-title">
                             <div class="title center">محصولات ما</div>
                         </div>
-
                         <div class="product-items" dir="rtl">
-                            <a href="" class="product-item">
-                                <img src="{{asset("site/assets/image/product/product-01.png")}}" alt=""/>
-                                <h3 class="title">گاز طبی ۵*۵ سانتیمتر کاوه<br/><br/></h3>
+                            @foreach($product as $item)
+                            <a href="{{$item->url}}" class="product-item">
+                                @if(@$item->pic)
+                                    <img src="{{asset("upload/thumb2/".$item["pic"])}}" alt="{{$item->alt_image}}"/>
+                                @else
+                                    <img src="{{asset("site/img/no_image/no_image(328x328).jpg")}}" alt="{{$item->alt_image}}"/>
+                                @endif
+                                <h3 class="title">{{$item->title}}<br/><br/></h3>
                                 <div class="price-box">
-                                    <div class="price">۱۲۶,۰۰۰<span class="price-unit">تومان</span></div>
+                                    <div class="price" style="height:27px;">
+                                        @if($item->price)
+                                        {{show_price($item->price)}}<span class="price-unit">تومان</span>
+                                        @endif
+                                    </div>
                                 </div>
                             </a>
-
-                            <a href="" class="product-item">
-                                <img src="{{asset("site/assets/image/product/product-02.png")}}" alt=""/>
-                                <h3 class="title">گاز طبی ۵*۵ سانتیمتر کاوه<br/><br/></h3>
-                                <div class="price-box">
-                                    <div class="price">۱۲۶,۰۰۰<span class="price-unit">تومان</span></div>
-                                </div>
-                            </a>
-
-                            <a href="" class="product-item">
-                                <img src="{{asset("site/assets/image/product/product-03.png")}}" alt=""/>
-                                <h3 class="title">گاز طبی ۵*۵ سانتیمتر کاوه<br/><br/></h3>
-                                <div class="price-box">
-                                    <div class="price">۱۲۶,۰۰۰<span class="price-unit">تومان</span></div>
-                                </div>
-                            </a>
-
-                            <a href="" class="product-item">
-                                <img src="{{asset("site/assets/image/product/product-01.png")}}" alt=""/>
-                                <h3 class="title">گاز طبی ۵*۵ سانتیمتر کاوه<br/><br/></h3>
-                                <div class="price-box">
-                                    <div class="price">۱۲۶,۰۰۰<span class="price-unit">تومان</span></div>
-                                </div>
-                            </a>
-
-                            <a href="" class="product-item">
-                                <img src="{{asset("site/assets/image/product/product-02.png")}}" alt=""/>
-                                <h3 class="title">گاز طبی ۵*۵ سانتیمتر کاوه<br/><br/></h3>
-                                <div class="price-box">
-                                    <div class="price">۱۲۶,۰۰۰<span class="price-unit">تومان</span></div>
-                                </div>
-                            </a>
-
-                            <a href="" class="product-item">
-                                <img src="{{asset("site/assets/image/product/product-03.png")}}" alt=""/>
-                                <h3 class="title">گاز طبی ۵*۵ سانتیمتر کاوه<br/><br/></h3>
-                                <div class="price-box">
-                                    <div class="price">۱۲۶,۰۰۰<span class="price-unit">تومان</span></div>
-                                </div>
-                            </a>
+                            @endforeach
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <!--/ product -->
+        @endif
 
 
         <!-- banner -->
@@ -204,7 +174,7 @@
         <!--/ banner -->
 
 
-        <!-- blog -->
+        <!-- blog -->    
         @if(isset($news[0]))
             <div class="container-fluid container-blog">
                 <div class="container-custom">

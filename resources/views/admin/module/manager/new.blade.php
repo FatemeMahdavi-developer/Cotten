@@ -22,7 +22,7 @@
                                     @component($prefix_component."input",['name'=>'password','title'=>'پسورد','value'=>old('password'),'class'=>'w-50','type'=>'password'])@endcomponent
                                     @component($prefix_component."input",['name'=>'password_confirmation','title'=>'تکرار رمز عبور','value'=>old('password_confirmation'),'class'=>'w-50','type'=>'password'])@endcomponent
                                     @component($prefix_component."select",['name'=>'role_id','title'=>'سطح دسترسی','class'=>'w-50','items'=>$roles,'value_old'=>old('role_id'),'key'=>'id','value'=>'title'])@endcomponent
-                                    @component($prefix_component."upload_file",['name'=>'pic','title'=>'تصویر','class'=>'w-50'])@endcomponent
+                                    @component($prefix_component."upload_file",['name'=>'pic','title'=>'تصویر','class'=>'w-50','module'=>$module])@endcomponent
                                     @component($prefix_component."select",['name'=>'province','title'=>'استان','class'=>'w-50','items'=>$provinces,'value_old'=>old('province'),'key'=>'id','value'=>'name'])@endcomponent
                                     @component($prefix_component."select",['name'=>'city','title'=>'شهر','class'=>'w-50','items'=>[]])@endcomponent
                                     @component($prefix_component."button",['title'=>'ارسال'])@endcomponent

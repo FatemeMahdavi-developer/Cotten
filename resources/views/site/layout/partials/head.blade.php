@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="{{asset('site/assets/css/libs/mCustomScrollbar.css')}}" >
 <link rel="stylesheet" href="{{asset('site/assets/css/libs/jquery-ui.css')}}" >
 <link rel="stylesheet" href="{{asset('site/assets/css/libs/select2.min.css')}}" >
+<link rel="stylesheet" href="{{asset('site/assets/css/libs/lightgallery-bundle.min.css')}}" >
 <link rel="stylesheet" href="{{asset('site/assets/css/libs/datepicker.css')}}" >
 <link rel="stylesheet" href="{{asset('site/assets/css/main.css')}}" >
 <link rel="stylesheet" href="{{asset('site/assets/css/inner-style.css')}}" >

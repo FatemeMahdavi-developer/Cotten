@@ -21,6 +21,7 @@ use App\Http\Controllers\admin\photo_cat_controller;
 use App\Http\Controllers\admin\photo_controller;
 use App\Http\Controllers\admin\submenu_controller;
 use App\Http\Controllers\admin\video_cat_controller;
+use App\Http\Controllers\admin\video_controller;
 use \Illuminate\Support\Facades\Route;
 
 include "auth_admin.php";
@@ -96,6 +97,8 @@ Route::middleware("auth:admin")->group(function () {
     Route::post("photo/action_all", [photo_controller::class, "action_all"])->name("photo.action_all");
 
     Route::resource("video_cat",video_cat_controller::class)->except("show");
-    Route::post("video_cat/action_all",[video_cat_controller::class,"action_all"])->name("vide_cat.action_all");
+    Route::post("video_cat/action_all",[video_cat_controller::class,"action_all"])->name("video_cat.action_all");
+    Route::resource("video",video_controller::class)->except("show");
+    Route::post("video/action_all", [video_controller::class, "action_all"])->name("video.action_all");
 
 });

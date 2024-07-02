@@ -4,8 +4,8 @@ namespace App\Http\Controllers\admin;
 
 use App\base\class\admin_controller;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\admin\photo_cat_request;
-use App\Models\photo_cat;
+use App\Http\Requests\admin\gallery_cat_request;
+use App\Models\gallery_cat;
 use App\Trait\ResizeImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -21,13 +21,10 @@ class photo_cat_controller extends Controller
         $this->module_title = __("modules.module_name." . $this->module);
     }
 
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
-        $photo_cats=photo_cat::filter($request->all())->orderby('id','desc')->paginate(5)->withQueryString();
-        $photo_cats_search=photo_cat::where('catid','0')->with('sub_cats')->get();
+        $photo_cats=gallery_cat::where('kind','1')->filter($request->all())->orderby('id','desc')->paginate(5)->withQueryString();
+        $photo_cats_search=gallery_cat::where('kind','1')->where('catid','0')->with('sub_cats')->get();
         return view($this->view.'list',[
             'photo_cats'=>$photo_cats,
             'photo_cats_search'=>$photo_cats_search,
@@ -35,12 +32,9 @@ class photo_cat_controller extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        $photo_cats=photo_cat::where('catid','0')->get();
+        $photo_cats=gallery_cat::where('kind','1')->where('catid','0')->get();
         return view($this->view.'new',[
             'module'=>$this->module,
             'module_title'=>$this->module_title,
@@ -48,32 +42,27 @@ class photo_cat_controller extends Controller
         ]);
     }
 
-    // /**
-    //  * Store a newly created resource in storage.
-    //  */
-    public function store(photo_cat_request $request)
+    public function store(gallery_cat_request $request)
     {
         DB::beginTransaction();
         $pic=$this->upload_file($this->module,'pic');
         $pic_banner=$this->upload_file($this->module,'pic_banner');
         $inputs=$request->validated();
+        $inputs['kind']='1';
         $inputs['pic']=$pic;
         $inputs['pic_banner']=$pic_banner;
         $inputs['admin_id']=auth()->user()->id;
         $inputs['seo_index_kind']=$request->seo_index_kind ?? '1';
-        photo_cat::create($inputs);
+        gallery_cat::create($inputs);
         DB::commit();
         return back()->with('success', __('common.messages.success', [
             'module' => $this->module_title
         ]));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(photo_cat $photo_cat)
+    public function edit(gallery_cat $photo_cat)
     {
-        $photo_cats=photo_cat::where('catid','0')->get();
+        $photo_cats=gallery_cat::where('kind','1')->where('catid','0')->get();
         return view($this->view . "edit", [
             'module_title' => $this->module_title,
             'photo_cats' => $photo_cats,
@@ -82,30 +71,26 @@ class photo_cat_controller extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(photo_cat_request $request, string $id)
+    public function update(gallery_cat_request $request, string $id)
     {
         DB::beginTransaction();
         $pic=$this->upload_file($this->module,'pic');
         $pic_banner=$this->upload_file($this->module,'pic_banner');
         $inputs = $request->validated();
-        $inputs['pic'] = $pic;
+        $inputs['pic']=$pic;
+        $inputs['kind']=1;
         $inputs['pic_banner'] = $pic_banner;
-        photo_cat::find($id)->update($inputs);
+        $inputs['seo_index_kind']=$request->seo_index_kind ?? '1';
+        gallery_cat::find($id)->update($inputs);
         DB::commit();
         return back()->with('success', __('common.messages.success_edit', [
             'module' => $this->module_title
         ]));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        photo_cat::where('id',$id)->delete();
+        gallery_cat::where("kind",1)->where('id',$id)->delete();
         return true;
     }
 
@@ -116,6 +101,6 @@ class photo_cat_controller extends Controller
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()]);
         }
-        return (new admin_controller())->action($request,photo_cat::class);
+        return (new admin_controller())->action($request,gallery_cat::class);
     }
 }

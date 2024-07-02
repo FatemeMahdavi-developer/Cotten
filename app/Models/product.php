@@ -59,7 +59,7 @@ class product extends Model
     }
 
     public function product_cat(){
-        return $this->belongsTo(product_cat::class,'catid')->select('id','title','catid');
+        return $this->belongsTo(product_cat::class,'catid')->select('id','title','catid','seo_url');
     }
 
     public function scopeFilter(Builder $builder,$params){

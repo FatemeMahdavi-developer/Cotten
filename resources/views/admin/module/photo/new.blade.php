@@ -15,6 +15,7 @@
                         <div class="card-body">
                             @component($prefix_component.".form",['action'=>route('admin.photo.store'),'method'=>'post','upload_file'=>true])
                                 @slot("content")
+                                    @component($prefix_component."input_hidden",['name'=>'kind','value'=>1])@endcomponent
                                     @component($prefix_component."input",['name'=>'title','title'=>'عنوان','value'=>old('title'),'class'=>'w-50'])@endcomponent
                                     @component($prefix_component."upload_file",['name'=>'pic','title'=>'تصویر','class'=>'w-50','module'=>$module])@endcomponent
                                     @component($prefix_component."input",['name'=>'alt_pic','title'=>'alt تصویر','value'=>old('alt_pic'),'class'=>'w-50'])@endcomponent

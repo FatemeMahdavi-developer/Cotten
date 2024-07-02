@@ -60,7 +60,6 @@
             $(".kind_" + kind).removeClass("d-none")
         })
 
-
         $("[name='is_aparat']").on('change',function () {
             $(".video").removeClass("d-none d-block")
             $(".aparat").removeClass("d-none d-block")

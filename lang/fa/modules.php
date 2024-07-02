@@ -22,11 +22,15 @@ return [
         'photo_cat' => 'دسته بندی تصویر',
         'photo' => 'تصویر',
         'video_cat' => 'دسته بندی ویدیو',
+        'video' => 'ویدیو',
     ],
     'module_name_site' => [
         'news' => 'اخبار',
         'home' => 'باند و گاز کاوه',
         'product' => 'محصولات',
+        'multimedia' => 'چندرسانه ای',
+        'photo' => 'گالری',
+        'video' => 'ویدیوها',
     ],
     'crud'=>[
         "create"=>"ایجاد",

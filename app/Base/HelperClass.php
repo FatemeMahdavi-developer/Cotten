@@ -226,3 +226,10 @@ if (!function_exists('OpenNeweTab')) {
         }
     }
 }
+
+// if (!function_exists('ismobeile')) {
+//     function ismobeile($url='',$open_type=1){
+//         if ((strpos(strtolower($_SERVER['HTTP_ACCEPT']),'mobile'))) {
+//         }
+//     }
+// }

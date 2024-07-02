@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Trait\Breadcrumb;
 use App\Trait\date_convert;
 use App\Trait\seo;
 use Illuminate\Database\Eloquent\Builder;
@@ -11,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class product_cat extends Model
 {
-    use HasFactory, date_convert,SoftDeletes,seo;
+    use HasFactory, date_convert,SoftDeletes,seo,Breadcrumb;
 
     protected $appends=['url'];
   

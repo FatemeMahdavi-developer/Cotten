@@ -20,6 +20,7 @@
                         @include("admin.layout.common.seo")
                     @endslot
                     @slot("tabContent1")
+                        @component($prefix_component."input_hidden",['name'=>'kind','value'=>1])@endcomponent
                         @component($prefix_component."input",['name'=>'title','title'=>'عنوان','value'=>old('title'),'class'=>'w-50'])@endcomponent
                         @component($prefix_component."select_recursive",['name'=>'catid','options'=>$photo_cats,'label'=>'دسته بندی','first_option'=>'دسته بندی اصلی', 'sub_method'=>'sub_cats','value'=>old('catid')])@endcomponent
                         @component($prefix_component."upload_file",['name'=>'pic','title'=>'تصویر','value'=>old('pic'),'class'=>'w-50','module'=>$module])@endcomponent

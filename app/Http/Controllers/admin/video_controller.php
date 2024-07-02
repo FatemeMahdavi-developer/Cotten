@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\admin;
 
 use App\base\class\admin_controller;
@@ -11,12 +12,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
-class photo_controller extends Controller
+class video_controller extends Controller
 {
     use ResizeImage;
     public function __construct(private string $view='',private string $module ='',private string $module_title ='')
     {
-        $this->module = "photo";
+        $this->module = "video";
         $this->view = "admin.module.".$this->module.".";
         $this->module_title = __("modules.module_name." . $this->module);
     }
@@ -26,12 +27,12 @@ class photo_controller extends Controller
      */
     public function index(Request $request)
     {
-        $photo=gallery::where('kind','1')->with('gallery_cat')->filter($request->all())->orderBy('id','DESC')->paginate(4);
-        $photo_cats_search = gallery_cat::where('kind','1')->with(['sub_cats'])->where('catid', '0')->get();
+        $video=gallery::where('kind',2)->with('gallery_cat')->filter($request->all())->orderBy('id','DESC')->paginate(4);
+        $video_cats_search = gallery_cat::where('kind',2)->with(['sub_cats'])->where('catid', '0')->get();
         return view($this->view . "list", [
             'module_title' => $this->module_title,
-            'photo_cats_search' => $photo_cats_search,
-            'photo' => $photo
+            'video_cats_search' => $video_cats_search,
+            'video' => $video
         ]);
     }
 
@@ -40,10 +41,10 @@ class photo_controller extends Controller
      */
     public function create()
     {
-        $photo_cats = gallery_cat::where('kind','1')->where('catid','0')->with('sub_cats')->get();
+        $video_cats = gallery_cat::where('kind','2')->where('catid','0')->with('sub_cats')->get();
         return view($this->view."new", [
             'module_title' => $this->module_title,
-            'photo_cats' => $photo_cats,
+            'video_cats' => $video_cats,
             'module' => $this->module,
         ]);
     }
@@ -55,12 +56,13 @@ class photo_controller extends Controller
     {
         DB::beginTransaction();
         $pic=$this->upload_file($this->module,'pic');
+        $pic_banner=$this->upload_file($this->module,'pic_banner');
         $inputs=$request->validated();
-        $inputs['seo_title']='';
-        $inputs['seo_url']='';
-        $inputs['kind']=1;
+        $inputs['kind']=2;
         $inputs['pic']=$pic;
+        $inputs['pic_banner']=$pic_banner;
         $inputs['admin_id']=auth()->user()->id;
+        $inputs['seo_index_kind']=$request->seo_index_kind ?? '1';
         gallery::create($inputs);
         DB::commit();
         return back()->with('success', __('common.messages.success',[
@@ -71,13 +73,13 @@ class photo_controller extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(gallery $photo)
+    public function edit(gallery $video)
     {
-        $photo_cats = gallery_cat::where('kind','1')->where('catid','0')->with('sub_cats')->get();
+        $video_cats = gallery_cat::where('kind','2')->where('catid','0')->with('sub_cats')->get();
         return view($this->view . "edit", [
             'module_title' => $this->module_title,
-            'photo_cats' => $photo_cats,
-            'photo' => $photo,
+            'video_cats' => $video_cats,
+            'video' => $video,
             'module' => $this->module,
         ]);
     }
@@ -85,16 +87,26 @@ class photo_controller extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(gallery_request $request,gallery $photo)
+    public function update(gallery_request $request,gallery $video)
     {
         DB::beginTransaction();
         $pic=$this->upload_file($this->module,'pic');
+        $pic_banner=$this->upload_file($this->module,'pic_banner');
+        $film=$this->upload_file($this->module,'video');
         $inputs=$request->validated();
-        $inputs['seo_title']='';
-        $inputs['seo_url']='';
-        $inputs['kind']=1;
+        $inputs['kind']=2;
         $inputs['pic']=$pic;
-        $photo->update($inputs);
+        $inputs['pic_banner']=$pic_banner;
+        $inputs['video']=$film;
+
+        if(@$inputs['is_aparat']==1){
+            $inputs['video']=null;
+        }elseif(!empty($inputs['video'])){
+            $inputs['is_aparat']='0';
+            $inputs['aparat_video']=null;
+        }
+        $inputs['seo_index_kind']=$request->seo_index_kind ?? '1';
+        $video->update($inputs);
         DB::commit();
         return back()->with('success', __('common.messages.success_edit', [
             'module' => $this->module_title
@@ -103,7 +115,7 @@ class photo_controller extends Controller
 
     public function destroy(string $id)
     {
-        gallery::where('kind','1')->where('id',$id)->delete();
+        gallery::where('kind',2)->where('id',$id)->delete();
         return true;
     }
 

@@ -4,32 +4,30 @@ namespace App\Http\Requests\admin;
 
 use App\Rules\subid_in_catid;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class photo_cat_request extends FormRequest
+class gallery_cat_request extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         $rules=[
             'seo_title' => ['required', 'string', 'min:1', 'max:255'],
-            'seo_url' => ['required', 'string', 'min:1', 'max:255','unique:photo_cats,seo_url'],
+            'seo_url' => [
+                'required', 'string','min:1','max:255',
+                Rule::unique('gallery_cats')->where(function ($query) {
+                    return $query->where('kind',$this->kind);
+                }),
+            ],
             'seo_h1' => ['nullable', 'string', 'min:1', 'max:255'],
             'seo_canonical' => ['nullable', 'string', 'min:1'],
             'seo_redirect' => ['nullable', 'string', 'min:1', 'max:255'],
             'seo_redirect_kind' => ['nullable', 'string', 'min:1', 'max:255'],
-            'seo_index_kind' => ['nullable', 'string', 'min:1', 'max:255'],
+            'seo_index_kind' => ['nullable','string', 'min:1', 'max:255'],
             'seo_keyword' => ['nullable', 'string', 'min:1', 'max:255'],
             'seo_description' => ['nullable', 'string', 'min:1'],
             'title' => ['required', 'string', 'min:1', 'max:255'],
@@ -41,15 +39,19 @@ class photo_cat_request extends FormRequest
             'note' => ['nullable', 'string','min:1', 'max:255'],
         ];
         if(isset($this->id)){
-            $rules['seo_url']=['required', 'string', 'min:1', 'max:255','unique:photo_cats,seo_url,'.$this->id];
+            $rules['seo_url']=['required','string','min:1','max:255',
+                Rule::unique('gallery_cats')->where(function ($query) {
+                    return $query->where('kind',$this->kind);
+                })->ignore($this->id),
+            ];
             if($this->id == $this->catid){
                 $rules['catid']=[new subid_in_catid($this->catid)];
             }
         }
-        if(is_string("pic") && in_array(pathinfo($this->pic,PATHINFO_EXTENSION),['jpeg','png','jpg','gif','svg','webp'])){
+        if(is_string($this->pic) && in_array(pathinfo($this->pic,PATHINFO_EXTENSION),['jpeg','png','jpg','gif','svg','webp'])){
             unset($rules['pic']);
         }
-        if(is_string("pic_banner") && in_array(pathinfo($this->pic_banner,PATHINFO_EXTENSION),['jpeg','png','jpg','gif','svg','webp'])){
+        if(is_string($this->pic_banner) && in_array(pathinfo($this->pic_banner,PATHINFO_EXTENSION),['jpeg','png','jpg','gif','svg','webp'])){
             unset($rules['pic_banner']);
         }
         return $rules;

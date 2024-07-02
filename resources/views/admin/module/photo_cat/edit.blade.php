@@ -21,6 +21,7 @@
                             @endslot
                             @slot("tabContent1")
                                 @method("put")
+                                @component($prefix_component."input_hidden",['name'=>'kind','value'=>1])@endcomponent
                                 @component($prefix_component."input_hidden",['value'=>$photo_cat['id']])@endcomponent
                                 @component($prefix_component."input",['name'=>'title','title'=>'عنوان','value'=>$photo_cat["title"],'class'=>'w-50'])@endcomponent
                                 @component($prefix_component."select_recursive",['name'=>'catid','options'=>$photo_cats,'label'=>'دسته بندی','first_option'=>'دسته بندی اصلی', 'sub_method'=>'sub_cats','value'=>$photo_cat["catid"]])@endcomponent

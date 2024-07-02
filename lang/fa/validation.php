@@ -250,6 +250,7 @@ return [
 		"before_password" => "رمز قبلی",
 		"new_password" => "رمز جدید",
 		"alt_pic" => " alt تصویر ",
+        "alt_pic_banner"=>"alt تصویر بنر",
 		"permissions" => "سطح دسترسی",
         "role_id" => "سطح دسترسی",
         'url'=>"لینک صفحه",
@@ -257,6 +258,8 @@ return [
         "lgmap" => "طول جغرافیایی",
         "qgmap" => "عرض جغرافیایی",
         'zgmap'=>"بزرگ نمایی",
-        'cgmap'=>"توضیحات نقشه"
+        'cgmap'=>"توضیحات نقشه",
+        'aparat_video'=>"کد امبد آپارات",
+        'is_aparat'=>"ویدیو آپارات"
         ]
 ];

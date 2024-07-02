@@ -5,13 +5,18 @@
 
 @section('content')
     <div class="page-blog">
-        <div class="container-fluid container-bread-crumb" @if(@$news_cat['pic_banner']) style="background-image: url({{asset("upload/thumb1/".$news_cat["pic_banner"])}}" @endif>
+        <div class="container-fluid container-bread-crumb" @if(@$news_cat->pic_banner) style="background-image: url({{asset("upload/thumb1/".$news_cat->pic_banner)}}" @endif>
             <div class="container-custom">
                 <div class="row">
                     <div class="col">
                         <h1 class="page-title">@if(@$news_cat){{$news_cat->h1()}}@else @lang('modules.module_name_site.news') @endif</h1>
-                        <ul class='bread-crumb'>
-{{--                            {!! breadcrumb($news_cat) !!}--}}
+                        <ul class="bread-crumb">
+                            @include("site.layout.partials.breadcrumb",[
+                                'module_title'=>$module_title,
+                                'url_page'=>'/news',
+                                'breadcrumb'=>$breadcrumb,
+                                'category'=>@$news_cat
+                            ])
                         </ul>
                     </div>
                 </div>

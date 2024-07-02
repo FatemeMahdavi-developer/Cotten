@@ -191,6 +191,17 @@
                 </ul>
             </li>
             @endcanany
+            @canany(permission_access("video"))
+            <li class="dropdown">
+                <a href="#" class="nav-link has-dropdown"><i data-feather="monitor"></i><span>ویدیو ها</span></a>
+                <ul class="dropdown-menu">
+                    @can("create_video")
+                    <li><a class="nav-link" href="{{route("admin.video.create")}}">ویدیو جدید</a></li>
+                    @endcan
+                    <li><a class="nav-link" href="{{route("admin.video.index")}}">لیست ویدیوها </a></li>
+                </ul>
+            </li>
+            @endcanany
         </ul>
     </aside>
 </div>

@@ -16,6 +16,7 @@
                             @component($prefix_component.".form",['action'=>route('admin.photo.update',['photo'=>$photo['id']]),'method'=>'post','upload_file'=>true])
                                 @slot("content")
                                     @method("put")
+                                    @component($prefix_component."input_hidden",['name'=>'kind','value'=>1])@endcomponent
                                     @component($prefix_component."input_hidden",['value'=>$photo['id']])@endcomponent
                                     @component($prefix_component."input",['name'=>'title','title'=>'عنوان','value'=>$photo['title'],'class'=>'w-50'])@endcomponent
                                     @component($prefix_component."upload_file",['name'=>'pic','title'=>'تصویر ','class'=>'w-50','value'=>$photo['pic'],'module'=>$module])@endcomponent

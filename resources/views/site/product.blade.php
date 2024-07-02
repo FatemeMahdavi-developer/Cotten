@@ -4,15 +4,19 @@
 @endsection
 @section('content')
 <div class="page-products">   
-    <div class="container-fluid container-bread-crumb">
+    <div class="container-fluid container-bread-crumb" @if(@$product_cat->pic_banner) style="background-image: url({{asset("upload/thumb1/".$product_cat->pic_banner)}}" @endif>
         <div class="container-custom">
             <div class="row">
                 <div class="col">
                     <h1 class="page-title">@if(@$product_cat){{$product_cat->h1()}}@else @lang('modules.module_name_site.product') @endif</h1>
-                    {{-- <ul class="bread-crumb">
-                        <li><a href="#">صفحه اصلی</a></li>
-                        <li><a href="#">محصولات</a></li>
-                    </ul> --}}
+                    <ul class="bread-crumb">
+                        @include("site.layout.partials.breadcrumb",[
+                            'module_title'=>$module_title,
+                            'url_page'=>'/product',
+                            'breadcrumb'=>$breadcrumb,
+                            'category'=>@$product_cat
+                        ])
+                    </ul>
                 </div>
             </div>
         </div>

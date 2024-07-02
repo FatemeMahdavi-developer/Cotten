@@ -15,8 +15,8 @@
                         <div class="card-body">
                             @component($prefix_component."navtab",['number'=>2,'titles'=>['لیست','جستجو']])
                                 @slot("tabContent0")
-                                    @if(isset($photo[0]))
-                                        @component($prefix_component."form",['action'=>route('admin.photo.action_all')])
+                                    @if(isset($video[0]))
+                                        @component($prefix_component."form",['action'=>route('admin.video.action_all')])
                                             @slot("content")
                                                 <table class="table text-center">
                                                     <thead>
@@ -34,10 +34,10 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    @foreach($photo as $item)
+                                                    @foreach($video as $item)
                                                         <tr>
                                                             <th scope="row"><input type="checkbox" class="checkbox_item"  name="item[]" value="{{$item['id']}}"></th>
-                                                            <td>{{ $loop->iteration + $photo->firstItem() - 1 }}
+                                                            <td>{{ $loop->iteration + $video->firstItem() - 1 }}
                                                             <td>{{$item["title"]}}</td>
                                                             <td>{{$item->admin->fullname ?? "---"}}</td>
                                                             <td>{{$item->gallery_cat->title ?? ""}}</td>
@@ -50,8 +50,8 @@
                                                             </td> --}}
                                                             <td>{{$item->date_convert()}}</td>
                                                             <td>
-                                                                <a href="{{route("admin.photo.edit",['photo'=>$item['id']])}}" class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a>
-                                                                <a href="javascript:void(0)" data-href="{{route("admin.photo.destroy",['photo'=>$item['id']])}}" class="btn btn-danger btn-sm delete">
+                                                                <a href="{{route("admin.video.edit",['video'=>$item['id']])}}" class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a>
+                                                                <a href="javascript:void(0)" data-href="{{route("admin.video.destroy",['video'=>$item['id']])}}" class="btn btn-danger btn-sm delete">
                                                                     <i class="fas fa-trash"></i>
                                                                 </a>
                                                             </td>
@@ -75,7 +75,7 @@
                                                         @component($prefix_component."state_type",['title'=>' صفحه اصلی','name'=>'state_main'])@endcomponent --}}
                                                     </div>
                                                     <div class="col-7 d-flex justify-content-end">
-                                                        {{$photo->links()}}
+                                                        {{$video->links()}}
                                                     </div>
                                                 </div>
                                             @endslot
@@ -88,7 +88,7 @@
                                     @component($prefix_component."form",['method'=>'get'])
                                         @slot("content")
                                             @component($prefix_component."input",['name'=>'title','title'=>'عنوان','value'=>request()->get("title"),'class'=>'w-50'])@endcomponent
-                                            @component($prefix_component."select_recursive",['name'=>'catid','value'=>request()->get('catid'),'options'=>$photo_cats_search,'label'=>'دسته بندی','choose'=>true, 'sub_method'=>'sub_cats'])@endcomponent
+                                            @component($prefix_component."select_recursive",['name'=>'catid','value'=>request()->get('catid'),'options'=>$video_cats_search,'label'=>'دسته بندی','choose'=>true, 'sub_method'=>'sub_cats'])@endcomponent
                                             <div class="my-3">
                                                 @component($prefix_component."button",['title'=>'جستجو'])@endcomponent
                                             </div>

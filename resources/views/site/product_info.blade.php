@@ -10,10 +10,15 @@
         <div class="row">
             <div class="col">
                 <h1 class="page-title">{{$product->h1()}}</h1>
-                {{-- <ul class="bread-crumb">
-                    <li><a href="#">صفحه اصلی</a></li>
-                    <li><a href="#">محصولات</a></li>
-                </ul> --}}
+                <ul class="bread-crumb">
+                    @include("site.layout.partials.breadcrumb",[
+                        'module_title'=>$module_title,
+                        'url_page'=>'/product',
+                        'breadcrumb'=>$breadcrumb,
+                        'category'=>$product->product_cat,
+                        'title'=>$product->title
+                    ])
+                </ul>
             </div>
         </div>
     </div>
@@ -32,15 +37,14 @@
                             <div class="images-box">
                                 @if(!$content_pics->isEmpty())
                                 <div class="image-thumbnail">
-                                    <a href="javascript:void(0);" class="item item-main">
+                                    <a  @if($product->pic) href="{{asset("upload/".$product->pic)}}" @else  href="{{asset("site/img/no_image/no_image(470x470).jpg")}}"  @endif class="item item-main">
                                         @if($product->pic)
                                             <img src="{{asset("upload/thumb4/".$product->pic)}}" alt="{{$product->alt_image}}"/>
                                         @else
                                             <img src="{{asset("site/img/no_image/no_image(78x78).jpg")}}" alt="{{$product->alt_image}}"/>
                                         @endif
                                     </a>
-                                    @foreach ($content_pics as $item)
-                                        @if($loop->iteration <= 3)
+                                    @foreach ($content_pics->slice(0,3) as $item)
                                             <a @if($item->pic) href="{{asset("upload/".$item->pic)}}"  @else href="{{asset("upload/".$item->pic)}}" @endif class="item item-main">
                                                 @if($item->pic)
                                                     <img src="{{asset("upload/thumb1/".$item->pic)}}" alt="{{$item->alt_image}}"/>
@@ -48,11 +52,19 @@
                                                     <img src="{{asset("site/img/no_image/no_image(78x78).jpg")}}" alt="{{$item->alt_image}}"/>
                                                 @endif
                                             </a>
-                                        @endif
                                     @endforeach
                                     @if($content_pics->count() > 3)
                                     <a href="javascript:void(0);" class="item item-more"><i class="fi fi-rr-menu-dots icon"></i></a>
                                     @endif
+                                    @foreach ($content_pics->slice(3,25) as $item)
+                                    <a @if($item->pic) href="{{asset("upload/".$item->pic)}}"  @else href="{{asset("upload/".$item->pic)}}" @endif class="item item-main d-none">
+                                        @if($item->pic)
+                                            <img src="{{asset("upload/thumb1/".$item->pic)}}" alt="{{$item->alt_image}}"/>
+                                        @else
+                                            <img src="{{asset("site/img/no_image/no_image(78x78).jpg")}}" alt="{{$item->alt_image}}"/>
+                                        @endif
+                                    </a>
+                                    @endforeach
                                 </div>
                                 @endif
                                 <a href="javascript:void(0);" class="image-big-box">

@@ -14,23 +14,47 @@ use Illuminate\Support\Facades\Validator;
 
 class newsController extends Controller
 {
+
+    public function __construct(private string $module='',private string $module_title='')
+    {
+        $this->module="news";
+        $this->module_title=trans("modules.module_name_site.".$this->module);
+    }
+
     public function index(news_cat $news_cat = null)
     {
-        
-        $news_cats = news_cat::where('state', '1')->orderByRaw("`order` ASC, `id` DESC")->get(['id', 'title', 'seo_url']);
-        $hit_news = news::where('state', '1')->where('validity_date', '<=', Carbon::now()->format('Y/m/d H:i:s'))->orderByRaw("`order` ASC, `id` DESC")->with(['news_cat'])->select(['title', 'note', 'pic', 'catid', 'validity_date', 'alt_pic', 'seo_url'])->orderByRaw("`hit` ASC, `id` DESC")->get();
-        if ($news_cat == null) {
-            $news = news::siteFilter()->paginate(5)->withQueryString();
-        } else {
-            $news = $news_cat->news()->siteFilter()->paginate(5)->withQueryString();
+        $module_title=$this->module_title;
+        $breadcrumb=[];
+
+        $news_cats=news_cat::where('state', '1')
+            ->orderByRaw("`order` ASC, `id` DESC")
+            ->get(['id', 'title', 'seo_url']);
+
+        $hit_news = news::where('state','1')
+            ->where('validity_date', '<=', Carbon::now()
+            ->format('Y/m/d H:i:s'))
+            ->orderByRaw("`order` ASC, `id` DESC")
+            ->with(['news_cat'])
+            ->select(['title', 'note', 'pic', 'catid', 'validity_date', 'alt_pic', 'seo_url'])
+            ->orderByRaw("`hit` ASC, `id` DESC")
+            ->get();
+            
+            $news = news::siteFilter()
+                ->paginate(5)
+                ->withQueryString();
+
+        if ($news_cat != null) {
             if (!$news_cat->state)
                 abort(404);
-//            if (!empty($news_cat->seo_redirect)) {
-//
-//                return Redirect::to($news_cat->seo_redirect, $news_cat->seo_kind_redirect ?? 301);
-//            }
+
+            $news = $news_cat->news()
+            ->siteFilter()
+            ->paginate(5)
+            ->withQueryString();
+
+            $breadcrumb=$news_cat->parents()->where('state','1');
         }
-        return view('site.news', compact('news_cat', 'news', 'news_cats', 'hit_news'));
+        return view('site.news', compact('news_cat', 'news', 'news_cats', 'hit_news','breadcrumb','module_title'));
     }
 
     public function show(Request $request, news $news)

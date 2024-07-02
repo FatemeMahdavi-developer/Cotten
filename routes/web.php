@@ -3,8 +3,11 @@
 use App\Http\Controllers\admin\product_controller;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\site\ContactController;
+use App\Http\Controllers\site\MultimediaController;
 use App\Http\Controllers\site\newsController;
+use App\Http\Controllers\site\PhotoController;
 use App\Http\Controllers\site\productController;
+use App\Http\Controllers\site\VideoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,6 +25,7 @@ require __DIR__ . '/auth.php';
 
 Route::get('', [\App\Http\Controllers\site\HomeController::class, 'main'])->name('main');
 Route::get('about', [\App\Http\Controllers\site\HomeController::class, 'about'])->name('about');
+
 Route::prefix('/news')->as('news.')->group(function () {
     Route::get('/', [newsController::class, 'index'])->name('index');
     Route::get('/cat/{news_cat:seo_url}', [newsController::class, 'index'])->name('index_cat');
@@ -46,3 +50,16 @@ Route::get('pages/{pages}', [\App\Http\Controllers\site\pageController::class, '
 //Route::get('/show/{model}',[\App\Http\Controllers\site\user\commentController::class,'show'])->name('comment.show');
 
 Route::get('contact', [ContactController::class,'contact'])->name('contact');
+
+Route::get('/multimedia', [MultimediaController::class,'index'])->name('multimedia.index');
+
+Route::prefix('/photo')->as('photo.')->group(function () {
+    Route::get('/', [PhotoController::class, 'index'])->name('index');
+    Route::get('/cat/{photo_cat:seo_url}',[PhotoController::class,'index'])->name('index_cat');
+});
+Route::prefix('/video')->as('video.')->group(function () {
+    Route::get('/', [VideoController::class, 'index'])->name('index');
+    Route::get('/cat/{video_cat:seo_url}',[VideoController::class,'index'])->name('index_cat');
+    Route::get('/{video:seo_url}', [VideoController::class,'show'])->name('show');
+
+});

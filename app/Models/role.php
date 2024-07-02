@@ -14,7 +14,7 @@ class role extends Model
     protected $fillable=["title","admin_id"];
 
     public function permission(){
-        return $this->belongsToMany(permissions::class); 
+        return $this->belongsToMany(permissions::class);
     }
     public function scopeFilter(Builder $builder , $params){
         if(!empty($params['kind'])){

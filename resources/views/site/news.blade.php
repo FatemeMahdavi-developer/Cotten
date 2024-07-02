@@ -1,10 +1,14 @@
 @extends("site.layout.base")
+@section('seo')
+    @include("site.layout.partials.seo",["seo"=>$seo,"module"=>$module])
+@endsection
 @section('head')
     <link rel="stylesheet" href="{{asset('site/assets/css/pages/page-07-01.css')}}">
 @endsection
 
 @section('content')
     <div class="page-blog">
+        <!-- bread crumb -->
         <div class="container-fluid container-bread-crumb" @if(@$news_cat->pic_banner) style="background-image: url({{asset("upload/thumb1/".$news_cat->pic_banner)}}" @endif>
             <div class="container-custom">
                 <div class="row">
@@ -22,6 +26,7 @@
                 </div>
             </div>
         </div>
+        <!--/ bread crumb -->
         <div class="container-fluid container-blog">
             <div class="container-custom">
                 <div class="row">
@@ -79,9 +84,8 @@
                             <select id="catid" class="select-box-select2 catid">
                                 <option value="{{route('news.index')}}">انتخاب کنید</option>
                                 @foreach($news_cats as $item)
-                                    <option
-                                        value="{{$item['url']}}"
-                                        @if(@$news_cat['id'] == $item['id']) selected @endif>{{$item["title"]}}</option>
+                                    <option value="{{$item['url']}}"
+                                            @if(@$news_cat['id'] == $item['id']) selected @endif>{{$item["title"]}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -101,7 +105,8 @@
                                 <div class="blog-item">
                                     <a href="{{$item->url}}" class="image-box">
                                         @if($item['pic'])
-                                            <img src="{{asset("upload/thumb3/".$item["pic"])}}" alt="{{$item["alt_image"]}}"/>
+                                            <img src="{{asset("upload/thumb3/".$item["pic"])}}"
+                                                 alt="{{$item["alt_image"]}}"/>
                                         @else
                                             <img src="{{asset("site/img/no_image/no_image(274x264).jpg")}}"
                                                  alt="{{$item["alt_image"]}}"/>
@@ -112,6 +117,7 @@
                                             <a href="{{$item->url}}" class="link-title">
                                                 <span class="title">{{$item['title']}}</span>
                                             </a>
+
                                             <div class="des">{{$item["short_note"]}}</div>
                                         </div>
                                         <div class="category-date-box">
@@ -140,6 +146,7 @@
 @section('footer')
     <script type="text/javascript" src="{{asset('site/assets/js/pages/page-07-01.js')}}"></script>
     <script>
+
         var keyword = '';
         var query_string = '';
         $("#form_news select").on('change', function () {

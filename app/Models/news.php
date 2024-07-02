@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Trait\Breadcrumb;
 use App\Trait\date_convert;
 use App\Trait\morph_content;
 use App\Trait\Comment;
@@ -18,7 +17,7 @@ use Morilog\Jalali\Jalalian;
 
 class news extends Model
 {
-    use HasFactory, SoftDeletes, date_convert, morph_content,seo,Comment,Rate,Breadcrumb;
+    use HasFactory, SoftDeletes, date_convert, morph_content,seo,Comment,Rate;
 
     protected $appends = ['validate_date_admin', 'short_note', 'alt_image','url'];
     protected $fillable = [

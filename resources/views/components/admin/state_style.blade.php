@@ -1,5 +1,5 @@
 @props(['column'=>'','id'=>'','state'=>'','class'=>'success','title'=>''])
-@php $module=explode("/",url()->current()) @endphp 
+@php $module=explode("/",url()->current()) @endphp
 @can("read_".end($module))
 <div class="pretty p-switch">
     <input type="checkbox" class="state_checkbox"

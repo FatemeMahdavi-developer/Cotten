@@ -16,6 +16,7 @@ return [
         'user'=>'کاربران',
         'page'=>'صفحه',
         'role'=>'سطح دسترسی',
+        'setting'=>'تنظیمات',
         'contactmap'=>'نقشه تماس با ما',
         'message_cat'=>'دسته بندی تماس با ما',
         'message'=>'پیام ها',
@@ -27,6 +28,7 @@ return [
     'module_name_site' => [
         'news' => 'اخبار',
         'home' => 'باند و گاز کاوه',
+        'about' => 'درباره ما',
         'product' => 'محصولات',
         'multimedia' => 'چندرسانه ای',
         'photo' => 'گالری',
@@ -37,5 +39,14 @@ return [
         "read"=>"خواندن",
         "update"=>"ویرایش",
         "delete"=>"حذف",
-    ]
+    ],
+
+
+    'crud_authorize'=>[
+        "create"=>["create","store"],
+        "read"=>["index","action_all"],
+        "update"=>["update","edit"],
+        "delete"=>["destroy"],
+    ],
+
 ];

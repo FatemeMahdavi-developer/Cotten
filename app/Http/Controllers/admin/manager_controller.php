@@ -128,7 +128,7 @@ class manager_controller extends Controller
      */
     public function destroy(string $id)
     {
-         admin::findOrFail($id)->delete();
+        admin::findOrFail($id)->delete();
         return true;
     }
 

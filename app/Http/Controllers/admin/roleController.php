@@ -88,7 +88,7 @@ class roleController extends Controller
             'role' => $role,
             'module'=>$this->module,
             'modules_permission'=>$modules_permission
-        ]);   
+        ]);
     }
 
     /**
@@ -109,7 +109,7 @@ class roleController extends Controller
         return back()->with('success', __('common.messages.success_edit', [
             'module' => $this->module_title
         ]));
-        
+
     }
 
     /**

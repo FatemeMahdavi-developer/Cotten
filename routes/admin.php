@@ -11,6 +11,8 @@ use App\Http\Controllers\admin\message_cat_controller;
 use App\Http\Controllers\admin\message_controller;
 use App\Http\Controllers\admin\news_cat_controller;
 use App\Http\Controllers\admin\news_controller;
+use App\Http\Controllers\admin\permission_controller;
+use App\Http\Controllers\admin\premission;
 use App\Http\Controllers\admin\product_cat_controller;
 use App\Http\Controllers\admin\product_controller;
 use App\Http\Controllers\admin\province_city_controller;
@@ -32,12 +34,8 @@ Route::middleware("auth:admin")->group(function () {
     Route::view("/base", "admin.layout.base")->name("admin.base");
     Route::view("/error", "admin.layout.errors.404")->name("admin.error404");
     Route::post("province_city", province_city_controller::class)->name("province_city");
-
-    // Route::middleware(['role:admin'])->group(function () {
-        Route::resource("news_cat", news_cat_controller::class)->except("show");
-        Route::post("news_cat/action_all", [news_cat_controller::class, "action_all"])->name("news_cat.action_all");
-    // });
-
+    Route::resource("news_cat", news_cat_controller::class)->except("show");
+    Route::post("news_cat/action_all", [news_cat_controller::class, "action_all"])->name("news_cat.action_all");
     Route::resource("news", news_controller::class)->except("show");
     Route::post("news/action_all", [news_controller::class, "action_all"])->name("news.action_all");
     Route::resource("manager", manager_controller::class)->except("show");
@@ -60,7 +58,6 @@ Route::middleware("auth:admin")->group(function () {
     Route::post("instagram/action_all", [instagramController::class, "action_all"])->name("instagram.action_all");
 
     Route::resource("menu", menuController::class);
-    Route::post("menu/submenu", submenu_controller::class)->name("menu.submenu");
     Route::post("menu/action_all", [menuController::class, "action_all"])->name("menu.action_all");
 
 
@@ -79,6 +76,10 @@ Route::middleware("auth:admin")->group(function () {
 
     Route::resource("role",roleController::class)->except("show");
     Route::post("role/action_all",[roleController::class,"action_all"])->name("role.action_all");
+
+
+    Route::get("setting",[\App\Http\Controllers\admin\settingController::class,"setting"])->name("setting");
+    Route::post("setting",[\App\Http\Controllers\admin\settingController::class,"store"])->name("setting.store");
 
     Route::prefix('contactmap')->as("contactmap.")->group(function () {
         Route::get("",[ContactMapController::class,'edit'])->name("edit");

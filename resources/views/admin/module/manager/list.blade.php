@@ -68,7 +68,7 @@
                                                 @component($prefix_component."input",['name'=>'fullname','title'=>'نام و نام خانوادگی','value'=>request()->get("fullname"),'class'=>'w-50'])@endcomponent
                                                 @component($prefix_component."input",['name'=>'mobile','title'=>'موبایل','value'=>request()->get("mobile"),'class'=>'w-50'])@endcomponent
                                                 @component($prefix_component."input",['name'=>'email','title'=>'ایمیل','value'=>request()->get("email"),'class'=>'w-50'])@endcomponent
-                                                @component($prefix_component."input",['name'=>'username','title'=>'نام کاربری','value'=>request()->get("username"),'class'=>'w-50'])@endcomponent                                               
+                                                @component($prefix_component."input",['name'=>'username','title'=>'نام کاربری','value'=>request()->get("username"),'class'=>'w-50'])@endcomponent
                                                 @component($prefix_component."select",['name'=>'role_id','title'=>'سطح دسترسی','class'=>'w-50','items'=>$roles,'value_old'=>request()->get('role_id'),'key'=>'id','value'=>'title'])@endcomponent
                                                 <div class="my-3">
                                                     @component($prefix_component."button",['title'=>'جستجو'])@endcomponent

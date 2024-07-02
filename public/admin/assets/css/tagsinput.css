@@ -1,6 +1,6 @@
 /*
  * bootstrap-tagsinput v0.8.0
- * 
+ *
  */
 
 .bootstrap-tagsinput {
@@ -41,8 +41,12 @@
   box-shadow: none;
 }
 .bootstrap-tagsinput .badge {
-  margin: 2px 0;
-  padding:5px 8px;
+    padding: 5px 8px;
+    height: 31px;
+    line-height: 20px;
+    border-radius: 0;
+    margin: 0 4px;
+    background: #6777ef;
 }
 .bootstrap-tagsinput .badge [data-role="remove"] {
   margin-left: 8px;
@@ -101,3 +105,5 @@
   outline: 0;
   background-color: #428bca;
 }
+
+

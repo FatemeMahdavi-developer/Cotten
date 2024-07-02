@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="fa">
 <head>
+    @yield('seo')
     @include("site.layout.partials.head")
     @yield('head')
 

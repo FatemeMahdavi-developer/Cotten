@@ -12,3 +12,4 @@
 <!-- Custom style CSS -->
 <link rel="stylesheet" href="{{asset("admin/assets/css/custom.css")}}">
 <link rel='shortcut icon' type='image/x-icon' href='{{asset("admin/assets/img/favicon.ico")}}'/>
+<script src="{{asset("admin/assets/js/app.min.js")}}"></script>

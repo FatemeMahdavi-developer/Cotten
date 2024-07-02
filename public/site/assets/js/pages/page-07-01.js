@@ -3,7 +3,7 @@ $(document).ready
     function()
     {
         // top news
-        $('.page-blog .blog-top-items').slick
+        $(' .blog-top-items').slick
         ({
             speed: 400,
             infinite: true,

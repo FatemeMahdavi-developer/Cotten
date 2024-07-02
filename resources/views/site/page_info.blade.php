@@ -14,6 +14,7 @@
                 <div class="row">
                     <div class="col">
                         <h1 class="page-title">{{$page["title"]}}</h1>
+
                         <ul class="bread-crumb">
                             <li><a href="#">صفحه اصلی</a></li>
                             <li><a href="#">{{$page["title"]}}</a></li>
@@ -31,7 +32,8 @@
                         <div class="section-des">
                             <div class="title">{{$page["title"]}}</div>
                             @if(isset($page["pic"]) && !empty($page["pic"]))
-                                <img class="d-block mx-auto my-4" src="{{asset("upload/".$page["pic"])}}" alt="{{$page["alt_image"]}}" style="width: 100%">
+                                <img class="d-block mx-auto my-4" src="{{asset("upload/".$page["pic"])}}"
+                                     alt="{{$page["alt_image"]}}">
                             @endif
                             <div class="des">
                                 {!! $page["note"] !!}
@@ -45,7 +47,8 @@
                                                 <div class="blog-top-items" dir="rtl">
                                                     @foreach($content as $item)
                                                         <div class="blog-top-item">
-                                                            <a href="#" class="image-box"><img src="{{asset("upload/thumb1/".$item["pic"])}}"
+                                                            <a href="#" class="image-box"><img
+                                                                    src="{{asset("upload/thumb1/".$item["pic"])}}"
                                                                     alt=""/></a>
                                                         </div>
                                                     @endforeach

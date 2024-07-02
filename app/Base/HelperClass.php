@@ -120,25 +120,6 @@ if (!function_exists('to_english_numbers')) {
 }
 
 
-//if (!function_exists('breadcrumb')) {
-//    function breadcrumb($model, $breadcrumb = '')
-//    {
-//        if (empty($breadcrumb)) {
-//            $breadcrumb .= "<li><a href='/main'>صفحه اصلی</a></li>";
-//        }
-//        dump($model->parent);
-//        if (isset($model->parent)) {
-//            $breadcrumb .= "<li><a href=''>" . $model->parent->title . "</a></li>";
-//
-//            breadcrumb($model->parent, $breadcrumb);
-//        }
-//        $breadcrumb .= "<li><a href=''>" . $model['title'] . "</a></li>";
-
-//        dd($breadcrumb);
-//        return $breadcrumb;
-//    }
-//}
-
 
 //public function check_mobile($attribute, $value, $parameters)
 //{

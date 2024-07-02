@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -49,31 +50,28 @@ class Handler extends ExceptionHandler
     }
 
 
-    public function render($request, Throwable $exception) {
+    public function render($request, Throwable $exception)
+    {
 
         if ($this->isHttpException($exception)) {
 
-            if (request()->is(env("ADMIN_PREFIX").'/*')) {
+            if (request()->is(env("ADMIN_PREFIX") . '/*')) {
                 if ($exception->getStatusCode() == 404) {
                     return response()->view("admin.layout.errors.404", [], 404);
                 }
-            }
-            else
-            {
+            } else {
                 if ($exception->getStatusCode() == 404) {
                     return response()->view('site.error.' . '404', [], 404);
                 }
             }
 
 
-
-
         }
         if ($exception instanceof ModelNotFoundException || $exception instanceof NotFoundHttpException) {
-            if ($request->is(env("ADMIN_PREFIX").'/*')) {
+            if ($request->is(env("ADMIN_PREFIX") . '/*')) {
                 return response()->view('admin.layout.errors.404', [], 404);
             }
         }
-        return parent::render($request, $exception);
+            return parent::render($request, $exception);
     }
 }

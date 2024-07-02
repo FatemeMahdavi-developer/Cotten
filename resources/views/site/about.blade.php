@@ -2,14 +2,18 @@
 @section('head')
     <link rel="stylesheet" href="{{asset('site/assets/css/pages/page-05.css')}}">
 @endsection
+
 @section('content')
     <div class="page-about">
+
+
         <!-- bread crumb -->
         <div class="container-fluid container-bread-crumb">
             <div class="container-custom">
                 <div class="row">
                     <div class="col">
                         <h1 class="page-title">درباره ما</h1>
+
                         <ul class="bread-crumb">
                             <li><a href="#">صفحه اصلی</a></li>
                             <li><a href="#">درباره ما</a></li>
@@ -19,6 +23,10 @@
             </div>
         </div>
         <!--/ bread crumb -->
+
+        <!-- --------------------------------------------------------------------------------------------------------------- -->
+
+
         <div class="container-fluid container-about">
             <div class="container-custom">
                 <div class="row">
@@ -35,6 +43,8 @@
                 </div>
             </div>
         </div>
+
+
         <div class="container-fluid container-about container-about-vision">
             <div class="container-custom">
                 <div class="row">
@@ -63,6 +73,8 @@
                 </div>
             </div>
         </div>
+
+
         <div class="container-fluid container-about">
             <div class="container-custom">
                 <div class="row">
@@ -79,6 +91,8 @@
                 </div>
             </div>
         </div>
+
+
         <div class="container-fluid container-about container-about-standard" @if(!empty($pages_standard_pic))style="background-image: url('upload/{{$pages_standard_pic}}')"@endif>
             @if(isset($pages_standard_title))
             <div class="container-custom">
@@ -93,5 +107,6 @@
                 <div class="alert alert-danger">@lang("common.page_error",["name"=>"standard"])</div>
             @endif
         </div>
+
     </div>
 @endsection

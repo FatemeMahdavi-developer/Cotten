@@ -20,6 +20,12 @@
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">اصلی</li>
+            <li class="dropdown">
+                <a href="#" class="nav-link has-dropdown"><i data-feather="user"></i><span>تنظیمات</span></a>
+                <ul class="dropdown-menu">
+                    <li><a class="nav-link" href="{{route("admin.setting")}}">تنظیمات اصلی</a></li>
+                </ul>
+            </li>
             @canany(permission_access("role"))
             <li class="dropdown">
                 <a href="#" class="nav-link has-dropdown"><i data-feather="user"></i><span>گروه دسترسی مدیران</span></a>

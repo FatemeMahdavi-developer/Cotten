@@ -7,6 +7,7 @@ use App\Models\menu;
 use App\Models\permissions;
 use App\Models\product_cat;
 use App\Models\province;
+use App\Models\setting;
 use App\Rules\subid_in_catid;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Config;
@@ -59,6 +60,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $setting=Setting::get();
+        app()->bind('setting', function() use ($setting){
+            return $setting->pluck('value', 'key');
+        });
+        config('setting',setting::pluck('value','key'));
+
         permissions::get()->each(function ($permission) {
             Gate::define($permission["permission_kind"], function (admin $admin) use ($permission) {
                 if ($admin["id"] == "1") {

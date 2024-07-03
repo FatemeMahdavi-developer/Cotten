@@ -8,6 +8,7 @@ use App\Http\Requests\admin\banner_request;
 use App\Models\banner;
 use App\Trait\ResizeImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
 
 class bannerController extends Controller
@@ -19,6 +20,11 @@ class bannerController extends Controller
         $this->view = "admin.module.banner.";
         $this->module = "banner";
         $this->module_title = __("modules.module_name." . $this->module);
+
+        foreach (trans("modules.crud_authorize") as $key => $value) {
+            $authorize_name=sprintf("authorize:%s_%s",$key,$this->module);
+            $this->middleware($authorize_name)->only($value);
+        }
     }
 
     /**
@@ -60,7 +66,7 @@ class bannerController extends Controller
     {
         $module = $this->module . "_type_" . $request->type;
         $pic = $this->upload_file($module, 'pic');
-        $pic_mobile='';
+        $pic_mobile = '';
         if ($request->type == '1') {
             $pic_mobile = $this->upload_file($module, 'pic_mobile');
         }
@@ -79,6 +85,7 @@ class bannerController extends Controller
      */
     public function edit(string $id)
     {
+
         $banner = banner::find($id);
         $banner_kind = trans('common.banner_kind');
         $open_type = trans('common.open_type');
@@ -100,7 +107,7 @@ class bannerController extends Controller
         $pic = $this->upload_file($module, 'pic');
         $inputs = $request->validated();
         $inputs['pic'] = $pic;
-        $pic_mobile='';
+        $pic_mobile = '';
         if ($request->type == '1') {
             $pic_mobile = $this->upload_file($module, 'pic_mobile');
         }
@@ -116,7 +123,7 @@ class bannerController extends Controller
      */
     public function destroy(string $id)
     {
-        banner::where('id', $id)->where('admin_id', '1')->delete();
+        banner::where('id', $id)->delete();
         return true;
     }
 

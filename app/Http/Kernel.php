@@ -3,7 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\access_comment;
-use App\Http\Middleware\CheckPermissionModule;
+use App\Http\Middleware\Authorization;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -24,6 +24,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+//        Authorization::class
     ];
 
     /**
@@ -75,7 +76,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'access'=>access_comment::class,
-        'PermissionModule'=>CheckPermissionModule::class
+        'authorize'=>Authorization::class
     ];
-
 }

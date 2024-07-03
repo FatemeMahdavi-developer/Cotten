@@ -24,10 +24,8 @@
                                             @component($prefix_component."input_hidden",['value'=>$news_cat['id']])@endcomponent
                                             @component($prefix_component."input",['name'=>'title','title'=>'عنوان','value'=>$news_cat["title"],'class'=>'w-50'])@endcomponent
                                             @component($prefix_component."select_recursive",['name'=>'catid','options'=>$news_cats,'label'=>'دسته بندی','first_option'=>'دسته بندی اصلی', 'sub_method'=>'sub_cats','value'=>$news_cat["catid"]])@endcomponent
-                                            @component($prefix_component."upload_file",['name'=>'pic','title'=>'تصویر','value'=>$news_cat['pic'],'class'=>'w-50','module'=>$module])@endcomponent
-                                            @component($prefix_component."input",['name'=>'alt_pic','title'=>'alt تصویر','value'=>$news_cat["alt_pic"],'class'=>'w-50'])@endcomponent
                                             @component($prefix_component."upload_file",['name'=>'pic_banner','title'=>'تصویر بنر','value'=>$news_cat['pic_banner'],'class'=>'w-50','module'=>$module])@endcomponent
-                                            @component($prefix_component."input",['name'=>'alt_pic_banner','title'=>'alt تصویر بنر','value'=>$news_cat["alt_pic_banner"],'class'=>'w-50'])@endcomponent
+                                            @component($prefix_component."input",['name'=>'alt_pic','title'=>'alt تصویر','value'=>$news_cat["alt_pic"],'class'=>'w-50'])@endcomponent
                                         @endslot
                                     @endcomponent
                                     @component($prefix_component."button",['title'=>'ارسال'])@endcomponent

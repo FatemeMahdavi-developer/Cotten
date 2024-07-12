@@ -4,6 +4,7 @@ namespace App\Http\Requests\admin;
 
 use App\Rules\subid_in_catid;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
 
 class news_cat_request extends FormRequest
 {
@@ -13,7 +14,11 @@ class news_cat_request extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        if(Gate::any(["create_news_cat","update_news_cat"])){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**

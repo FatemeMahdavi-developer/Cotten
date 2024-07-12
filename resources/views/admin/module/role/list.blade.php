@@ -25,7 +25,9 @@
                                                         <th scope="col">ردیف</th>
                                                         <th scope="col">عنوان</th>
                                                         <th scope="col">تاریخ</th>
-                                                        <th scope="col">عملیات</th>
+                                                        @canany(["delete_role","update_role"])
+                                                            <th scope="col">عملیات</th>
+                                                        @endcan
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -36,18 +38,22 @@
                                                             <td>{{$role["title"]}}</td>
                                                             <td>{{$role->date_convert()}}</td>
                                                             <td>
+                                                                @can("update_role")
                                                                 <a href="{{route("admin.role.edit",['role'=>$role['id']])}}" class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a>
+                                                                @endcan
+                                                                @can("delete_role")
                                                                 <a href="javascript:void(0)" data-href="{{route("admin.role.destroy",['role'=>$role['id']])}}" class="btn btn-danger btn-sm delete"><i class="fas fa-trash"></i></a>
-                                       
+                                                                @endcan
                                                             </td>
                                                         </tr>
                                                     @endforeach
-
                                                     </tbody>
                                                 </table>
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <div class="col-5">
-                                                        <button class="btn btn-danger btn-sm" type="submit" name="action_all" value="delete_all">حذف کلی</button>
+                                                        @can("delete_role")
+                                                            <button class="btn btn-danger btn-sm" type="submit" name="action_all" value="delete_all">حذف کلی</button>
+                                                        @endcan
                                                     </div>
                                                     <div class="col-7 d-flex justify-content-end">
                                                         {{$roles->links()}}

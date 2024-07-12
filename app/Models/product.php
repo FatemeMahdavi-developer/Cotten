@@ -72,15 +72,20 @@ class product extends Model
         return $builder;
     }
 
-    public function scopeSiteFilter(Builder $builder)
+    public function scopeSiteFilter(Builder $builder,$params)
     {
         $builder->where('state', '1')->orderByRaw("`order` ASC, `id` DESC")->with(['product_cat'])->select(['title','note','pic','price','catid','alt_pic','seo_url']);
         if (!empty(request()->has('keyword'))) {
-            $builder->where('title', 'like', '%' . request()->get('keyword') . '%')
-                ->orWhere('seo_keyword', 'LIKE', '%'.request()->get('keyword') .'%')
-                ->orWhere('seo_description', 'LIKE', '%'.request()->get('keyword') .'%')
-                ->orWhere('note', 'LIKE', '%'.request()->get('keyword') .'%')
-                ->orWhere('note_more', 'LIKE', '%'.request()->get('keyword') .'%');
+            $builder->where('title', 'like', '%' . $params['keyword'] . '%')
+                ->orWhere('seo_keyword', 'LIKE', '%'.$params['keyword'] .'%')
+                ->orWhere('seo_description', 'LIKE', '%'.$params['keyword'].'%')
+                ->orWhere('note', 'LIKE', '%'.$params['keyword'].'%')
+                ->orWhere('note_more', 'LIKE', '%'.$params['keyword'].'%');
+        }
+        if(isset($params['catid'])){
+            
+            $builder->whereIn('catid',$params['catid']);
+            // dd($params['catid']);
         }
         return $builder;
     }

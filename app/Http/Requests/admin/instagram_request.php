@@ -12,10 +12,11 @@ class instagram_request extends FormRequest
      */
     public function authorize(): bool
     {
-        if(Gate::allows("create_instagram")){
+        if(Gate::any(["create_instagram","update_instagram"])){
             return true;
+        }else{
+            return false;
         }
-        return false;
     }
 
 

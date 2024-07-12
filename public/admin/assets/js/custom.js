@@ -177,3 +177,10 @@ function change_province(url,val_province){
         }
     })
 }
+
+$(document).ready(function (){
+    $(".variables a").click(function (){
+        var textarea=$(this).parent().parent().find("textarea");
+        textarea.val(textarea.val()+$(this).text())
+    })
+})

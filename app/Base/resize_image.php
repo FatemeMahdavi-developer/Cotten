@@ -7,6 +7,9 @@ function resize_image()
                 [
                     '100' => '100',
                 ],
+                [
+                    '30' => '30',
+                ],
             ]
         ],
         'news_cat' => [

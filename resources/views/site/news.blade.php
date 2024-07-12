@@ -81,7 +81,7 @@
                 <form id="form_news" method="get">
                     <div class="row row-filter">
                         <div class="col-xl-4 col-lg-4 col-md-5 col-sm-5 col-12">
-                            <select id="catid" class="select-box-select2 catid">
+                            <select id="catid" class="catid select2 selectNews">
                                 <option value="{{route('news.index')}}">انتخاب کنید</option>
                                 @foreach($news_cats as $item)
                                     <option value="{{$item['url']}}"

@@ -29,7 +29,9 @@
                                                         <th scope="col">وضعیت</th>
                                                         <th scope="col">ترتیب</th>
                                                         <th scope="col">تاریخ</th>
+                                                        @canany(["delete_news_cat","update_news_cat"])
                                                         <th scope="col">عملیات</th>
+                                                        @endcan
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -44,8 +46,12 @@
                                                             <td><input type="text" value="{{$news_cat["order"]}}" class="input-order" name="order[{{$news_cat['id']}}]"></td>
                                                             <td>{{$news_cat->date_convert()}}</td>
                                                             <td>
+                                                                @can("update_news_cat")
                                                                 <a href="{{route("admin.news_cat.edit",['news_cat'=>$news_cat['id']])}}" class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a>
+                                                                @endcan
+                                                                @can("delete_news_cat")
                                                                 <a href="javascript:void(0)" data-href="{{route("admin.news_cat.destroy",['news_cat'=>$news_cat['id']])}}" class="btn btn-danger btn-sm delete"><i class="fas fa-trash"></i></a>
+                                                                @endcan
                                                                 <a href="?catid={{$news_cat['id']}}" class="btn btn-primary btn-sm">زیر بخش :<span class="badge badge-transparent">{{$news_cat->sub_cats()->count()}}</span></a>
                                                             </td>
                                                         </tr>
@@ -55,7 +61,9 @@
                                                 </table>
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <div class="col-5">
-                                                        <button class="btn btn-danger btn-sm" type="submit" name="action_all" value="delete_all">حذف کلی</button>
+                                                        @can("delete_news_cat")
+                                                            <button class="btn btn-danger btn-sm" type="submit" name="action_all" value="delete_all">حذف کلی</button>
+                                                        @endcan
                                                         <button class="btn btn-success btn-sm" type="submit" name="action_all" value="change_state">تفییر وضعیت</button>
                                                         <button class="btn btn-primary btn-sm" type="submit" name="action_all" value="change_order">تفییر ترتیب</button>
                                                     </div>

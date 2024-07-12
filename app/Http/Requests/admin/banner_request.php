@@ -3,6 +3,7 @@
 namespace App\Http\Requests\admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
 
 class banner_request extends FormRequest
 {
@@ -11,7 +12,14 @@ class banner_request extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        // show all Gate
+        // $gates =Gate::abilities();
+
+        if(Gate::any(["create_banner","update_banner"])){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**

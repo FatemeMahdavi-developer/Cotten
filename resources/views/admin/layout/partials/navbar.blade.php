@@ -14,18 +14,21 @@
             </li>
         </ul>
     </div>
-    <ul class="navbar-nav navbar-right">
+    {{-- <ul class="navbar-nav navbar-right">
         <li class="dropdown">
-            <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                <img alt="تصویر" src="{{asset("admin/assets/img/user.png")}}" class="user-img-radious-style">
-                <span class="d-sm-none d-lg-inline-block"></span>
+            <a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg nav-link-use">
+                @if(auth()->user()->pic)
+                <img src="{{asset("upload/thumb2/".auth()->user()->pic)}}" class="user-img-radious-style">
+                @else
+                <img src="{{asset("admin/assets/img/user.jpg")}}" class="user-img-radious-style" style="border: 1px solid #acacac">
+                @endif
             </a>
-            <div class="dropdown-menu dropdown-menu-right pullDown">
-                <a href="{{route("admin.auth.logout")}}" class="dropdown-item has-icon text-danger"> <i
-                        class="fas fa-sign-out-alt"></i>
-                    خروج
+          <div class="dropdown-menu  dropdown-menu-right pullDown" style="width:100px">
+                <a href="{{route("admin.auth.logout")}}" class="dropdown-item has-icon text-danger">
+                     <i class="fas fa-sign-out-alt"></i>
+                  خروج
                 </a>
-            </div>
+          </div>
         </li>
-    </ul>
+    </ul> --}}
 </nav>

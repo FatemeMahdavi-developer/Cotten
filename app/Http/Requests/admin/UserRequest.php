@@ -4,6 +4,7 @@ namespace App\Http\Requests\admin;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
 
 class UserRequest extends FormRequest
 {
@@ -12,7 +13,11 @@ class UserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        if(Gate::any(["create_user","update_user"])){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**

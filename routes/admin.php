@@ -24,13 +24,13 @@ use App\Http\Controllers\admin\photo_controller;
 use App\Http\Controllers\admin\submenu_controller;
 use App\Http\Controllers\admin\video_cat_controller;
 use App\Http\Controllers\admin\video_controller;
+use Illuminate\Support\Facades\Redirect;
 use \Illuminate\Support\Facades\Route;
 
 include "auth_admin.php";
 
-
 Route::middleware("auth:admin")->group(function () {
-
+    // Route::redirect('/','admindashboard/base');
     Route::view("/base", "admin.layout.base")->name("admin.base");
     Route::view("/error", "admin.layout.errors.404")->name("admin.error404");
     Route::post("province_city", province_city_controller::class)->name("province_city");

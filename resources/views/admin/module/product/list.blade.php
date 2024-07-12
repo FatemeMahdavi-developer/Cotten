@@ -31,7 +31,9 @@
                                                         <th scope="col">نمایش در صفحه اصلی</th>
                                                         <th scope="col">تاریخ نمایش</th>
                                                         <th scope="col">تاریخ</th>
+                                                        @canany(["delete_product","update_product","read_content"])
                                                         <th scope="col">عملیات</th>
+                                                        @endcan
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -52,13 +54,19 @@
                                                             <td>{{$item->date_convert('validity_date')}}</td>
                                                             <td>{{$item->date_convert()}}</td>
                                                             <td>
+                                                                @can("update_product")
                                                                 <a href="{{route("admin.product.edit",['product'=>$item['id']])}}" class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a>
+                                                                @endcan
+                                                                @can("delete_product")
                                                                 <a href="javascript:void(0)" data-href="{{route("admin.product.destroy",['product'=>$item['id']])}}" class="btn btn-danger btn-sm delete">
                                                                     <i class="fas fa-trash"></i>
                                                                 </a>
-                                                                <a href="{{route("admin.content.create",['item_id'=>$item['id'],'module'=>'product'])}}" class="btn btn-primary btn-sm">افزودن محتوا
+                                                                @endcan
+                                                                @can("read_content")
+                                                                <a href="{{route("admin.content.list",['item_id'=>$item['id'],'module'=>'product'])}}" class="btn btn-primary btn-sm"> محتوا
                                                                     <span class="badge badge-transparent">{{$item->content()->count()}}</span></a>
                                                                 </a>
+                                                                @endcan
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -66,15 +74,11 @@
                                                 </table>
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <div class="col-5">
-                                                        <button class="btn btn-danger btn-sm" type="submit"
-                                                                name="action_all" value="delete_all">حذف کلی
-                                                        </button>
-                                                        <button class="btn btn-success btn-sm" type="submit"
-                                                                name="action_all" value="change_state">تفییر وضعیت
-                                                        </button>
-                                                        <button class="btn btn-primary btn-sm" type="submit"
-                                                                name="action_all" value="change_order">تفییر ترتیب
-                                                        </button>
+                                                        @can("delete_product")
+                                                        <button class="btn btn-danger btn-sm" type="submit" name="action_all" value="delete_all">حذف کلی</button>
+                                                        @endcan
+                                                        <button class="btn btn-success btn-sm" type="submit" name="action_all" value="change_state">تفییر وضعیت </button>
+                                                        <button class="btn btn-primary btn-sm" type="submit" name="action_all" value="change_order">تفییر ترتیب</button>
                                                         <br>
                                                         <br>
                                                         @component($prefix_component."state_type",['title'=>' صفحه اصلی','name'=>'state_main'])@endcomponent

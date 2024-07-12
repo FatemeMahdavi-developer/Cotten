@@ -11,8 +11,9 @@
                     <div class="card">
                         <div class="card-header d-flex justify-content-between  ">
                             <h4>{{$module_name}}</h4>
-                            <a href="{{route("admin.content.create",['item_id'=>$item_id,'module'=>$module_type])}}"
-                               class="btn btn-primary btn-sm">محتوای جدید</a>
+                            @can("create_content")
+                                <a href="{{route("admin.content.create",['item_id'=>$item_id,'module'=>$module_type])}}" class="btn btn-primary btn-sm">محتوای جدید</a>
+                            @endcan
                         </div>
                         <div class="card-body">
                             @if(isset($content[0]))
@@ -31,15 +32,15 @@
                                                         <th scope="col">ترتیب</th>
                                                         <th scope="col">وضعیت نمایش</th>
                                                         <th scope="col">تاریخ</th>
-                                                        <th scope="col">عملیات</th>
+                                                        @canany(["delete_content","update_content"])
+                                                            <th scope="col">عملیات</th>
+                                                        @endcan
                                                     </tr>
                                                     </thead>
                                                     <tbody>
                                                     @foreach($content as $item)
                                                         <tr>
-                                                            <td><input type="checkbox" class="checkbox_item"
-                                                                                   name="item[]"
-                                                                                   value="{{$item['id']}}"></td>
+                                                            <td><input type="checkbox" class="checkbox_item" name="item[]" value="{{$item['id']}}"></td>
                                                             <td>{{ $loop->iteration + $content->firstItem() - 1 }}
                                                             <td>{{ $item['title'] }}</td>
                                                             <td>مدیر اصلی</td>
@@ -50,8 +51,12 @@
                                                             </td>
                                                             <td>{{$item->date_convert()}}</td>
                                                             <td>
-                                                                <a href="{{route("admin.content.edit",['item_id'=>$item["id"],'module'=>$module_type])}}" class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a>
-                                                                <a href="javascript:void(0)" data-href="{{route('admin.content.destroy',['item_id'=>$item["id"],'module'=>$module_type])}}" class="btn btn-danger btn-sm delete"><i class="fas fa-trash"></i></a>
+                                                                @can("update_content")
+                                                                    <a href="{{route("admin.content.edit",['item_id'=>$item["id"],'module'=>$module_type])}}" class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a>
+                                                                @endcan
+                                                                @can("delete_content")
+                                                                    <a href="javascript:void(0)" data-href="{{route('admin.content.destroy',['item_id'=>$item["id"],'module'=>$module_type])}}" class="btn btn-danger btn-sm delete"><i class="fas fa-trash"></i></a>
+                                                                @endcan
                                                             </td>
                                                         <tr>
                                                     @endforeach
@@ -60,15 +65,11 @@
                                                 </table>
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <div class="col-5">
-                                                        <button class="btn btn-danger btn-sm" type="submit"
-                                                                name="action_all" value="delete_all">حذف کلی
-                                                        </button>
-                                                        <button class="btn btn-success btn-sm" type="submit"
-                                                                name="action_all" value="change_state">تفییر وضعیت
-                                                        </button>
-                                                        <button class="btn btn-primary btn-sm" type="submit"
-                                                                name="action_all" value="change_order">تفییر ترتیب
-                                                        </button>
+                                                        @can("delete_content")
+                                                            <button class="btn btn-danger btn-sm" type="submit" name="action_all" value="delete_all">حذف کلی</button>
+                                                        @endcan
+                                                        <button class="btn btn-success btn-sm" type="submit" name="action_all" value="change_state">تفییر وضعیت</button>
+                                                        <button class="btn btn-primary btn-sm" type="submit" name="action_all" value="change_order">تفییر ترتیب</button>
                                                     </div>
                                                     <div class="col-7 d-flex justify-content-end">
                                                         {{$content->links()}}

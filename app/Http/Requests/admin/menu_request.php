@@ -4,6 +4,7 @@ namespace App\Http\Requests\admin;
 
 use App\Rules\subid_in_catid;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
 
 class menu_request extends FormRequest
 {
@@ -12,7 +13,11 @@ class menu_request extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        if(Gate::any(["create_menu","update_menu"])){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**

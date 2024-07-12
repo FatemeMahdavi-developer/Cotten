@@ -30,7 +30,9 @@
                                                         <th scope="col">وضعیت نمایش</th>
                                                         {{-- <th scope="col">نمایش در صفحه اصلی</th> --}}
                                                         <th scope="col">تاریخ</th>
+                                                        @canany(["delete_video","update_video"])
                                                         <th scope="col">عملیات</th>
+                                                        @endcan
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -50,10 +52,12 @@
                                                             </td> --}}
                                                             <td>{{$item->date_convert()}}</td>
                                                             <td>
+                                                                @can("update_video")
                                                                 <a href="{{route("admin.video.edit",['video'=>$item['id']])}}" class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a>
-                                                                <a href="javascript:void(0)" data-href="{{route("admin.video.destroy",['video'=>$item['id']])}}" class="btn btn-danger btn-sm delete">
-                                                                    <i class="fas fa-trash"></i>
-                                                                </a>
+                                                                @endcan
+                                                                @can("delete_video")
+                                                                <a href="javascript:void(0)" data-href="{{route("admin.video.destroy",['video'=>$item['id']])}}" class="btn btn-danger btn-sm delete"><i class="fas fa-trash"></i></a>
+                                                                @endcan
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -61,9 +65,9 @@
                                                 </table>
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <div class="col-5">
-                                                        <button class="btn btn-danger btn-sm" type="submit"
-                                                                name="action_all" value="delete_all">حذف کلی
-                                                        </button>
+                                                        @can("delete_video")
+                                                            <button class="btn btn-danger btn-sm" type="submit" name="action_all" value="delete_all">حذف کلی</button>
+                                                        @endcan
                                                         <button class="btn btn-success btn-sm" type="submit"
                                                                 name="action_all" value="change_state">تفییر وضعیت
                                                         </button>

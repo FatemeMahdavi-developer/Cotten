@@ -18,7 +18,6 @@
                                     @slot("tabContent0")
                                         @component($prefix_component."form",['action'=>route('admin.news.action_all')])
                                             @slot("content")
-
                                                 <table class="table text-center">
                                                     <thead>
                                                     <tr>
@@ -32,7 +31,9 @@
                                                         <th scope="col">نمایش در صفحه اصلی</th>
                                                         <th scope="col">تاریخ نمایش</th>
                                                         <th scope="col">تاریخ</th>
+                                                        @canany(["delete_news","update_news","read_content"])
                                                         <th scope="col">عملیات</th>
+                                                        @endcan
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -54,16 +55,16 @@
                                                             <td>{{$item->date_convert()}}</td>
                                                             <td>
                                                                 @can("update_news")
-                                                                <a href="{{route("admin.news.edit",['news'=>$item['id']])}}" class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a>
+                                                                    <a href="{{route("admin.news.edit",['news'=>$item['id']])}}" class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a>
                                                                 @endcan
                                                                 @can("delete_news")
-                                                                <a href="javascript:void(0)" data-href="{{route("admin.news.destroy",['news'=>$item['id']])}}" class="btn btn-danger btn-sm delete">
-                                                                    <i class="fas fa-trash"></i>
-                                                                </a>
+                                                                    <a href="javascript:void(0)" data-href="{{route("admin.news.destroy",['news'=>$item['id']])}}" class="btn btn-danger btn-sm delete"><i class="fas fa-trash"></i></a>
                                                                 @endcan
-                                                                <a href="{{route("admin.content.create",['item_id'=>$item['id'],'module'=>'news'])}}" class="btn btn-primary btn-sm">افزودن محتوا
+                                                                @can("read_content")
+                                                                <a href="{{route("admin.content.list",['item_id'=>$item['id'],'module'=>'news'])}}" class="btn btn-primary btn-sm"> محتوا
                                                                     <span class="badge badge-transparent">{{$item->content()->count()}}</span></a>
                                                                 </a>
+                                                                @endcan
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -72,17 +73,13 @@
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <div class="col-5">
                                                         @can("delete_news")
-                                                        <button class="btn btn-danger btn-sm" type="submit"
-                                                                name="action_all" value="delete_all">حذف کلی
-                                                        </button>
+                                                        <button class="btn btn-danger btn-sm" type="submit" name="action_all" value="delete_all">حذف کلی</button>
                                                         @endcan
-                                                        @can("read_news")
-                                                            <button class="btn btn-success btn-sm" type="submit" name="action_all" value="change_state">تفییر وضعیت </button>
-                                                            <button class="btn btn-primary btn-sm" type="submit" name="action_all" value="change_order">تفییر ترتیب </button>
-                                                            <br>
-                                                            <br>
-                                                            @component($prefix_component."state_type",['title'=>' صفحه اصلی','name'=>'state_main'])@endcomponent
-                                                        @endcan
+                                                        <button class="btn btn-success btn-sm" type="submit" name="action_all" value="change_state">تفییر وضعیت </button>
+                                                        <button class="btn btn-primary btn-sm" type="submit" name="action_all" value="change_order">تفییر ترتیب </button>
+                                                        <br>
+                                                        <br>
+                                                        @component($prefix_component."state_type",['title'=>' صفحه اصلی','name'=>'state_main'])@endcomponent
                                                     </div>
                                                     <div class="col-7 d-flex justify-content-end">
                                                         {{$news->links()}}
@@ -106,8 +103,6 @@
                             @else
                                 <div class="alert alert-danger">{{__('common.messages.result_not_found')}}</div>
                             @endif
-
-
                         </div>
                     </div>
                 </div>

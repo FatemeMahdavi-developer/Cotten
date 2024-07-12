@@ -27,7 +27,9 @@
                                                         <th scope="col">عنوان</th>
                                                         <th scope="col">ادمین</th>
                                                         <th scope="col">تاریخ</th>
+                                                        @canany(["delete_permission","update_permission"])
                                                         <th scope="col">عملیات</th>
+                                                        @endcan
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -40,17 +42,22 @@
                                                             <td>{{$permission->admin->fullname}}</td>
                                                             <td>{{$permission->date_convert()}}</td>
                                                             <td>
+                                                                @can("update_permission")
                                                                 <a href="{{route("admin.permission.edit",['permission'=>$permission['id']])}}" class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a>
+                                                                @endcan
+                                                                @can("delete_permission")
                                                                 <a href="javascript:void(0)" data-href="{{route("admin.permission.destroy",['permission'=>$permission['id']])}}" class="btn btn-danger btn-sm delete"><i class="fas fa-trash"></i></a>
+                                                                @endcan
                                                             </td>
                                                         </tr>
                                                     @endforeach
-
                                                     </tbody>
                                                 </table>
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <div class="col-5">
+                                                        @can("delete_permission")
                                                         <button class="btn btn-danger btn-sm" type="submit" name="action_all" value="delete_all">حذف کلی</button>
+                                                        @endcan
                                                     </div>
                                                     <div class="col-7 d-flex justify-content-end">
                                                         {{$permissions->links()}}
@@ -63,7 +70,6 @@
                                     @slot("tabContent1")
                                         @component($prefix_component."form",['method'=>'get'])
                                             @slot("content")
-
                                                 @component($prefix_component."input",['name'=>'name','title'=>'عنوان','value'=>request()->get("name"),'class'=>'w-50'])@endcomponent
                                                 <div class="my-3">
                                                     @component($prefix_component."button",['title'=>'جستجو'])@endcomponent

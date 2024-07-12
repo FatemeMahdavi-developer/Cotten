@@ -13,7 +13,6 @@
                             <h4>{{$module_name}}</h4>
                         </div>
                         <div class="card-body">
-
                             @if(isset($banners[0]))
                                 @component($prefix_component."navtab",['number'=>2,'titles'=>['لیست','جستجو']])
                                     @slot("tabContent0")
@@ -29,32 +28,29 @@
                                                         <th scope="col">وضعیت</th>
                                                         <th scope="col">ترتیب</th>
                                                         <th scope="col">تاریخ</th>
-                                                        <th scope="col">عملیات</th>
+                                                        @canany(["delete_banner","update_banner"])
+                                                            <th scope="col">عملیات</th>
+                                                        @endcan
                                                     </tr>
                                                     </thead>
                                                     <tbody>
                                                     @foreach($banners as $banner)
                                                         <tr>
-                                                            <th scope="row"><input type="checkbox" name="item[]"
-                                                                                   class="checkbox_item"
-                                                                                   value="{{$banner['id']}}"></th>
+                                                            <th scope="row"><input type="checkbox" name="item[]" class="checkbox_item"  value="{{$banner['id']}}"></th>
                                                             <td>{{ $loop->iteration + $banners->firstItem() - 1 }}
                                                             </td>
                                                             <td>{{$banner["title"]}}</td>
                                                             <td>{{$banner["type_name"]}}</td>
                                                             <td>@component($prefix_component."state_style",['id'=>$banner["id"],"column"=>'state','state'=>$banner["state"]])@endcomponent</td>
-                                                            <td><input type="text" value="{{$banner["order"]}}"
-                                                                       class="input-order"
-                                                                       name="order[{{$banner['id']}}]"></td>
+                                                            <td><input type="text" value="{{$banner["order"]}}" class="input-order" name="order[{{$banner['id']}}]"></td>
                                                             <td>{{$banner->date_convert()}}</td>
                                                             <td>
-                                                                <a href="{{route("admin.banner.edit",['banner'=>$banner['id']])}}"
-                                                                   class="btn btn-success btn-sm"><i
-                                                                        class="fas fa-edit"></i></a>
-                                                                <a href="javascript:void(0)"
-                                                                   data-href="{{route("admin.banner.destroy",['banner'=>$banner['id']])}}"
-                                                                   class="btn btn-danger btn-sm delete"><i
-                                                                        class="fas fa-trash"></i></a>
+                                                                @can("update_banner")
+                                                                <a href="{{route("admin.banner.edit",['banner'=>$banner['id']])}}" class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a>
+                                                                @endcan
+                                                                @can("delete_banner")
+                                                                <a href="javascript:void(0)" data-href="{{route("admin.banner.destroy",['banner'=>$banner['id']])}}" class="btn btn-danger btn-sm delete"><i class="fas fa-trash"></i></a>
+                                                                @endcan
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -63,9 +59,10 @@
                                                 </table>
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <div class="col-5">
-                                                        <button class="btn btn-danger btn-sm" type="submit"
-                                                                name="action_all" value="delete_all">حذف کلی
+                                                        @can("delete_banner")
+                                                        <button class="btn btn-danger btn-sm" type="submit" name="action_all" value="delete_all">حذف کلی
                                                         </button>
+                                                        @endcan
                                                         <button class="btn btn-success btn-sm" type="submit"
                                                                 name="action_all" value="change_state">تفییر وضعیت
                                                         </button>

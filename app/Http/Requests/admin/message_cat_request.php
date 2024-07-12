@@ -3,6 +3,7 @@
 namespace App\Http\Requests\admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
 
 class message_cat_request extends FormRequest
 {
@@ -11,7 +12,11 @@ class message_cat_request extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        if(Gate::any(["create_message_cat","update_message_cat"])){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**

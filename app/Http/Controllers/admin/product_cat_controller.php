@@ -20,6 +20,11 @@ class product_cat_controller extends Controller
         $this->module = "product_cat";
         $this->view = "admin.module.".$this->module.".";
         $this->module_title = __("modules.module_name." . $this->module);
+
+        foreach (trans("modules.crud_authorize") as $key => $value) {
+            $authorize_name=sprintf("authorize:%s_%s",$key,$this->module);
+            $this->middleware($authorize_name)->only($value);
+        }
     }
 
     /**

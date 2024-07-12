@@ -1,6 +1,6 @@
 @props(['column'=>'','id'=>'','state'=>'','class'=>'success','title'=>''])
-@php $module=explode("/",url()->current()) @endphp
-@can("read_".end($module))
+{{-- @php $module=explode("/",url()->current()) @endphp
+@can("read_".end($module)) --}}
 <div class="pretty p-switch">
     <input type="checkbox" class="state_checkbox"
            data-column="{{$column}}"
@@ -10,6 +10,6 @@
         <label>{{$title}}</label>
     </div>
 </div>
-@else
+{{-- @else
 <div class="btn btn-sm @if($state=='1') btn-success @else btn-danger @endif">{{trans("common.state")[$state]}}</div>
-@endcan
+@endcan --}}

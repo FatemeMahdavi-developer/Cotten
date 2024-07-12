@@ -64,6 +64,10 @@ class product_cat extends Model
         return $builder;
     }
 
+    // public function breadcrumb(){
+    //     return product_cat::where('catid',$this->catid)->parents()->where('state','1');
+    // }
+
     public function product(){
         return $this->hasMany(product::class,'catid');
     }

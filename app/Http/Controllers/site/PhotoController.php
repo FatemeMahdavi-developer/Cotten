@@ -22,13 +22,17 @@ class PhotoController extends Controller
         $gallery_cats=gallery_cat::where(['kind'=>'1','catid'=>'0','state'=>'1'])
             ->orderByRaw("`order` ASC, `id` DESC")
             ->get();
-        if ($photo_cat != null) {
+        if ($photo_cat instanceof gallery_cat) {
+
             $gallery_cats=gallery_cat::where(['kind'=>'1','catid'=>$photo_cat->id,'state'=>'1'])
                 ->with('sub_cats_site')
                 ->orderByRaw("`order` ASC, `id` DESC")
                 ->get();
+
             $gallery=$photo_cat->gallery()->siteFilter()->get();
+
             $breadcrumb=$photo_cat->parents()->where('state','1');
+
             if (!$photo_cat->state){
                 abort(404);
             }

@@ -30,7 +30,9 @@
                                         <th scope="col">نمایش در صفحه اصلی</th>
                                         <th scope="col">ترتیب</th>
                                         <th scope="col">تاریخ</th>
-                                        <th scope="col">عملیات</th>
+                                        @canany(["delete_product_cat","update_product_cat"])
+                                            <th scope="col">عملیات</th>
+                                        @endcan
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -66,7 +68,6 @@
                                         @can("delete_product_cat")
                                         <button class="btn btn-danger btn-sm" type="submit" name="action_all" value="delete_all">حذف کلی</button>
                                         @endcan
-                                        @can("read_product_cat")
                                         <button class="btn btn-success btn-sm" type="submit" name="action_all" value="change_state">تفییر وضعیت</button>
                                         <button class="btn btn-primary btn-sm" type="submit" name="action_all" value="change_order">تفییر ترتیب</button>
                                         <br>
@@ -74,7 +75,6 @@
                                         @component($prefix_component."state_type",['title'=>'منو','name'=>'state_menu','class'=>'state_menu_action','action'=>'change_state_menu'])@endcomponent
                                         <br>
                                         @component($prefix_component."state_type",['title'=>'صفحه اصلی','name'=>'state_main'])@endcomponent
-                                        @endcan
                                     </div>
                                     <div class="col-7 d-flex justify-content-end">
                                         {{$product_cats->links()}}

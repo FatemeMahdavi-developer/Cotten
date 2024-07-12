@@ -32,7 +32,9 @@
                                                         {{-- <th scope="col">نمایش در صفحه اصلی</th> --}}
                                                         <th scope="col">تاریخ نمایش</th>
                                                         <th scope="col">تاریخ</th>
-                                                        <th scope="col">عملیات</th>
+                                                        @canany(["delete_message","update_message"])
+                                                            <th scope="col">عملیات</th>
+                                                        @endcan
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -57,9 +59,7 @@
                                                                 <a href="{{route("admin.message.edit",['message'=>$item['id']])}}" class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a>
                                                                 @endcan
                                                                 @can("delete_message")
-                                                                <a href="javascript:void(0)" data-href="{{route("admin.message.destroy",['message'=>$item['id']])}}" class="btn btn-danger btn-sm delete">
-                                                                    <i class="fas fa-trash"></i>
-                                                                </a>
+                                                                <a href="javascript:void(0)" data-href="{{route("admin.message.destroy",['message'=>$item['id']])}}" class="btn btn-danger btn-sm delete"><i class="fas fa-trash"></i></a>
                                                                 @endcan
                                                             </td>
                                                         </tr>

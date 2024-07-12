@@ -4,6 +4,7 @@ namespace App\Http\Requests\admin;
 
 use App\Rules\subid_in_catid;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
 
 class product_cat_request extends FormRequest
 {
@@ -12,7 +13,11 @@ class product_cat_request extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        if(Gate::any(["create_product_cat","update_product_cat"])){
+            return true;
+        }else{
+            return false;
+        }
     }
     /**
      * Get the validation rules that apply to the request.

@@ -23,26 +23,31 @@ class productController extends Controller
     {
         $module_title=$this->module_title;
         $breadcrumb=[];
+        $params=request()->all();
 
         $product_cats = product_cat::where(['catid'=>'0','state'=>'1'])
             ->with('sub_cats_site')
             ->orderByRaw("`order` ASC, `id` DESC")
             ->get();
 
-        $product = product::siteFilter()
-            ->paginate(5)
-            ->withQueryString();
+       
 
         if ($product_cat != null) {
             if (!$product_cat->state){
                 abort(404);
             }
+            $breadcrumb=$product_cat->parents()->where('state','1');
+            $params['catid']=$breadcrumb->pluck('id')->toArray();
+
             $product=$product_cat->product()
-                ->siteFilter()
+                ->siteFilter($params)
                 ->paginate(5)
                 ->withQueryString();
 
-            $breadcrumb=$product_cat->parents()->where('state','1');
+        }else{
+            $product = product::siteFilter($params)
+            ->paginate(5)
+            ->withQueryString();
         }
 
         return view('site.product', compact('product_cat','product','product_cats','breadcrumb','module_title'));

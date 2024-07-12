@@ -28,25 +28,29 @@
                                                         <th scope="col">وضعیت</th>
                                                         <th scope="col">ایمیل</th>
                                                         <th scope="col">تاریخ عضویت</th>
-                                                        <th scope="col">عملیات</th>
+                                                        @canany(["delete_user","update_user"])
+                                                            <th scope="col">عملیات</th>
+                                                        @endcan
                                                     </tr>
                                                     </thead>
                                                     <tbody>
                                                     @foreach($users as $user)
                                                         <tr>
-                                                            <th scope="row"><input type="checkbox" name="item[]"
-                                                                                   class="checkbox_item"
-                                                                                   value="{{$user['id']}}"></th>
+                                                            <th scope="row"><input type="checkbox" name="item[]" class="checkbox_item" value="{{$user['id']}}"></th>
                                                             <td>{{ $loop->iteration + $users->firstItem() - 1 }}
                                                             <td>{{ $user["name"] . " ". $user["lastname"] }}</td>
                                                             <td>@component($prefix_component."state_style",['id'=>$user["id"],"column"=>'state','state'=>$user["state"]])@endcomponent</td>
                                                             <td>{{ $user["username"] }}</td>
                                                             <td>{{ $user->date_convert() }}</td>
                                                             <td>
+                                                                @can("update_user")
                                                                 <a href="{{route("admin.user.edit",['user'=>$user['id']])}}" class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a>
+                                                                @endcan
+                                                                @can("delete_user")
                                                                 <a href="javascript:void(0)" data-href="{{route("admin.user.destroy",['user'=>$user['id']])}}" class="btn btn-danger btn-sm delete">
                                                                     <i class="fas fa-trash"></i>
                                                                 </a>
+                                                                @endcan
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -55,13 +59,10 @@
                                                 </table>
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <div class="col-5">
-                                                        <button class="btn btn-danger btn-sm" type="submit"
-                                                                name="action_all" value="delete_all">حذف کلی
-                                                        </button>
-                                                        <button class="btn btn-success btn-sm" type="submit"
-                                                                name="action_all" value="change_state">تفییر وضعیت
-                                                        </button>
-
+                                                        @can("delete_user")
+                                                            <button class="btn btn-danger btn-sm" type="submit" name="action_all" value="delete_all">حذف کلی </button>
+                                                        @endcan
+                                                        <button class="btn btn-success btn-sm" type="submit" name="action_all" value="change_state">تفییر وضعیت</button>
                                                     </div>
                                                     <div class="col-7 d-flex justify-content-end">
                                                         {{$users->links()}}

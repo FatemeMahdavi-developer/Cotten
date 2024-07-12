@@ -27,7 +27,9 @@
                                                         <th scope="col">وضعیت</th>
                                                         <th scope="col">نمایش صفحه</th>
                                                         <th scope="col">تاریخ</th>
+                                                        @canany(["delete_page","update_page","read_content"])
                                                         <th scope="col">عملیات</th>
+                                                        @endcan
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -42,12 +44,15 @@
                                                             </td>
                                                             <td>{{$page->date_convert()}}</td>
                                                             <td>
+                                                                @can("update_page")
                                                                 <a href="{{route("admin.page.edit",['page'=>$page['id']])}}" class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a>
+                                                                @endcan
+                                                                @can("delete_page")
                                                                 <a href="javascript:void(0)" data-href="{{route("admin.page.destroy",['page'=>$page['id']])}}" class="btn btn-danger btn-sm delete"><i class="fas fa-trash"></i></a>
-                                                                <a href="{{route("admin.content.create",['item_id'=>$page['id'],'module'=>'page'])}}" class="btn btn-primary btn-sm">افزودن محتوا
-                                                                    <span
-                                                                        class="badge badge-transparent">{{$page->content()->count()}}</span></a>
-                                                                </a>
+                                                                @endcan
+                                                                @can("read_content")
+                                                                <a href="{{route("admin.content.list",['item_id'=>$page['id'],'module'=>'page'])}}" class="btn btn-primary btn-sm">محتوا<span class="badge badge-transparent">{{$page->content()->count()}}</span></a></a>
+                                                                @endcan
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -56,7 +61,9 @@
                                                 </table>
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <div class="col-5">
+                                                        @can("delete_page")
                                                         <button class="btn btn-danger btn-sm" type="submit" name="action_all" value="delete_all">حذف کلی</button>
+                                                        @endcan
                                                         <button class="btn btn-success btn-sm" type="submit" name="action_all" value="change_state">تفییر وضعیت</button>
                                                     </div>
                                                     <div class="col-7 d-flex justify-content-end">

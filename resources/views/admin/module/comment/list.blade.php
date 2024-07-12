@@ -13,7 +13,6 @@
                             <h4>{{$module_name}}</h4>
                         </div>
                         <div class="card-body">
-
                             @component($prefix_component."navtab",['number'=>2,'titles'=>['لیست','جستجو']])
                                 @slot("tabContent0")
                                     @if(isset($comment[0]))
@@ -30,22 +29,22 @@
                                                         <th scope="col">وضعیت نمایش</th>
                                                         <th scope="col">وضعیت پاسخ</th>
                                                         <th scope="col">تاریخ</th>
+                                                        @canany(["delete_comment","update_comment"])
                                                         <th scope="col">عملیات</th>
+                                                        @endcan
                                                     </tr>
                                                     </thead>
                                                     <tbody>
                                                     @foreach($comment as $item)
                                                         <tr>
-                                                            <th scope="row"><input type="checkbox" name="item[]"
-                                                                                   class="checkbox_item"
-                                                                                   value="{{$item['id']}}"></th>
+                                                            <th scope="row">
+                                                                <input type="checkbox" name="item[]" class="checkbox_item" value="{{$item['id']}}"></th>
                                                             <td>
                                                                 {{ $loop->iteration + $comment->firstItem() - 1 }}
                                                             </td>
                                                             <td>{{$item->nameModule}}</td>
                                                             <td>{{$item->commentable->title ?? ''}}</td>
-                                                            <td><a href="{{$item->commentable->url}}" target="_blank"
-                                                                   class="btn btn-primary btn-sm">مشاهده نظر</a></td>
+                                                            <td><a href="{{$item->commentable->url}}" target="_blank" class="btn btn-primary btn-sm">مشاهده نظر</a></td>
                                                             <td>
                                                                 @component($prefix_component."state_style",['id'=>$item["id"],"column"=>'state','state'=>$item["state"]])@endcomponent
                                                             </td>
@@ -54,13 +53,12 @@
                                                             </td>
                                                             <td>{{$item->date_convert('created_at')}}</td>
                                                             <td>
-                                                                <a href="{{route("admin.comment.edit",['comment'=>$item['id']])}}"
-                                                                   class="btn btn-success btn-sm"><i
-                                                                        class="fas fa-edit"></i></a>
-                                                                <a href="javascript:void(0)"
-                                                                   data-href="{{route("admin.comment.destroy",['comment'=>$item['id']])}}"
-                                                                   class="btn btn-danger btn-sm delete"><i
-                                                                        class="fas fa-trash"></i></a>
+                                                                @can("update_comment")
+                                                                    <a href="{{route("admin.comment.edit",['comment'=>$item['id']])}}"  class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a>
+                                                                @endcan
+                                                                @can("delete_comment")
+                                                                    <a href="javascript:void(0)" data-href="{{route("admin.comment.destroy",['comment'=>$item['id']])}}" class="btn btn-danger btn-sm delete"><i class="fas fa-trash"></i></a>
+                                                                @endcan
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -69,12 +67,10 @@
                                                 </table>
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <div class="col-5">
-                                                        <button class="btn btn-danger btn-sm" type="submit"
-                                                                name="action_all" value="delete_all">حذف کلی
-                                                        </button>
-                                                        <button class="btn btn-success btn-sm" type="submit"
-                                                                name="action_all" value="change_state">تفییر وضعیت
-                                                        </button>
+                                                        @can("delete_comment")
+                                                            <button class="btn btn-danger btn-sm" type="submit" name="action_all" value="delete_all">حذف کلی</button>
+                                                        @endcan
+                                                        <button class="btn btn-success btn-sm" type="submit" name="action_all" value="change_state">تفییر وضعیت</button>
                                                     </div>
                                                     <div class="col-7 d-flex justify-content-end">
                                                         {{$comment->links()}}
@@ -89,7 +85,6 @@
                                 @slot("tabContent1")
                                     @component($prefix_component."form",['method'=>'get'])
                                         @slot("content")
-
                                             @component($prefix_component."input",['name'=>'title','title'=>'عنوان','value'=>request()->get("title"),'class'=>'w-50'])@endcomponent
                                             @component($prefix_component."datepicker",['name'=>'start_time_at','title'=>'از تاریخ','value'=>request()->get('start_time_at') ?? '','class'=>'w-50'])@endcomponent
                                             @component($prefix_component."datepicker",['name'=>'end_time_at','title'=>'تا تاریخ','value'=>request()->get('end_time_at') ?? '','class'=>'w-50'])@endcomponent
@@ -103,8 +98,6 @@
                                     @endcomponent
                                 @endslot
                             @endcomponent
-
-
                         </div>
                     </div>
                 </div>

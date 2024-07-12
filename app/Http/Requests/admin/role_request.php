@@ -4,6 +4,7 @@ namespace App\Http\Requests\admin;
 
 use App\Models\permissions;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
 
 class role_request extends FormRequest
 {
@@ -12,7 +13,11 @@ class role_request extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        if(Gate::any(["create_role","update_role"])){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**

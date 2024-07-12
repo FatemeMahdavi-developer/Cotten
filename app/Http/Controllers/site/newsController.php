@@ -24,6 +24,7 @@ class newsController extends Controller
 
     public function index(news_cat $news_cat = null)
     {
+        $module=$this->module;
         $module_title=$this->module_title;
         $breadcrumb=[];
 
@@ -60,7 +61,7 @@ class newsController extends Controller
             $breadcrumb=$news_cat->parents()->where('state','1');
         }
         $seo=$this->seo_site($this->module,$news_cat);
-        return view('site.news', compact('news_cat', 'news', 'news_cats', 'hit_news','seo','breadcrumb','module_title'));
+        return view('site.news', compact('news_cat', 'news', 'news_cats', 'hit_news','seo','breadcrumb','module_title','module'));
     }
 
     public function show(Request $request, news $news)

@@ -20,6 +20,11 @@ class roleController extends Controller
         $this->view = "admin.module.role.";
         $this->module = "role";
         $this->module_title = __("modules.module_name." . $this->module);
+
+        foreach (trans("modules.crud_authorize") as $key => $value) {
+            $authorize_name=sprintf("authorize:%s_%s",$key,$this->module);
+            $this->middleware($authorize_name)->only($value);
+        }
     }
     /**
      * Display a listing of the resource.

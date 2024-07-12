@@ -28,7 +28,9 @@
                                         <th scope="col">وضعیت نمایش</th>
                                         <th scope="col">ترتیب</th>
                                         <th scope="col">تاریخ</th>
-                                        <th scope="col">عملیات</th>
+                                        @canany(["delete_message_cat","update_message_cat"])
+                                            <th scope="col">عملیات</th>
+                                        @endcan
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -63,10 +65,8 @@
                                         @can("delete_message_cat")
                                         <button class="btn btn-danger btn-sm" type="submit" name="action_all" value="delete_all">حذف کلی</button>
                                         @endcan
-                                        @can("read_message_cat")
                                         <button class="btn btn-success btn-sm" type="submit" name="action_all" value="change_state">تفییر وضعیت</button>
                                         <button class="btn btn-primary btn-sm" type="submit" name="action_all" value="change_order">تفییر ترتیب</button>
-                                        @endcan
                                     </div>
                                     <div class="col-7 d-flex justify-content-end">
                                         {{$message_cats->links()}}

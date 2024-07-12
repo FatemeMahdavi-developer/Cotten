@@ -11,7 +11,9 @@
                     <div class="card">
                         <div class="card-header d-flex justify-content-between  ">
                             <h4>{{$module_name}}</h4>
-                            <a href="{{route("admin.content.list",['item_id'=>$item_id,'module'=>$module_type])}}" class="btn btn-primary btn-sm">لیست محتوا</a>
+                            @can("read_content")
+                                <a href="{{route("admin.content.list",['item_id'=>$item_id,'module'=>$module_type])}}" class="btn btn-primary btn-sm">لیست محتوا</a>
+                            @endcan
                         </div>
                         <div class="card-body">
                             @component($prefix_component."form",['action'=>route('admin.content.store',['item_id'=>$item_id,'module'=>$module_type]),'upload_file'=>true])

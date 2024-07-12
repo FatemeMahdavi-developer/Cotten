@@ -29,7 +29,9 @@
                                                         <th scope="col">وضعیت در صفحه اصلی</th>
                                                         <th scope="col">ترتیب</th>
                                                         <th scope="col">تاریخ</th>
+                                                        @canany(["delete_instagram","update_instagram"])
                                                         <th scope="col">عملیات</th>
+                                                        @endcan
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -43,8 +45,12 @@
                                                             <td><input type="text" value="{{$post["order"]}}" class="input-order" name="order[{{$post['id']}}]"></td>
                                                             <td>{{$post->date_convert()}}</td>
                                                             <td>
+                                                                @can("update_instagram")
                                                                 <a href="{{route("admin.instagram.edit",['instagram'=>$post['id']])}}" class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a>
+                                                                @endcan
+                                                                @can("delete_instagram")
                                                                 <a href="javascript:void(0)" data-href="{{route("admin.instagram.destroy",['instagram'=>$post['id']])}}" class="btn btn-danger btn-sm delete"><i class="fas fa-trash"></i></a>
+                                                                @endcan
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -52,8 +58,10 @@
                                                     </tbody>
                                                 </table>
                                                 <div class="d-flex justify-content-between align-items-center">
-                                                    <div class="col-5">
-                                                        <button class="btn btn-danger btn-sm" type="submit" name="action_all" value="delete_all">حذف کلی</button>
+                                                    <div class="col-5">  
+                                                        @can("delete_instagram")
+                                                            <button class="btn btn-danger btn-sm" type="submit" name="action_all" value="delete_all">حذف کلی</button>
+                                                        @endcan
                                                         <button class="btn btn-success btn-sm" type="submit" name="action_all" value="change_state">تفییر وضعیت</button>
                                                         <button class="btn btn-primary btn-sm" type="submit" name="action_all" value="change_order">تفییر ترتیب</button>
                                                         <br>

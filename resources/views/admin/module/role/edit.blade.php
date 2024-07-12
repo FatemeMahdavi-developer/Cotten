@@ -22,16 +22,15 @@
                                     <div class="text text-danger">{{$errors->first('permissions')}}</div>
                                     @enderror
                                     <div class="col-12 d-flex flex-wrap">
-            
                                         @foreach($modules_permission as $key => $permissions)
-                                        <div class="col-6">
+                                        <div class="col-xl-3 col-lg-4 col-md-6">
                                             <div class="card">
-                                                <div class="card-header">
+                                                <div class="card-header" style="background:#f5f5f5;">
                                                     <h4>{{$key}}</h4>
                                                 </div>
                                                 <div class="card-body">
                                                     <div class="form-row">
-                                                        <div class="form-group mb-0 d-flex flex-wrap">
+                                                        <div class="form-group mb-0">
                                                             @foreach($permissions as $key => $value)
                                                             <div class="form-check">
                                                                 <input class="form-check-input" value="{{$value}}" type="checkbox"
@@ -45,10 +44,9 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                    </div>
+                                        </div>
                                         @endforeach
-
-                                        
+                                    </div>
                                     @component($prefix_component."button",['title'=>'ارسال'])@endcomponent
                                 @endslot
                             @endcomponent

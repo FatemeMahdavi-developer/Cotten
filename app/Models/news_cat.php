@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Trait\Breadcrumb;
 use App\Trait\date_convert;
 use App\Trait\seo;
 use Illuminate\Database\Eloquent\Builder;
@@ -14,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 class news_cat extends Model
 {
-    use HasFactory,SoftDeletes,date_convert,seo;
+    use HasFactory,SoftDeletes,date_convert,seo,Breadcrumb;
     protected $appends=['url'];
     protected $fillable=[
         'seo_title',

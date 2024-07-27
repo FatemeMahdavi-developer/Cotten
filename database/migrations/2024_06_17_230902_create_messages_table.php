@@ -16,11 +16,14 @@ return new class extends Migration
             $table->tinyInteger("lang")->default("1");
             $table->integer("admin_id")->nullable();
             $table->string("name");
-            $table->string("lastname");
             $table->string("email");
-            $table->string("catid");
-            $table->string("note");
-            $table->enum("hit",["0","1"])->default("0");
+            $table->string("mobile");
+            $table->foreignId("catid")->nullable()->constrained("message_cats")->cascadeOnUpdate()->nullOnDelete();
+            $table->text("note");
+            $table->string("ip_address");
+            $table->string("answer_title")->nullable();
+            $table->text("answer_note")->nullable();
+            $table->enum("state",["0","1"])->default("0");
             $table->timestamps();
         });
     }

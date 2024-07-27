@@ -102,7 +102,7 @@ class pagesController extends Controller
      */
     public function destroy(string $id)
     {
-        page::where('id',$id)->where('admin_id',auth()->user()->id)->delete();
+        page::where('id',$id)->delete();
         return true;
     }
 

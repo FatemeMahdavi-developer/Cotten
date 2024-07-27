@@ -29,6 +29,16 @@ function toaste(type_icon,msg,timer=1000){
         title: msg
     });
 }
+$(".input-order").keydown(function (event) {
+    // 13 is the keycode for Enter key
+    if (event.which === 13) {
+        event.preventDefault(); // Prevent default action of Enter key
+        return false; // Prevent further propagation
+    }
+});
+
+
+
 $(".delete").click(function () {
     var href = $(this).data("href")
     Swal.fire({

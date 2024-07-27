@@ -17,12 +17,13 @@ class commentController extends Controller
         $validation=Validator::make($request->all(),[
             'note'=>'required|string',
         ]);
+
         if($validation->fails()){
             return response()->json($validation->errors());
         }
 
         $model = self::model($type);
-        $commentable = $model::findOrFail($module_id);
+        $commentable=$model::findOrFail($module_id);
         $commentable->comment()->create([
             'note'=>$request->note,
             'ip_address'=>request()->ip(),

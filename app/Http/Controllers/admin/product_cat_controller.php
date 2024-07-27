@@ -111,7 +111,6 @@ class product_cat_controller extends Controller
      */
     public function destroy(string $id)
     {
-        // where('admin_id',auth()->user()->id)
         product_cat::where('id',$id)->delete();
         return true;
     }

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class menu extends Model
 {
@@ -33,14 +34,15 @@ class menu extends Model
         return !empty($this->alt_pic) ? $this->alt_pic : $this->title;
     }
 
-
     public function getTypeNameAttribute()
     {
         return trans('common.menu_kind')[$this->type];
     }
 
     public function getLinkAttribute(){
+        //LaravelLocalization::localizeUrl  => support multi language
         if($this->select_page=='1'){
+            // return LaravelLocalization::localizeUrl('/pages/'.$this->pages);
             return '/pages/'.$this->pages;
         }elseif($this->url=='#'){
             return "javascript:void(0)";
@@ -48,6 +50,7 @@ class menu extends Model
             if(preg_match('/^(http|https)/',$this->url)){
                 return $this->url;
             }else{
+                // return LaravelLocalization::localizeUrl("/".$this->url);
                 return "/".$this->url;
             }
         }

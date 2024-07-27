@@ -12,10 +12,11 @@ class message extends Model
     use HasFactory,date_convert;
     protected $fillable=[
         'name',
-        'lastname',
         'email',
+        'mobile',
         'catid',
         'note',
+        'ip_address'
     ];
     
     public function message_cat()

@@ -118,7 +118,7 @@ class content_controller extends Controller
 
     public function destroy(string $id)
     {
-        content::where('id', $id)->where('admin_id', '1')->delete();
+        content::where('id', $id)->delete();
         return true;
     }
 
@@ -135,7 +135,7 @@ class content_controller extends Controller
 
     public function edit($item_id, $module)
     {
-        $content = content::where("id", $item_id)->where("contentable_type", self::modal_content()[$module])->where("admin_id", "1")->firstOrFail();
+        $content = content::where("id", $item_id)->where("contentable_type", self::modal_content()[$module])->firstOrFail();
         return view($this->view . "edit", [
             'module_title' => $this->module_title,
             'item_id' => $item_id,
@@ -148,7 +148,7 @@ class content_controller extends Controller
     public function update(content_request $request, $item_id, $module)
     {
         DB::beginTransaction();
-        $content_item = content::where('kind', $request->kind)->where("admin_id", "1")->where("contentable_type", self::modal_content()[$module])->where('id', $item_id)->firstOrFail();
+        $content_item = content::where('kind', $request->kind)->where("contentable_type", self::modal_content()[$module])->where('id', $item_id)->firstOrFail();
         $pic = '';
         $catalog = '';
         $video = '';

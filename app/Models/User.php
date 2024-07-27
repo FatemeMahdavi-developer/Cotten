@@ -74,7 +74,7 @@ class User extends Authenticatable
     }
 
     public function getdateBirthConvertAttribute(){
-        return Jalalian::forge($this->date_birth)->format('Y-m-d');
+        return is_null($this->date_birth) ? '' :Jalalian::forge($this->date_birth)->format('Y-m-d') ;
     }
 
     public function scopeFilter(Builder $builder,array $params){

@@ -18,11 +18,21 @@ use function back;
 
 class ForgetPasswordController extends Controller
 {
+    public function __construct(public string $module='',public string $module_title='',public string $module_pic='')
+    {
+        $this->module="forgot-password";
+        $this->module_title=app('setting')->get($this->module."_title") ? app('setting')->get($this->module."_title") : trans("modules.module_name_site.".$this->module);
+        $this->module_pic=app('setting')->get($this->module."_pic") ?? '';
+    }
 
     public function change_pass()
     {
         $username = decode_string(request()->get('username')) ?? '';
-        return view('site.auth.forget-password', compact('username'));
+        return view(
+            'site.auth.forget-password',
+            compact('username'),
+            ['module_pic'=>$this->module_pic,'module_title'=>$this->module_title] 
+        );
     }
 
     public function send_form(Request $request)
@@ -47,7 +57,11 @@ class ForgetPasswordController extends Controller
     public function recovery_pass()
     {
         $username = decode_string(request()->get('username')) ?? '';
-        return view('site.auth.recovery_password', compact('username'));
+        return view(
+            'site.auth.recovery_password', 
+            compact('username'),
+            ['module_pic'=>$this->module_pic,'module_title'=>$this->module_title] 
+        );
     }
 
     public function store(Request $request)

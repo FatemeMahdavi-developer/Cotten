@@ -8,6 +8,7 @@ use App\Models\permissions;
 use App\Models\product_cat;
 use App\Models\province;
 use App\Models\setting;
+use App\Rules\ReCaptcha;
 use App\Rules\subid_in_catid;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Config;
@@ -15,6 +16,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Pluralizer;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -66,6 +69,12 @@ class AppServiceProvider extends ServiceProvider
         });
         config('setting',setting::pluck('value','key'));
 
+        view()->composer('*', function ($view) {
+            $view->with([
+                'site_title' =>app("setting")->get("site_title") ?? '',
+            ]);
+        });
+
         permissions::get()->each(function ($permission) {
             Gate::define($permission["permission_kind"], function (admin $admin) use ($permission) {
                 if ($admin["id"] == "1") {
@@ -75,4 +84,6 @@ class AppServiceProvider extends ServiceProvider
             });
         });
     }
+
+
 }

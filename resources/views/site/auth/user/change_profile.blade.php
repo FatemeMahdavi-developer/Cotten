@@ -3,39 +3,34 @@
     <link rel="stylesheet" href="{{asset('site/assets/css/pages/page-11.css')}}">
     <link rel="stylesheet" href="{{asset('site/assets/css/pages/page-11-01.css')}}">
 @endsection
-
 @section('content')
     <div class="page-profile">
         <!-- bread crumb -->
-        <div class="container-fluid container-bread-crumb">
+        <div class="container-fluid container-bread-crumb" @if($module_pic) style="background-image:url({{asset("upload/".$module_pic)}})" @endif>
             <div class="container-custom">
                 <div class="row">
                     <div class="col">
-                        <h1 class="page-title">حساب کاربری</h1>
-
+                        <h1 class="page-title">{{$module_title}}</h1>
                         <ul class="bread-crumb">
-                            <li><a href="#">صفحه اصلی</a></li>
-                            <li><a href="#">حساب کاربری</a></li>
+                            @include("site.layout.partials.breadcrumb",[
+                                'module_title'=>$module_title,
+                            ])
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
         <!--/ bread crumb -->
-
-        <!-- --------------------------------------------------------------------------------------------------------------- -->
-
         <div class="container-fluid container-profile">
             <div class="container-custom">
                 <div class="row">
                     <div class="col-xl-3 col-lg-3 col-md-4 col-12">
                         @include("site.auth.partials.user_panel")
                     </div>
-
                     <div class="col-xl-9 col-lg-9 col-md-8 col-12">
                         <div class="section-content-box">
                             <div class="section-title">
-                                <span class="title">تغییر اطلاعات کاربری</span>
+                                <span class="title">{{$module_title}}</span>
                             </div>
                             <div class="content-box" >
                                 @if(session()->has('success'))
@@ -77,7 +72,7 @@
                                                 </div>
                                                 <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                                                     <div class="input-box input-box-date">
-                                                        <input placeholder="تاریخ تولد (اختیاری)" type="text" name="date_birth" class="form-input datepicker-input" value="{{auth()->user()->date_birth_convert ?? old("date_birth")}}">
+                                                        <input placeholder="تاریخ تولد (اختیاری)" type="text" name="date_birth" class="form-input datepicker-input" value="{{auth()->user()->date_birth_convert ?? old("date_birth")}}" autocomplete="off" >
                                                         @error("date_birth")<span class="text text-danger">{{$errors->first('date_birth')}}</span>@enderror
                                                     </div>
                                                 </div>

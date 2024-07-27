@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Models;
-
 use App\Trait\Comment;
 use App\Trait\date_convert;
+use App\Trait\Like;
 use App\Trait\morph_content;
 use App\Trait\seo;
 use Illuminate\Database\Eloquent\Builder;
@@ -13,9 +13,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class product extends Model
 {
-    use HasFactory,SoftDeletes,date_convert,morph_content,seo,Comment;
+    use HasFactory,SoftDeletes,date_convert,morph_content,seo,Comment,Like;
 
-    protected $appends=['alt_image','alt_banner_image','url'];
+    protected $appends=['alt_image','alt_image_banner','url'];
 
     protected $fillable = [
         'admin_id',

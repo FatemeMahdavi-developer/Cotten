@@ -39,6 +39,13 @@
                                                     @component($prefix_component."textarea_variable",['name'=>'address_footer','title'=>'آدرس','value'=>app('setting')['address_footer'] ?? ""])@endcomponent
                                                 @endslot
                                             @endcomponent
+                                            @component($prefix_component."card",["title"=>"آیتم های تماس با ما"])
+                                            @slot("card_content")
+                                                @component($prefix_component."input",['name'=>'tell_contact','title'=>'تلفن','value'=>app('setting')['tell_contact'] ?? "",'class'=>'w-50'])@endcomponent
+                                                @component($prefix_component."input",['name'=>'email_contact','title'=>'ایمیل','value'=>app('setting')['email_contact'] ?? "",'class'=>'w-50'])@endcomponent
+                                                @component($prefix_component."textarea_variable",['name'=>'address_contact','title'=>'آدرس','value'=>app('setting')['address_contact'] ?? ""])@endcomponent
+                                            @endslot
+                                        @endcomponent
                                             @component($prefix_component."button",['title'=>'ارسال'])@endcomponent
                                         @endslot
                                     @endcomponent
@@ -78,7 +85,7 @@
                                     @component($prefix_component."form",["action"=>route('admin.setting.store'),'upload_file'=>true])
                                         @slot("content")
                                             @foreach(trans("modules.module_name") as $key => $value)
-                                            @component($prefix_component."input",['name'=>"admin_module_".$key,'title'=>"عنوان " . app('setting')["admin_module_".$key] ?? $value,'value'=>app('setting')["admin_module_".$key] ?? $value,'class'=>'w-50'])@endcomponent
+                                            @component($prefix_component."input",['name'=>"admin_module_".$key,'title'=>"عنوان " . $value,'value'=>app('setting')["admin_module_".$key] ?? $value,'class'=>'w-50'])@endcomponent
                                             @endforeach
                                             @component($prefix_component."button",['title'=>'ارسال'])@endcomponent
                                         @endslot

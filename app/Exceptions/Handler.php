@@ -57,7 +57,11 @@ class Handler extends ExceptionHandler
 
             if (request()->is(env("ADMIN_PREFIX") . '/*')) {
                 if ($exception->getStatusCode() == 404) {
-                    return response()->view("admin.layout.errors.404", [], 404);
+                    if(isset(auth()->user()->id)){
+                        return response()->view("admin.layout.errors.404", [], 404);
+                    }else{
+                        return response()->view('site.error.' . '404', [], 404);
+                    }
                 }
             } else {
                 if ($exception->getStatusCode() == 404) {

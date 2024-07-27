@@ -2,11 +2,8 @@
 @section('head')
     <link rel="stylesheet" href="{{asset('site/assets/css/pages/page-05.css')}}">
 @endsection
-
 @section('content')
     <div class="page-about">
-
-
         <!-- bread crumb -->
         <div class="container-fluid container-bread-crumb">
             <div class="container-custom">
@@ -22,11 +19,6 @@
                 </div>
             </div>
         </div>
-        <!--/ bread crumb -->
-
-        <!-- --------------------------------------------------------------------------------------------------------------- -->
-
-
         <div class="container-fluid container-about">
             <div class="container-custom">
                 <div class="row">

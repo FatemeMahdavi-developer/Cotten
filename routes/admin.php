@@ -4,6 +4,8 @@ use App\Http\Controllers\admin\bannerController;
 use App\Http\Controllers\admin\comment_controller;
 use App\Http\Controllers\admin\ContactMapController;
 use App\Http\Controllers\admin\content_controller;
+use App\Http\Controllers\admin\employment_controller;
+use App\Http\Controllers\admin\employment_section_controller;
 use App\Http\Controllers\admin\instagramController;
 use App\Http\Controllers\admin\manager_controller;
 use App\Http\Controllers\admin\menuController;
@@ -30,7 +32,7 @@ use \Illuminate\Support\Facades\Route;
 include "auth_admin.php";
 
 Route::middleware("auth:admin")->group(function () {
-    // Route::redirect('/','admindashboard/base');
+    Route::redirect('/','/'.env('ADMIN_PREFIX').'/base');
     Route::view("/base", "admin.layout.base")->name("admin.base");
     Route::view("/error", "admin.layout.errors.404")->name("admin.error404");
     Route::post("province_city", province_city_controller::class)->name("province_city");
@@ -59,7 +61,7 @@ Route::middleware("auth:admin")->group(function () {
 
     Route::resource("menu", menuController::class);
     Route::post("menu/action_all", [menuController::class, "action_all"])->name("menu.action_all");
-
+    Route::post("menu/submenu",submenu_controller::class)->name("menu.submenu");
 
     Route::resource("product_cat",product_cat_controller::class)->except("show");
     Route::post("product_cat/action_all",[product_cat_controller::class,"action_all"])->name("product_cat.action_all");
@@ -101,5 +103,13 @@ Route::middleware("auth:admin")->group(function () {
     Route::post("video_cat/action_all",[video_cat_controller::class,"action_all"])->name("video_cat.action_all");
     Route::resource("video",video_controller::class)->except("show");
     Route::post("video/action_all", [video_controller::class, "action_all"])->name("video.action_all");
+
+    // *** employment
+    Route::resource("employment_section",employment_section_controller::class)->except("show");
+    Route::post("employment_section/action_all",[employment_section_controller::class,'action_all'])->name("employment_section.action_all");
+    Route::resource('employment',employment_controller::class)->except(['show','create','store','update']);
+    Route::post("employment/action_all",[employment_controller::class,'action_all'])->name('employment.action_all');
+    Route::get('employment/excel',[employment_controller::class,'excel'])->name('employment.excel');
+    // employment ***
 
 });

@@ -136,7 +136,7 @@ class news_cat_controller extends Controller
      */
     public function destroy(string $id)
     {
-        news_cat::where('id', $id)->where('admin_id', '1')->delete();
+        news_cat::where('id', $id)->delete();
         return true;
     }
 

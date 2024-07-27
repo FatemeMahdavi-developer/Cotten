@@ -2,9 +2,9 @@
     <a href="{{asset("/")}}">صفحه اصلی</a>
 </li>
 <li>
-    <a @if($breadcrumb) href="{{asset($url_page)}}" @else href="javascript:void(0);" @endif>{{$module_title}}</a>
+    <a @if(@$breadcrumb) href="{{asset($url_page)}}" @else href="javascript:void(0);" @endif>{{$module_title}}</a>
 </li>
-@if($breadcrumb)
+@if(@$breadcrumb)
 @foreach($breadcrumb as $item)
 <li>
     <a href="{{$item->url}}">{{$item->title}}</a>

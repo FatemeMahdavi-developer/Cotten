@@ -57,7 +57,6 @@ class newsController extends Controller
                 ->siteFilter()
                 ->paginate(5)
                 ->withQueryString();
-
             $breadcrumb=$news_cat->parents()->where('state','1');
         }
         $seo=$this->seo_site($this->module,$news_cat);

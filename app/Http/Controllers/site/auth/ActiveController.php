@@ -10,13 +10,23 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\ValidationException;
 
 class ActiveController extends Controller
 {
     public function active()
     {
-        return view('site.auth.active');
+        // $pageWasRefreshed = isset($_SERVER['HTTP_CACHE_CONTROL']) && $_SERVER['HTTP_CACHE_CONTROL'] === 'max-age=0';
+        // if($pageWasRefreshed ) {
+        //     if(!Session::has('errors')){
+        //         return redirect()->route('auth.login');
+        //     }
+        // } 
+        $module="active";
+        $module_title=app('setting')->get($module."_title") ? app('setting')->get($module."_title") : trans("modules.module_name_site.".$module);
+        $module_pic=app('setting')->get($module."_pic");
+        return view('site.auth.active',compact(['module_title','module_pic']));
     }
 
     public function confirm(Request $request)

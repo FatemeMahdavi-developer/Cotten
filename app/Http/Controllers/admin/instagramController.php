@@ -105,7 +105,7 @@ class instagramController extends Controller
      */
     public function destroy(string $id)
     {
-        instagram::where('id', $id)->where('admin_id', '1')->delete();
+        instagram::where('id', $id)->delete();
         return true;
     }
     public function action_all(Request $request)

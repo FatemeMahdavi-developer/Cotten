@@ -4,29 +4,27 @@
             <div class="col">
                 <header class="page-header">
                     <div class="col-right">
-                        <a href="#" class="logo"><img src="{{asset('site/assets/image/logo.png')}}" alt=""/></a>
+                        <a href="{{asset("/")}}" class="logo"><img src="{{asset('site/assets/image/logo.png')}}"  @if($site_title) alt="{{$site_title}}" @endif/></a>
                     </div>
-
                     <div class="col-left">
                         <button class="link-box btn-mobile-menu" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobile-side-menu" aria-controls="mobile-side-menu"><span class="icon fi fi-rr-menu-burger"></span></button>
-
                         <div class="dropdown link-box">
                             <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <span class="icon fi fi-rr-world"></span>
                             </button>
-
                             <ul class="dropdown-menu language-dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Fa</a></li>
-                                <li><a class="dropdown-item" href="#">Ar</a></li>
-                                <li><a class="dropdown-item" href="#">En</a></li>
+                                @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                <li>
+                                    <a class="dropdown-item" rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                        {{ $properties['native'] }}
+                                    </a>
+                                </li>
+                                @endforeach
                             </ul>
                         </div>
-
-                        <a href="#" class="link-box" data-bs-toggle="modal" data-bs-target="#modal-search"><span class="icon fi fi-rr-search"></span></a>
-
+                        <a href="javascript:void(0);" class="link-box" data-bs-toggle="modal" data-bs-target="#modal-search"><span class="icon fi fi-rr-search"></span></a>
                         <div class="dropdown link-box link-box-user">
                             <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fi fi-rr-user sign-in-up-icon"></i><span class="sign-in-up-title">ورود | ثبت نام</span></button>
-
                             <ul class="dropdown-menu">
                                 @auth
                                     <li><a class="dropdown-item" href="{{route('user.panel')}}"><i class="fi fi-rr-sign-in icon"></i>پنل کاربری</a></li>
@@ -43,10 +41,6 @@
         </div>
     </div>
 </div>
-
-
-
-
 
 <div class="container-fluid container-menu">
     <div class="container-custom">

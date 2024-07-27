@@ -3,42 +3,35 @@
     <link rel="stylesheet" href="{{asset('site/assets/css/pages/page-11.css')}}">
     <link rel="stylesheet" href="{{asset('site/assets/css/pages/page-11-01.css')}}">
 @endsection
-
 @section('content')
     <div class="page-profile">
         <!-- bread crumb -->
-        <div class="container-fluid container-bread-crumb">
+        <div class="container-fluid container-bread-crumb" @if($module_pic) style="background-image:url({{asset("upload/".$module_pic)}})" @endif >
             <div class="container-custom">
                 <div class="row">
                     <div class="col">
-                        <h1 class="page-title">حساب کاربری</h1>
-
+                        <h1 class="page-title">{{$module_title}}</h1>
                         <ul class="bread-crumb">
-                            <li><a href="#">صفحه اصلی</a></li>
-                            <li><a href="#">حساب کاربری</a></li>
+                            @include("site.layout.partials.breadcrumb",[
+                                'module_title'=>$module_title,
+                            ])
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
-        <!--/ bread crumb -->
-
-        <!-- --------------------------------------------------------------------------------------------------------------- -->
-
         <div class="container-fluid container-profile">
             <div class="container-custom">
                 <div class="row">
                     <div class="col-xl-3 col-lg-3 col-md-4 col-12">
                        @include("site.auth.partials.user_panel")
                     </div>
-
                     <div class="col-xl-9 col-lg-9 col-md-8 col-12">
                         <div class="section-content-box">
                             <div class="section-title">
-                                <span class="title">اطلاعات کاربری</span>
+                                <span class="title">مشخصات</span>
                                 <a href="{{route('user.change_profile')}}" class="btn-custom"><i class="fi fi-rr-edit icon"></i> ویرایش</a>
                             </div>
-
                             <div class="content-box content-box">
                                 <div class="row">
                                     <div class="col-lg-4 col-md-6 col-sm-6 col-12">
@@ -58,7 +51,7 @@
 
                                     <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                                         <div class="title">تاریخ تولد</div>
-                                        <div class="value">۱۳۷۷/۰۷/۱۲</div>
+                                        <div class="value">{{auth()->user()->date_birth_convert}}</div>
                                     </div>
 
                                     <div class="col-lg-4 col-md-6 col-sm-6 col-12">

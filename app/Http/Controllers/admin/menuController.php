@@ -147,7 +147,7 @@ class menuController extends Controller
      */
     public function destroy(string $id)
     {
-        menu::where('id', $id)->where('admin_id', '1')->delete();
+        menu::where('id', $id)->delete();
         return true;
     }
 

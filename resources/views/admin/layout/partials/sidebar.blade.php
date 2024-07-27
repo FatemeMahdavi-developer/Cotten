@@ -6,7 +6,8 @@
                 <span class="logo-name">اجیس</span>
             </a> --}}
         </div>
-        <div class="sidebar-user">
+
+        {{-- <div class="sidebar-user">
             <div class="sidebar-user-picture">
                 @if(auth()->user()->pic)
                 <img alt="{{auth()->user()->fullname}}" src="{{asset("upload/thumb1/".auth()->user()->pic)}}">
@@ -22,7 +23,7 @@
                     <div class="user-role">{{auth()->user()->role['title']}}</div>
                 @endif
             </div>
-        </div>
+        </div> --}}
         <ul class="sidebar-menu">
             {{-- <li class="menu-header">آمار و گزارشات</li> --}}
             @if(auth()->user()->id=='1')
@@ -257,6 +258,29 @@
                     @endcan
                     @can("read_video")
                         <li><a class="nav-link" href="{{route("admin.video.index")}}">لیست ویدیوها </a></li>
+                    @endcan
+                </ul>
+            </li>
+            @endcanany
+            @canany(permission_access("employment_section"))
+            <li class="dropdown">
+                <a href="#" class="nav-link has-dropdown"><i class="far fa-file-video"></i><span>بخش استخدام</span></a>
+                <ul class="dropdown-menu @if(str_contains(request()->route()->getName(),'employment_section')) d-block @endif">
+                    @can("create_employment_section")
+                        <li><a class="nav-link" href="{{route("admin.employment_section.create")}}">بخش جدید</a></li>
+                    @endcan
+                    @can("read_employment_section")
+                        <li><a class="nav-link" href="{{route("admin.employment_section.index")}}">لیست بخش های استخدام </a></li>
+                    @endcan
+                </ul>
+            </li>
+            @endcanany
+            @canany(permission_access("employment"))
+            <li class="dropdown">
+                <a href="#" class="nav-link has-dropdown"><i class="far fa-file-video"></i><span>استخدام</span></a>
+                <ul class="dropdown-menu @if(str_contains(request()->route()->getName(),'employment')) d-block @endif">
+                    @can("read_employment")
+                        <li><a class="nav-link" href="{{route("admin.employment.index")}}">لیست استخدام </a></li>
                     @endcan
                 </ul>
             </li>

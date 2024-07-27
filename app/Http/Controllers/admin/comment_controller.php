@@ -76,7 +76,7 @@ class comment_controller extends Controller
      */
     public function destroy(string $id)
     {
-        comment::where('id', $id)->where('admin_id', '1')->delete();
+        comment::where('id', $id)->delete();
         return true;
     }
 

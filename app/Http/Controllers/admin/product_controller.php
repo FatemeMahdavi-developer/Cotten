@@ -127,7 +127,7 @@ class product_controller extends Controller
      */
     public function destroy(string $id)
     {
-        product::where('id', $id)->where('admin_id',auth()->user()->id)->delete();
+        product::where('id', $id)->delete();
         return true;
     }
 

@@ -4,7 +4,6 @@
 @endsection
 @section('content')
 <div class="page-product">
-<!-- bread crumb -->
 <div class="container-fluid container-bread-crumb" @if(@$product['pic_banner']) style="background-image: url({{asset("upload/thumb1/".$product["pic_banner"])}}" @endif>
     <div class="container-custom">
         <div class="row">
@@ -85,6 +84,10 @@
                                         <span class="score">۴,۴</span>
                                         <span class="stars"><i class="fi fi-rs-star null"></i><i class="fi fi-ss-star"></i><i class="fi fi-ss-star"></i><i class="fi fi-ss-star"></i><i class="fi fi-ss-star"></i></span>
                                     </div>
+                                    <div class="score-box">
+                                        <a href="javascript:void(0);" class="add_like">افزودن به علاقه مندی</a>
+                                    </div>
+
                                     <div class="btns-box">
                                        @if($product->code)<div class="item">کد محصول  {{$product->code}}</div> @endif
                                         <div class="item"><a href="{{route('product.print',['product'=>$product['seo_url']])}}"><i class="icon icon-print"></i> چاپ صفحه</a></div>
@@ -247,4 +250,45 @@
 
 @section("footer")
 <script type="text/javascript" src="{{asset('site/assets/js/pages/page-03.js')}}"></script>
+<script>
+    $(document).on("click",".add_like",function() {
+        $.ajaxSetup({
+            headers:
+                { 'X-CSRF-TOKEN': "{{csrf_token()}}" }
+        });
+       @auth
+        $.ajax({
+            url:"{{route('user.like.store',['type'=>'product','type_id'=>$product["id"]])}}",
+            type: 'POST',
+            dataType: 'json',
+            // data: data,
+            success: function (res) {
+                if(res['sucess']){
+                    Swal.fire({
+                        title: res['sucess'],
+                        icon: "success",
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                }else if(res['error']){
+                    Swal.fire({
+                        title: res['error'],
+                        icon: "info",
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                }
+            }
+        })
+        @endauth
+        @guest
+        Swal.fire({
+            title: "ابتدا لازم است وارد پنل کاربری شوید",
+            icon: "error",
+            showConfirmButton:false,
+            timer: 2000
+        });
+        @endguest
+    })
+</script>
 @endsection

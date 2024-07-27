@@ -38,7 +38,7 @@
 <div class="container-fluid container-media">
     <div class="container-custom">
         @if(isset($gallery_cats[0]) || isset($gallery[0]) )
-        <div class="row">
+        <div class="row image-thumbnail">
             @if(isset($gallery_cats[0]))
                 @foreach($gallery_cats as $item)
                 <div class="col-md-4 col-sm-6">
@@ -60,8 +60,8 @@
             @endif
             @if(isset($gallery[0]))
                 @foreach($gallery as $item)
-                <div class="col-md-4 col-sm-6 image-thumbnail">
-                    <a  @if($item['pic']) href="{{asset("upload/".$item["pic"])}}" @else href="{{asset("site/img/no_image/no_image(372x303).jpg")}}" @endif class="media-item item-main">
+                <div class="col-md-4 col-sm-6 ">
+                    <a  @if($item['pic']) href="{{asset("upload/".$item["pic"])}}" @else href="{{asset("site/img/no_image/no_image(372x303).jpg")}}" @endif class="media-item item-main lightpic">
                         <div class="image-box">
                             @if($item['pic'])
                                 <img src="{{asset("upload/thumb1/".$item["pic"])}}" alt="{{$item["alt_image"]}}"/>
@@ -91,6 +91,15 @@
     $("#kind").on("change",function(){
         window.location.href="{{route('multimedia.index')}}"+"?kind="+$(this).val();
     });
-    $('.page-media .image-thumbnail').lightGallery({selector: '.item-main'});
+
+    $(document).ready(function() {
+        if(!$.fn.lightGallery) return false;
+        $('.image-thumbnail').lightGallery({
+            selector: '.item-main',
+            videojs: false,
+            share: false,
+            hash: false
+        });
+    });
 </script>
 @endsection

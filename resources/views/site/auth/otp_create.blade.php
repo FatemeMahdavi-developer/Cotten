@@ -1,24 +1,23 @@
 @extends("site.layout.base")
 @section('head')
     <link rel="stylesheet" href="{{asset('site/assets/css/pages/page-01-02.css')}}">
-
 @endsection
-
 @section('content')
     <div class="page-sign-in">
-        <div class="container-sign-in">
+        <div class="container-sign-in" @if($module_pic) style="background-image:url({{asset("upload/".$module_pic)}})" @endif>
             <div class="sign-in-box">
-                <a href="{{$main_url}}" class="logo"><img src="{{asset('site/assets/image/logo.png')}}" alt=""/></a>
-
-                <form action="{{route('auth.confirm')}}" method="post" class="form">
+                <a href="{{asset("/")}}" class="logo">
+                    <img src="{{asset('site/assets/image/logo.png')}}" @if($site_title) alt="{{$site_title}}" @endif/>
+                </a>
+                <form action="{{route('auth.otp_check_confirm')}}" method="post" class="form">
                     @csrf
                     <input type="hidden" name="username" value="{{$username}}">
-                    <div class="title">رمز یک بار مصرف</div>
+                    <div class="title">{{$module_title}}</div>
                     <div class="input-box">
-                        <input type="text" name="confirm_code" value="{{old('confirm_code')}}" class="form-input"
-                               placeholder="کد تایید"/>
-                        @error('confirm_code') <span class="text text-danger"
-                                                     style="text-align: right !important;">{{$errors->first('confirm_code')}}</span> @enderror
+                        <input type="text" name="confirm_code" value="{{old('confirm_code')}}" class="form-input" placeholder="کد تایید"/>
+                        @error('confirm_code') 
+                            <span class="text text-danger" style="text-align: right !important;"> {{$errors->first('confirm_code')}}</span> 
+                        @enderror
                         <div class="numberCode">
                             <a href="javascript:void(0);" class="time" style="display: none"></a>
                         </div>
@@ -27,7 +26,7 @@
                         </div>
                     </div>
                     <button type="submit" class="btn-custom">ورود</button>
-                    <a href="#" class="link-back"><i class="fi fi-rr-angle-right icon"></i> بازگشت به صفحه اصلی</a>
+                    <a href="{{asset("/")}}" class="link-back"><i class="fi fi-rr-angle-right icon"></i> بازگشت به صفحه اصلی</a>
                 </form>
             </div>
         </div>
@@ -61,7 +60,7 @@
                 timer()
                 $.ajax({
                     type: 'post',
-                    url: "{{route('auth.otp_resend')}}",
+                    url: "{{route('auth.otp_resend',$username)}}",
                     dataType: 'json',
                     data: $(".form").serialize(),
                     success: function(res) {

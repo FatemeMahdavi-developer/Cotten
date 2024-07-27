@@ -1,20 +1,20 @@
 @extends("site.layout.base")
 @section('head')
     <link rel="stylesheet" href="{{asset('site/assets/css/pages/page-01-02.css')}}">
-
 @endsection
 
 @section('content')
     <div class="page-sign-in">
-        <div class="container-sign-in">
+        <div class="container-sign-in" @if($module_pic) style="background-image:url({{asset("upload/".$module_pic)}})" @endif>
             <div class="sign-in-box">
-                <a href="{{$main_url}}" class="logo"><img src="{{asset('site/assets/image/logo.png')}}" alt=""/></a>
-
+                <a href="{{asset("/")}}" class="logo">
+                    <img src="{{asset('site/assets/image/logo.png')}}" @if($site_title) alt="{{$site_title}}" @endif/>
+                </a>
                 <form action="{{route('auth.confirm')}}" method="post" class="form">
                     @csrf
                     <input type="hidden" name="username" value="{{request()->get('username')}}">
-                    <div class="title">فعالسازی کد عضویت</div>
-                    {{--                    <div class="des">اگر قبلا ثبت نام کرده اید وارد حساب کاربری خود شوید</div>--}}
+                    <div class="title">{{$module_title}}</div>
+                    {{-- <div class="des">اگر قبلا ثبت نام کرده اید وارد حساب کاربری خود شوید</div>--}}
                     @if(session()->has('state_active'))
                         <div class="alert alert-success">{{session()->get('state_active')}}</div>
                     @endif

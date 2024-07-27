@@ -4,6 +4,8 @@ namespace App\Http\Controllers\site\user;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\site\change_profile_user_request;
+use App\Models\product;
+use App\Trait\seo_site;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -13,14 +15,23 @@ use Morilog\Jalali\Jalalian;
 
 class panelController extends Controller
 {
+
+    use seo_site;
     public function index()
     {
-        return view('site.auth.user.panel');
+        $module="panel";
+        $module_title=app("setting")->get($module."_title") ?  : trans("modules.module_name_site.".$module);
+        $module_pic=app('setting')->get($module."_pic");
+        return view('site.auth.user.panel',compact('module_title','module_pic'));
     }
 
     public function change_profile()
     {
-        return view("site.auth.user.change_profile");
+        $module="change_profile";
+        $module_title=app("setting")->get($module."_title") ?  : trans("modules.module_name_site.".$module);
+        $module_pic=app('setting')->get($module."_pic");
+
+        return view("site.auth.user.change_profile",compact('module_title','module_pic'));
     }
 
     public function change_profile_store(change_profile_user_request $request)
@@ -70,5 +81,15 @@ class panelController extends Controller
         $request->session()->regenerateToken();
 
         return redirect()->route('main');
+    }
+
+
+    public function like(){
+        $module="like";
+        $module_title=app("setting")->get($module."_title") ?  : trans("modules.module_name_site.".$module);
+        $module_pic=app('setting')->get($module."_pic");
+        $product='';
+        return view("site.auth.user.like",compact('module_title','module_pic'));
+
     }
 }

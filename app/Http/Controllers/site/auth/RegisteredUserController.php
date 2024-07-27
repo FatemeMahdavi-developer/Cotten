@@ -25,7 +25,11 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('site.auth.register');
+        $module="register";
+        $module_title=app('setting')->get($module."_title") ? app('setting')->get($module."_title") : trans("modules.module_name_site.".$module);
+        $module_pic=app('setting')->get($module."_pic");
+
+        return view('site.auth.register',compact(['module_title','module_pic']));
     }
 
     /**

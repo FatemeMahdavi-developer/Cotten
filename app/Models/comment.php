@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Trait\convert_date_to_timestamp;
 use App\Trait\date_convert;
+use App\Trait\Like;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,7 +14,7 @@ use Morilog\Jalali\Jalalian;
 
 class comment extends Model
 {
-    use HasFactory, SoftDeletes, date_convert, convert_date_to_timestamp;
+    use HasFactory, SoftDeletes, date_convert, convert_date_to_timestamp,Like;
 
     protected $appends = ['nameModule','fullname','created_at_show'];
     protected $table = 'comments';

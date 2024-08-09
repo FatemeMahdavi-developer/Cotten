@@ -4,7 +4,7 @@
             <div class="col">
                 <div class="row row-logo-social">
                     <div class="col-12 col-sm-12 col-md-5 col-xl-5 col-logo">
-                        <a href="https://Kavehbgc.com"><img src="{{asset('site/assets/image/logo.png')}}" alt="" /></a>
+                        <a href="{{asset("/")}}"><img src="{{asset('site/assets/image/logoo.png')}}" alt="" /></a>
                     </div>
 
                     <div class="col-12 col-sm-12 col-md-7 col-xl-7 col-social">
@@ -25,8 +25,8 @@
                         <ul>
                             <li>آدرس: تهران ، بلوار آفریقا ( جردن ) ، خیابان دستگردی ، ساختمان یاس ، طبقه دو</li>
                             <li>تلفن تماس: <a href="tel:+982122334455" class="tel">22334455-021</a></li>
-                            <li>ایمیل: <a href="mailto:info@Kaveh.bgc">info@Kaveh.bgc</a></li>
-                            <li><a href="mailto:info@Kaveh.bgc"><img src="{{asset('site/assets/image/waze.png')}}" alt="" /> مسیریابی با waze</a></li>
+                            <li>ایمیل: <a href="mailto:info@cotton.ir">info@cotton.ir</a></li>
+                            <li><a href="mailto:info@cotton.ir"><img src="{{asset('site/assets/image/waze.png')}}" alt="" /> مسیریابی با waze</a></li>
                         </ul>
                     </div>
 
@@ -64,7 +64,7 @@
                         <a href="#"><img src="{{asset('site/assets/image/hamed.png')}}" alt="" /></a>
                         <div class="designer-des"><a href="">طراحی سایت</a> و <a href="">برنامه نویسی</a>: <a href="">حامد پردازش</a></div>
                     </div>
-                    <div class="copy-right"><a href="https://www.kaveh.ir">www.kaveh.ir</a> - Copyright © 2022 - All rights reserved.</div>
+                    <div class="copy-right"><a href="https://www.cotton.ir">www.cotton.ir</a> - Copyright © 2022 - All rights reserved.</div>
                 </div>
             </div>
         </div>

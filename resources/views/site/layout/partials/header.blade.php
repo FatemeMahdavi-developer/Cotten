@@ -4,11 +4,11 @@
             <div class="col">
                 <header class="page-header">
                     <div class="col-right">
-                        <a href="{{asset("/")}}" class="logo"><img src="{{asset('site/assets/image/logo.png')}}"  @if($site_title) alt="{{$site_title}}" @endif/></a>
+                        <a href="{{asset("/")}}" class="logo"><img src="{{asset('site/assets/image/logoo.png')}}"  @if($site_title) alt="{{$site_title}}" @endif/></a>
                     </div>
                     <div class="col-left">
                         <button class="link-box btn-mobile-menu" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobile-side-menu" aria-controls="mobile-side-menu"><span class="icon fi fi-rr-menu-burger"></span></button>
-                        <div class="dropdown link-box">
+                        {{-- <div class="dropdown link-box">
                             <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <span class="icon fi fi-rr-world"></span>
                             </button>
@@ -21,7 +21,7 @@
                                 </li>
                                 @endforeach
                             </ul>
-                        </div>
+                        </div> --}}
                         <a href="javascript:void(0);" class="link-box" data-bs-toggle="modal" data-bs-target="#modal-search"><span class="icon fi fi-rr-search"></span></a>
                         <div class="dropdown link-box link-box-user">
                             <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fi fi-rr-user sign-in-up-icon"></i><span class="sign-in-up-title">ورود | ثبت نام</span></button>

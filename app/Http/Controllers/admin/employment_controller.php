@@ -39,6 +39,7 @@ class employment_controller extends Controller
      */
     public function edit(string $id)
     {
+        // employment::where('id',$id)->update(['hit'=>'1']);  error update date_birth
         $employment=employment::find($id);
         return view($this->view.'.edit',[
             'module'=>$this->module,
@@ -66,8 +67,13 @@ class employment_controller extends Controller
         return (new admin_controller())->action($request, employment::class);
     }
 
-    public function excel(Request $request) 
+    public function excel() 
     {
         return Excel::download(new EmploymentExport,'employment.xlsx');
+    }
+    
+    public function print(int $id){
+        $employment=employment::findOrFail($id);
+        return view($this->view.'.print',compact('employment'));
     }
 }

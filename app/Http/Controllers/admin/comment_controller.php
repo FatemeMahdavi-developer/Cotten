@@ -33,7 +33,7 @@ class comment_controller extends Controller
      */
     public function index(Request $request)
     {
-        $comment=comment::with('commentable')->filter($request->all())->paginate(5)->withQueryString();
+        $comment=comment::with('commentable')->filter($request->all())->orderby('id','desc')->paginate(5)->withQueryString();
         $modules=self::modules();
         return view($this->view.'list',[
             'module_title' => $this->module_title,

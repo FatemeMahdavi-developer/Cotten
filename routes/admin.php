@@ -110,6 +110,7 @@ Route::middleware("auth:admin")->group(function () {
     Route::resource('employment',employment_controller::class)->except(['show','create','store','update']);
     Route::post("employment/action_all",[employment_controller::class,'action_all'])->name('employment.action_all');
     Route::get('employment/excel',[employment_controller::class,'excel'])->name('employment.excel');
+    Route::get('/employment/{id:id}/print', [employment_controller::class,'print'])->name('employment.print');
     // employment ***
 
 });

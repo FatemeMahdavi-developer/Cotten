@@ -1,7 +1,7 @@
-
-
-
 @extends("site.layout.base")
+@section('seo')
+    @include("site.layout.partials.seo",["seo"=>$seo,"module"=>$module])
+@endsection
 @section('head')
    <link rel="stylesheet" href="{{asset('site/assets/css/pages/page-02.css')}}">
 @endsection

@@ -13,11 +13,10 @@
 <script type="text/javascript" src="{{asset('site/assets/js/libs/persianumber.js')}}"></script>
 <script type="text/javascript" src="{{asset('site/assets/js/libs/datepicker.js')}}"></script>
 <script type="text/javascript" src="{{asset('site/assets/js/libs/datepicker-fa.js')}}"></script>
-<script type="text/javascript" src="{{asset('site/assets/js/libs/jquery.raty.js')}}"></script>
+<script type="text/javascript" src="{{asset('site/assets/js/libs/plugin/raty/jquery.raty.js')}}"></script>
+<script type="text/javascript" src="{{asset('site/assets/js/libs/plugin/raty/javascript.raty.js')}}"></script>
 <script type="text/javascript" src="{{asset('site/assets/js/main.js')}}"></script>
 <script type="text/javascript" src="{{asset("site/assets/js/sweetalert.js")}}"></script>
-
-
 <link rel="stylesheet" href="{{asset("site/assets/leaflet/leaflet.css")}}" />
 <script src="{{asset("site/assets/leaflet/leaflet.js")}}"></script>
 

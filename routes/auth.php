@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\site\LikeController;
+use App\Http\Controllers\site\RateController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->as('auth.')->group(function () {
@@ -28,7 +29,8 @@ Route::middleware('auth')->as('user.')->group(function () {
     Route::get('comment',[\App\Http\Controllers\site\user\panelController::class,'comment'])->name('comment');
     Route::post('change_pass',[\App\Http\Controllers\site\user\panelController::class,'change_pass'])->name('change_pass');
     Route::get('like',[\App\Http\Controllers\site\user\panelController::class,'like'])->name('like');
-    Route::post('like/{type}/{type_id}',[LikeController::class,'store'])->name('like.store')->middleware('access_like');
+    Route::post('like/{type}/{type_id?}',[LikeController::class,'store'])->name('like.store')->middleware(['access_like','auth']);
+    Route::post('rate/{type}/{type_id}',[RateController::class,'store'])->name('rate.store');   //->middleware('access_rate')
     Route::get('logout',[\App\Http\Controllers\site\user\panelController::class,'logout'])->name('logout');
 });
 

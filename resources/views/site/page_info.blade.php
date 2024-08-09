@@ -7,9 +7,8 @@
 @section('content')
     <div class="page-about ">
 
-
         <!-- bread crumb -->
-        <div class="container-fluid container-bread-crumb">
+        <div class="container-fluid container-bread-crumb" style="background-image: url({{asset("site/assets/image/bc/bg-bread-crumb-products.jpg")}}" >
             <div class="container-custom">
                 <div class="row">
                     <div class="col">

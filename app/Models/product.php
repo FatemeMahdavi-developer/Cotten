@@ -5,6 +5,7 @@ use App\Trait\Comment;
 use App\Trait\date_convert;
 use App\Trait\Like;
 use App\Trait\morph_content;
+use App\Trait\Rate;
 use App\Trait\seo;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,7 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class product extends Model
 {
-    use HasFactory,SoftDeletes,date_convert,morph_content,seo,Comment,Like;
+    use HasFactory,SoftDeletes,date_convert,morph_content,seo,Comment,Like,Rate;
 
     protected $appends=['alt_image','alt_image_banner','url'];
 

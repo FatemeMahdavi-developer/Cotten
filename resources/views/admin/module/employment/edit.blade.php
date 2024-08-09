@@ -164,7 +164,7 @@
                                     </table>
                                     @endforeach
                                 @else
-                                <div class="alert alert-danger">نتیجه ای یافت نشد</div>
+                                <div class="alert alert-danger alert-not-found">نتیجه ای یافت نشد</div>
                                 @endif
                                 <h4>سوابق تحصیلی</h4>
                                 @if(@$employment->studdies[0])
@@ -189,7 +189,7 @@
                                     </table>
                                     @endforeach
                                 @else
-                                <div class="alert alert-danger">نتیجه ای یافت نشد</div>
+                                <div class="alert alert-danger alert-not-found">نتیجه ای یافت نشد</div>
                                 @endif
                                 <h4>زبان های خارجی</h4>
                                 @if(@$employment->languages[0])
@@ -201,20 +201,20 @@
                                         </tr>
                                         <tr>
                                             <td>سطح مهارت نگارش</td>
-                                            <td>{{$item['write']}}</td>
+                                            <td>{{__('employment.grade_knowledge.'.$item['write'])}}</td>
                                         </tr>
                                         <tr>
                                             <td>سطح مهارت مکالمه</td>
-                                            <td>{{$item['conversation']}}</td>
+                                            <td>{{__('employment.grade_knowledge.'.$item['conversation'])}}</td>
                                         </tr>
                                         <tr>
                                             <td>سطح مهارت خواندن</td>
-                                            <td>{{$item['read']}}</td>
+                                            <td>{{__('employment.grade_knowledge.'.$item['read'])}}</td>
                                         </tr>
                                     </table>
                                     @endforeach
                                 @else
-                                <div class="alert alert-danger">نتیجه ای یافت نشد</div>
+                                <div class="alert alert-danger alert-not-found">نتیجه ای یافت نشد</div>
                                 @endif
                                 <h4>آشنایی با کامپیوتر، نرم افزار و شبکه های اجتماعی</h4>
                                 <table class="table text-center contact_table">
@@ -244,34 +244,34 @@
                                     </tr>
                                     <tr>
                                         <td>فهرست نرم افزارهایی که به آنها تسلط دارید</td>
-                                        <td>{{$employment['it_note']}}</td>
+                                        <td>{{$employment['it_note'] ?? '-'}}</td>
                                     </tr>
                                     <tr>
                                         <td>سایر توضیحات</td>
-                                        <td>{{$employment['note_more']}}</td>
+                                        <td>{{$employment['note_more'] ?? '-'}}</td>
                                     </tr>
                                 </table>
                                 <h4>مشخصات معرف</h4>
                                 <table class="table text-center contact_table">
                                     <tr>
                                         <td width="350px">نام و نام خانوادگی</td>
-                                        <td>{{$employment['reagent_name']}}</td>
+                                        <td>{{$employment['reagent_name'] ?? '-'}}</td>
                                     </tr>
                                     <tr>
                                         <td>شغل</td>
-                                        <td>{{$employment['reagent_job']}}</td>
+                                        <td>{{$employment['reagent_job'] ?? '-'}}</td>
                                     </tr>
                                     <tr>
                                         <td>نسبت یا نوع آشنایی</td>
-                                        <td>{{$employment['reagent_relativity']}}</td>
+                                        <td>{{$employment['reagent_relativity'] ?? '-'}}</td>
                                     </tr>
                                     <tr>
                                         <td>مدت آشنایی (سال)</td>
-                                        <td>{{$employment['reagent_year']}}</td>
+                                        <td>{{$employment['reagent_year'] ?? '-'}}</td>
                                     </tr>
                                     <tr>
                                         <td>شماره تماس</td>
-                                        <td>{{$employment['reagent_tell']}}</td>
+                                        <td>{{$employment['reagent_tell'] ?? '-'}}</td>
                                     </tr>
                                 </table>
                                 <h4>آپلود تصویر و رزومه</h4>
@@ -283,7 +283,7 @@
                                     </tr>
                                 </table>
                                 @else
-                                <div class="alert alert-danger">نتیجه ای یافت نشد</div>
+                                <div class="alert alert-danger alert-not-found">نتیجه ای یافت نشد</div>
                                 @endif
                             </div>
                         </div>

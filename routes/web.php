@@ -84,5 +84,8 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
     Route::get('/employment', [EmploymentController::class,'show'])->name('employment.show');
     Route::post('/employment', [EmploymentController::class,'store'])->name('employment.store');
+
+    // Route::get('/sitemap.xml');
+
     
 // });

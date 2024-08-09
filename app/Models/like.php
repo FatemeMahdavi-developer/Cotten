@@ -12,6 +12,7 @@ class like extends Model
 
     protected $fillable=[
         'user_id',
+        'kind',
         'liketable_type',
         'liketable_id',
     ];

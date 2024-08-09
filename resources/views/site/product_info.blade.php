@@ -1,4 +1,7 @@
 @extends('site.layout.base')
+@section('seo')
+    @include("site.layout.partials.seo",["seo"=>$seo,"module"=>$module])
+@endsection
 @section('head')
     <link rel="stylesheet" href="{{asset('site/assets/css/pages/page-03.css')}}">
 @endsection
@@ -79,19 +82,29 @@
                             <div class="data-box">
                                 <div>
                                     <div class="product-title"><h1 class="title">{{$product->title}}</h1></div>
-                                    <div class="score-box">
-                                        <span class="person">(۴۵)</span>
-                                        <span class="score">۴,۴</span>
-                                        <span class="stars"><i class="fi fi-rs-star null"></i><i class="fi fi-ss-star"></i><i class="fi fi-ss-star"></i><i class="fi fi-ss-star"></i><i class="fi fi-ss-star"></i></span>
+                                    <div style="display: flex;     justify-content: space-between;">
+                                        <div class="score-box">
+                                            @if($product->count_rate())
+                                            <span class="person">({{$product->count_rate()}})</span>
+                                            <span class="score">{{$product->avg()}}</span>
+                                            <div class="stars show_rate_stars" data-score={{$product->avg()}}></div>
+                                            @endif
+                                        </div>
+                                        <div class="score-box">
+                                            <a href="javascript:void(0);" class="btn-custom add_like"style="width: 190px;">
+                                                <img src="{{asset("site/assets/image/icon4.svg")}}" style="padding-left:5px;">
+                                                افزودن به علاقه مندی
+                                            </a>
+                                        </div>
                                     </div>
-                                    <div class="score-box">
-                                        <a href="javascript:void(0);" class="add_like">افزودن به علاقه مندی</a>
-                                    </div>
-
                                     <div class="btns-box">
                                        @if($product->code)<div class="item">کد محصول  {{$product->code}}</div> @endif
                                         <div class="item"><a href="{{route('product.print',['product'=>$product['seo_url']])}}"><i class="icon icon-print"></i> چاپ صفحه</a></div>
-                                        <div class="item"><a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#modal-share"><i class="icon icon-share"></i> اشتراک گذاری</a></div>
+                                        <div class="item">
+                                            <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#modal-share">
+                                                <i class="icon icon-share"></i> اشتراک گذاری
+                                            </a>
+                                        </div>
                                         @if(isset($content_catalog['catalog']))
                                             <div class="item"><a href="{{asset("upload/".$content_catalog['catalog'])}}" target="_blanks"><i class="icon icon-download"></i> دانلود کاتالوگ</a></div>
                                         @endif
@@ -150,7 +163,7 @@
                 <div class="product-des-property-comment-box">
                     <div id="comment-box">
                         <ul class="section-tabs">
-                            @if($product->note_more) 
+                            @if($product->note_more)
                             <li class="tab-item"><a href="#des-box" class="tab-link"><span class="title">معرفی محصول</span></a></li>
                             @endif
                             <li class="tab-item"><a href="#comment-box" class="tab-link active"><span class="title">نظرات کاربران</span></a></li>
@@ -159,7 +172,7 @@
                             <div class="section-title">
                                 <span class="title">نظرات کاربران</span>
                                 <div class="btn-new-comment-des-box">
-                                    <span class="des">شما هم می توانید درمورد این مطلب نظر بدهید</span>
+                                    <span class="des">شما هم می توانید درمورد این محصول نظر بدهید</span>
                                     @auth
                                         <button type="button" class="btn-custom" data-bs-toggle="modal" data-bs-target="#modal-comment">افزودن نظر جدید </button>
                                     @else
@@ -227,6 +240,10 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="input-box">
+                            <div class="score-box" style="display: flex;">
+                                <div class="rate_stars" attr_id="{{$product->id}}" rate_kind="1" module="product" ></div>
+                            </div>
+                            <br>
                             <label for="form-comment-message">نظر شما</label>
                             <textarea name="note" id="form-comment-message" class="form-textarea" placeholder="دیدگاه خود را بنویسید"></textarea>
                             @error("note")
@@ -245,50 +262,204 @@
 </div>
 </div>
 <!--/ add comment -->
-
 @endsection
 
 @section("footer")
 <script type="text/javascript" src="{{asset('site/assets/js/pages/page-03.js')}}"></script>
 <script>
-    $(document).on("click",".add_like",function() {
-        $.ajaxSetup({
-            headers:
-                { 'X-CSRF-TOKEN': "{{csrf_token()}}" }
-        });
-       @auth
-        $.ajax({
-            url:"{{route('user.like.store',['type'=>'product','type_id'=>$product["id"]])}}",
-            type: 'POST',
-            dataType: 'json',
-            // data: data,
-            success: function (res) {
-                if(res['sucess']){
-                    Swal.fire({
-                        title: res['sucess'],
-                        icon: "success",
-                        showConfirmButton: false,
-                        timer: 2000
-                    });
-                }else if(res['error']){
-                    Swal.fire({
-                        title: res['error'],
-                        icon: "info",
-                        showConfirmButton: false,
-                        timer: 2000
-                    });
+
+$(document).ready(function(){
+    $.fn.raty.defaults.path = "{{asset('/site/assets/image')}}";
+    $('.show_rate_stars').raty({
+        space:false,
+        starOff: 'star-big-off.png',
+        starOn: 'star-big-on.png',
+        score: function() {
+            return $(this).attr('data-score');
+        },
+        readOnly: true
+    });
+    @auth
+    $('.rate_stars').raty({
+        space:false,
+        starOff: 'star-big-off.png',
+        starOn: 'star-big-on.png',
+        noRatedMsg: '! بدون امتیاز',
+        hints: ['بد', 'ضعیف', 'عادی', 'خوب', 'عالی'],
+        score: function() {
+            return $(this).attr('data-score');
+        },
+        click: function(score, evt) {
+            elm = this;
+            module = $(elm).attr("module");
+            $.ajaxSetup({
+                headers:
+                    { 'X-CSRF-TOKEN': "{{csrf_token()}}" }
+            });
+            $.ajax({
+                type: 'POST',
+                url:"{{route('user.rate.store',['type'=>'product','type_id'=>$product["id"]])}}",
+                data: {
+                    'rate': score,
+                    'rate_kind': $(elm).attr("rate_kind")
+                },
+                dataType: 'json',
+                success: function(res) {
+                    if(res['sucess']){
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: "top-end",
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.onmouseenter = Swal.stopTimer;
+                                toast.onmouseleave = Swal.resumeTimer;
+                            }
+                        });
+                        Toast.fire({
+                            icon: "success",
+                            title: res['sucess']
+                        });
+                    }else if(res['error']){
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: "top-end",
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.onmouseenter = Swal.stopTimer;
+                                toast.onmouseleave = Swal.resumeTimer;
+                            }
+                        });
+                        Toast.fire({
+                            icon: "error",
+                            title: res['error']
+                        });
+                    }
                 }
+            });
+        }
+    });
+    @endauth
+});
+$(document).on("click",".add_like",function() {
+    $.ajaxSetup({
+        headers:
+            { 'X-CSRF-TOKEN': "{{csrf_token()}}" }
+    });
+    @auth
+    $.ajax({
+        url:"{{route('user.like.store',['type'=>'product','type_id'=>$product["id"]])}}",
+        type: 'POST',
+        dataType: 'json',
+        success: function (res) {
+            if(res['sucess']){
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    }
+                });
+                Toast.fire({
+                    icon: "success",
+                    title: res['sucess']
+                });
+            }else if(res['error']){
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    }
+                });
+                Toast.fire({
+                    icon: "error",
+                    title: res['error']
+                });
             }
-        })
-        @endauth
-        @guest
-        Swal.fire({
-            title: "ابتدا لازم است وارد پنل کاربری شوید",
-            icon: "error",
-            showConfirmButton:false,
-            timer: 2000
-        });
-        @endguest
+        }
     })
+    @endauth
+    @guest
+    Swal.fire({
+        title: "ابتدا لازم است وارد پنل کاربری شوید",
+        icon: "error",
+        showConfirmButton:false,
+        timer: 2000
+    });
+    @endguest
+})
+
+
+$(document).on("click",".comment_rate_like",function() {
+    var id=$(this).parent().attr('data-id');
+    var kind=$(this).attr('data-kind');
+    $.ajaxSetup({
+        headers:
+            { 'X-CSRF-TOKEN': "{{csrf_token()}}" }
+    });
+    @auth
+    $.ajax({
+        url:"{{route('user.like.store',['type'=>'comment'])}}",
+        type: 'POST',
+        dataType: 'json',
+        data: {'module_id': id,'kind':kind},
+        success: function (res) {
+            if(res['sucess']){
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    }
+                });
+                Toast.fire({
+                    icon: res['icone_alert'],
+                    title: res['sucess']
+                });
+            }else if(res['error']){
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    }
+                });
+                Toast.fire({
+                    icon: "error",
+                    title: res['error']
+                });
+            }
+        }
+    })
+    @endauth
+    @guest
+    Swal.fire({
+        title: "ابتدا لازم است وارد پنل کاربری شوید",
+        icon: "error",
+        showConfirmButton:false,
+        timer: 2000
+    });
+    @endguest
+})
 </script>
 @endsection

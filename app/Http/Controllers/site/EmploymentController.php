@@ -14,6 +14,7 @@ use App\Trait\seo_site;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Morilog\Jalali\CalendarUtils;
 use Morilog\Jalali\Jalalian;
 
 class EmploymentController extends Controller
@@ -50,7 +51,7 @@ class EmploymentController extends Controller
             $inputs['state']='0';
             $inputs['admin_id']=0;
             if($inputs['date_birth']){
-                $inputs['date_birth']=Jalalian::fromFormat('Y/m/d',$inputs['date_birth'])->toCarbon(); // ->getTimestamp();
+                $inputs['date_birth']=CalendarUtils::createCarbonFromFormat('Y/m/d',$inputs['date_birth'])->format('Y-m-d H:i:s');
             }
             $employment=employment::create($inputs);
 

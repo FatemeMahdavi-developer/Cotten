@@ -166,7 +166,7 @@
             <div class="container-custom">
                 <div class="row">
                     <div class="col">
-                        <div class="des">بهترین ها را با گاز استریل کاوه تجربه کنید</div>
+                        <div class="des">بهترین ها را با گاز استریل پنبه تجربه کنید</div>
                     </div>
                 </div>
             </div>
@@ -331,7 +331,7 @@
                                 <div class="title">ما را در اینستاگرام دنبال کنید</div>
                             </div>
                             <div class="section-title section-title-2">
-                                <a href="" class="link">Kaveh.bgc <i class="fi fi-rr-instagram"></i></a>
+                                <a href="" class="link">cotton <i class="fi fi-rr-instagram"></i></a>
                             </div>
 
                             <div class="instagram-items" dir="rtl">

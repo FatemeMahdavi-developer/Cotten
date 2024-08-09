@@ -12,7 +12,7 @@ $(document).ready
         var lat = 35.731105;
         var lon = 51.436988;
         var zoom = 12;
-        var txt = 'BGC';
+        var txt = 'Cotton';
 
         var icon = L.icon
         ({

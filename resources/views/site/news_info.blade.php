@@ -203,14 +203,10 @@
 @section("footer")
     @error("note")
     <script type="text/javascript">
-
-        var myModal = new bootstrap.Modal(document.getElementById("modal-comment"), {});
+        var myModal = new bootstrap.Modal(document.getElementById("modal-comment"),{});
         document.onreadystatechange = function () {
             myModal.show();
         };
-
-
-
     </script>
     @enderror
     <script>

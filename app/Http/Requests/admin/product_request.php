@@ -45,7 +45,7 @@ class product_request extends FormRequest
             'price'=>['nullable','integer'],
             'code' => ['nullable','string','min:1'],
             'status' => ['nullable','integer','min:1'],
-            'note' => ['required', 'string','min:1', 'max:255'],
+            'note' => ['required', 'string','min:1'],
             'note_more' => ['required','string','min:1'],
         ];
         if($this->id){

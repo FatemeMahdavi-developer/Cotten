@@ -25,8 +25,8 @@ class employment extends Model
         if(!empty($params['name'])){
             $builder->where('name','like','%'.$params['name'].'%');
         }
-        if(!empty($params['work_type'])){
-            $builder->where('work_type',$params['work_type']);
+        if(!empty($params['work_cooperate'])){
+            $builder->where('work_cooperate',$params['work_cooperate']);
         }
         return $builder;
     }

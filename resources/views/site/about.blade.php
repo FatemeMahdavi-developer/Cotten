@@ -10,7 +10,6 @@
                 <div class="row">
                     <div class="col">
                         <h1 class="page-title">درباره ما</h1>
-
                         <ul class="bread-crumb">
                             <li><a href="#">صفحه اصلی</a></li>
                             <li><a href="#">درباره ما</a></li>

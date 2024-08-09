@@ -29,7 +29,7 @@ return [
     ],
     'module_name_site' => [
         'news' => 'اخبار',
-        'home' => 'باند و گاز کاوه',
+        'home' => 'پنبه',
         'about' => 'درباره ما',
         'product' => 'محصولات',
         'multimedia' => 'چندرسانه ای',

@@ -1,7 +1,4 @@
 @extends('site.print.base')
-@section('seo')
-    @include("site.layout.partials.seo",["seo"=>$seo,"module"=>$module])
-@endsection
 @section('title')
     {{$news["title"]}}
 @endsection

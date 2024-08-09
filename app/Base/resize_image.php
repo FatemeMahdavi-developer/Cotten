@@ -241,6 +241,9 @@ function resize_image()
                 ],
                 [
                     '234' => '234',
+                ],
+                [
+                    '78' => '78',
                 ]
             ],
             'pic_banner' => [

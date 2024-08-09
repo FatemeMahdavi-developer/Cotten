@@ -9,6 +9,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Rate extends Model
 {
     use HasFactory,SoftDeletes;
-    protected $fillable=['rate_number','user_id'];
+
+    const UPDATED_AT = null;
+    protected $fillable=[
+        'rate_number',
+        'rate_kind',
+        'user_id'
+    ];
 
 }

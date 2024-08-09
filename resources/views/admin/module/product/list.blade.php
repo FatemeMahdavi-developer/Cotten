@@ -29,7 +29,6 @@
                                                         <th scope="col">ترتیب</th>
                                                         <th scope="col">وضعیت نمایش</th>
                                                         <th scope="col">نمایش در صفحه اصلی</th>
-                                                        <th scope="col">تاریخ نمایش</th>
                                                         <th scope="col">تاریخ</th>
                                                         @canany(["delete_product","update_product","read_content"])
                                                         <th scope="col">عملیات</th>
@@ -51,7 +50,6 @@
                                                             <td>
                                                                 @component($prefix_component."state_style",['id'=>$item["id"],"column"=>'state_main','state'=>$item["state_main"]])@endcomponent
                                                             </td>
-                                                            <td>{{$item->date_convert('validity_date')}}</td>
                                                             <td>{{$item->date_convert()}}</td>
                                                             <td>
                                                                 @can("update_product")

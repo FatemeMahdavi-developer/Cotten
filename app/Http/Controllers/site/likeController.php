@@ -10,18 +10,27 @@ use Illuminate\Http\Request;
 
 class LikeController extends Controller
 {
-    public function store($module,$module_id)
+    public function store($module,$module_id=null)
     {
         $model=self::model($module);
-        $liketable=$model::find($module_id);
+        if(!is_null($module_id))
+            $liketable=$model::find($module_id);
+        $liketable=$model::find(request()->get('module_id'));
+
         if($liketable->count() > 0){
             if($liketable->like()->where('user_id',auth()->id())->count()){
                 return json_encode(['error'=>'شما قبلا پسندید']);
             }else{
+                if(request()->has('kind'))
+                    $kind=request()->get('kind');
+
                 $liketable->like()->create([
                     'user_id'=>auth()->id(),
+                    'kind'=>$kind ?? 'like'
                 ]);
-                return json_encode(['sucess'=>'پسندیده شد']);
+                if($kind=='dislike')
+                    return json_encode(['sucess'=>'نپسندیدم','icone_alert'=>'error']);
+                return json_encode(['sucess'=>'پسندیده شد','icone_alert'=>'success']);
             }
         }else{
             return json_encode(['error'=>'نتیجه ای یافت نشد']);
@@ -32,6 +41,7 @@ class LikeController extends Controller
     {
         $models = [
             'product' => product::class,
+            'comment' => comment::class,
         ];
         return $models[$module];
     }

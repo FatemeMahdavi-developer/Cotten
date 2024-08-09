@@ -6,10 +6,18 @@ use App\Http\Middleware\access_comment;
 use App\Http\Middleware\access_like;
 use App\Http\Middleware\Authorization;
 use App\Http\Middleware\RedirectIfAuthenticated;
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
 {
+
+
+    protected function schedule(Schedule $schedule)
+    {
+        $schedule->command('sitemap:generate')->daily();
+    }
+    
     /**
      * The application's global HTTP middleware stack.
      *
@@ -58,6 +66,7 @@ class Kernel extends HttpKernel
         ],
     ];
 
+
     /**
      * The application's middleware aliases.
      *
@@ -83,6 +92,6 @@ class Kernel extends HttpKernel
         'localizationRedirect'    => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter::class,
         'localeSessionRedirect'   => \Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect::class,
         'localeCookieRedirect'    => \Mcamara\LaravelLocalization\Middleware\LocaleCookieRedirect::class,
-        'localeViewPath'          => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath::class
+        'localeViewPath'          => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath::class,
     ];
 }

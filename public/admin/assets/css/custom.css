@@ -66,3 +66,10 @@ div:where(.swal2-container) h2:where(.swal2-title){
 .contact_table:not(.table-sm):not(.table-md):not(.dataTable) td{
     height:35px !important;
 }
+
+
+.alert-not-found{
+    color: #484e54 !important;
+    background-color: #eee !important;
+    border-color: #ddd !important;
+}
